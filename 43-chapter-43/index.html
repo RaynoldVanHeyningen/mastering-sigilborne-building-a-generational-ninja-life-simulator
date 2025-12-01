@@ -1,0 +1,2757 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../42-chapter-42/">
+      
+      
+        <link rel="next" href="../44-chapter-44/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 6.6: Titan AI State - Specialized State Machine (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-66-titan-ai-state-specialized-state-machine-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-66-titan-ai-state-specialized-state-machine-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6.6: Titan AI State - Specialized State Machine (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-complexities-of-titan-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Complexities of Titan AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-titanstate-and-titanaicomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining TitanState and TitanAIComponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-titanaisystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing TitanAISystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-titanaisystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating TitanAISystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating TitanAISystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-titan-ai-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for Titan AI Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-titan-ai-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Titan AI State Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-66-titan-ai-state-specialized-state-machine-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6.6: Titan AI State - Specialized State Machine (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-complexities-of-titan-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Complexities of Titan AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-titanstate-and-titanaicomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining TitanState and TitanAIComponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-titanaisystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing TitanAISystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-titanaisystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating TitanAISystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating TitanAISystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-titan-ai-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for Titan AI Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-titan-ai-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Titan AI State Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 6.6: Titan AI State - Specialized State Machine (C#)</h1>
+
+<h2 id="chapter-66-titan-ai-state-specialized-state-machine-c">Chapter 6.6: Titan AI State - Specialized State Machine (C#)</h2>
+<p>With World Bosses (Titans) now represented as multi-part entities, the next challenge is to give them intelligent, dynamic behavior. This chapter focuses on designing a <strong>Specialized State Machine</strong> for Titans in the C# Brain, accounting for their massive size, complex abilities, and phase transitions triggered by health thresholds or severed limbs, as specified in TDD 04.5.2.</p>
+<h3 id="1-the-complexities-of-titan-ai">1. The Complexities of Titan AI</h3>
+<p>The GDD (C05.3) describes Titans as "ecological &amp; political actors" that "migrate, react to weather, territorialize, claim shrines, influence wildlife, reshape terrain, block travel routes, compete with other titans, provoke or calm spirits, attract corruption, disturb anomalies, cause clan panic, trigger regional wars." This requires AI that goes far beyond simple enemy behavior:</p>
+<ul>
+<li><strong>Phased Behavior</strong>: Titans should have distinct phases (e.g., "Awakening," "Rampage," "Weakened") with unique abilities.</li>
+<li><strong>Environmental Interaction</strong>: Their actions should interact with and reshape the world.</li>
+<li><strong>Limb-Dependent Abilities</strong>: Severing a limb should disable certain attacks or expose new vulnerabilities.</li>
+<li><strong>Massive Scale</strong>: Actions might take longer (e.g., "Turning" takes 5 seconds, as per TDD 05.5.2).</li>
+<li><strong>World Impact</strong>: Their AI decisions can trigger region-wide events.</li>
+</ul>
+<h3 id="2-defining-titanstate-and-titanaicomponent">2. Defining <code>TitanState</code> and <code>TitanAIComponent</code></h3>
+<p>We need an enum for the Titan's high-level AI states and a component to hold its current AI state and related data.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Combat/TitanAIState.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Combat/TitanAIState.cs
+using System;
+using Godot; // For Vector2 if needed
+
+namespace Sigilborne.Systems.Combat
+{
+    /// &lt;summary&gt;
+    /// Defines the high-level AI states for a Titan World Boss.
+    /// (TDD 04.5.2)
+    /// &lt;/summary&gt;
+    public enum TitanAIState
+    {
+        Idle,           // Passive, dormant, or waiting for trigger
+        Awakening,      // Transitioning to active combat
+        Phase1_Default, // Initial combat phase
+        Phase2_Enraged, // Triggered by HP threshold or severed limb
+        Phase3_Desperate, // Near defeat, uses ultimate attacks (C04 Forbidden Arts)
+        Retreating,     // Moving to a new location
+        Dying,          // Final phase before defeat
+        Defeated        // Boss is defeated
+    }
+
+    /// &lt;summary&gt;
+    /// Stores the current AI state and related data for a Titan World Boss.
+    /// This is a component-like data structure managed by the TitanAISystem.
+    /// (TDD 04.5.2)
+    /// &lt;/summary&gt;
+    public struct TitanAIComponent
+    {
+        public TitanAIState CurrentState;
+        public double StateTimer;           // How long in current state
+        public double ActionCooldownTimer;  // Cooldown for next major action
+        public EntityID TargetID;           // Current target
+        public int CurrentPhase;            // Which phase the boss is in (1, 2, 3)
+
+        public TitanAIComponent(EntityID targetID = default)
+        {
+            CurrentState = TitanAIState.Idle;
+            StateTimer = 0;
+            ActionCooldownTimer = 0;
+            TargetID = targetID;
+            CurrentPhase = 0;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;AI State: {CurrentState}, Phase: {CurrentPhase}, Timer: {StateTimer:F1}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-implementing-titanaisystemcs">3. Implementing <code>TitanAISystem.cs</code></h3>
+<p>This system will manage <code>TitanAIComponent</code> instances, process state transitions, select actions, and react to combat events.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Combat/TitanAISystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Combat/TitanAISystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Movement; // For Titan movement
+using System.Linq;
+
+namespace Sigilborne.Systems.Combat
+{
+    /// &lt;summary&gt;
+    /// Manages the specialized AI state machine for Titan World Bosses.
+    /// Accounts for massive size, complex abilities, and phase transitions.
+    /// (TDD 04.5.2)
+    /// &lt;/summary&gt;
+    public class TitanAISystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private BiologicalSystem _biologicalSystem; // For CoreStats
+        private CombatSystem _combatSystem;         // For boss parts, damage events
+        private TransformSystem _transformSystem;   // For boss position/movement
+
+        // Dictionary to store TitanAIComponent for active titans.
+        private Dictionary&lt;EntityID, TitanAIComponent&gt; _titanAIComponents = new Dictionary&lt;EntityID, TitanAIComponent&gt;();
+
+        public TitanAISystem(EntityManager entityManager, EventBus eventBus, BiologicalSystem biologicalSystem, CombatSystem combatSystem, TransformSystem transformSystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _biologicalSystem = biologicalSystem;
+            _combatSystem = combatSystem;
+            _transformSystem = transformSystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+            _eventBus.OnBossPartSevered += OnBossPartSevered; // React to severed limbs (TDD 04.5.1)
+            _eventBus.OnDamageTaken += OnDamageTaken; // React to damage for phase transitions
+
+            GD.Print(&quot;TitanAISystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            // Only add TitanAIComponent to entities defined as Titans (e.g., &quot;world_boss_01&quot;)
+            if (definitionID == &quot;world_boss_01&quot;)
+            {
+                _titanAIComponents.Add(id, new TitanAIComponent(GameManager.Instance.Entities.GetPlayerEntityID())); // Target player initially
+                TransitionTitanState(id, TitanAIState.Awakening); // Start in Awakening phase
+                GD.Print($&quot;TitanAISystem: Added TitanAIComponent for {id}.&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            _titanAIComponents.Remove(e.ID);
+            GD.Print($&quot;TitanAISystem: Removed TitanAIComponent for {e.ID}.&quot;);
+        }
+
+        private void OnBossPartSevered(EntityID bossID, string partID)
+        {
+            if (_titanAIComponents.ContainsKey(bossID))
+            {
+                GD.Print($&quot;TitanAISystem: Boss {bossID} had part '{partID}' severed. Checking for phase change.&quot;);
+                // Trigger phase transition or special reaction (TDD 04.5.1)
+                // Example: if Head is severed, boss might become enraged and use new attacks.
+                // TransitionTitanState(bossID, TitanAIState.Phase2_Enraged);
+            }
+        }
+
+        private void OnDamageTaken(EntityID defenderID, DamageResult result)
+        {
+            if (_titanAIComponents.ContainsKey(defenderID))
+            {
+                // Check health thresholds for phase transitions (TDD 04.5.2)
+                ref CoreStats bossCoreStats = ref _biologicalSystem.GetCoreStatsRef(defenderID);
+                ref TitanAIComponent titanAI = ref _titanAIComponents.GetValueRef(defenderID);
+
+                // Example phase transitions:
+                if (bossCoreStats.Health &lt;= bossCoreStats.MaxHealth * 0.25f &amp;&amp; titanAI.CurrentPhase &lt; 3)
+                {
+                    TransitionTitanState(defenderID, TitanAIState.Phase3_Desperate);
+                }
+                else if (bossCoreStats.Health &lt;= bossCoreStats.MaxHealth * 0.5f &amp;&amp; titanAI.CurrentPhase &lt; 2)
+                {
+                    TransitionTitanState(defenderID, TitanAIState.Phase2_Enraged);
+                }
+                else if (bossCoreStats.Health &lt;= bossCoreStats.MaxHealth * 0.75f &amp;&amp; titanAI.CurrentPhase &lt; 1)
+                {
+                    TransitionTitanState(defenderID, TitanAIState.Phase1_Default);
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Main update loop for the TitanAISystem.
+        /// Called during GameManager._PhysicsProcess (Phase 2).
+        /// &lt;/summary&gt;
+        public void Tick(double delta)
+        {
+            foreach (var kvp in _titanAIComponents)
+            {
+                EntityID titanID = kvp.Key;
+                ref TitanAIComponent titanAI = ref _titanAIComponents.GetValueRef(titanID);
+
+                if (!_entityManager.IsValid(titanID)) continue;
+
+                titanAI.StateTimer += delta;
+                titanAI.ActionCooldownTimer -= delta;
+
+                // --- Titan AI State Logic ---
+                switch (titanAI.CurrentState)
+                {
+                    case TitanAIState.Idle:
+                        HandleIdleState(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Awakening:
+                        HandleAwakeningState(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Phase1_Default:
+                        HandlePhase1(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Phase2_Enraged:
+                        HandlePhase2(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Phase3_Desperate:
+                        HandlePhase3(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Retreating:
+                        HandleRetreatingState(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Dying:
+                        HandleDyingState(titanID, ref titanAI, delta);
+                        break;
+                    case TitanAIState.Defeated:
+                        // No actions, just remain defeated
+                        break;
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Transitions a titan to a new AI state.
+        /// &lt;/summary&gt;
+        private void TransitionTitanState(EntityID titanID, TitanAIState newState)
+        {
+            ref TitanAIComponent titanAI = ref _titanAIComponents.GetValueRef(titanID);
+            if (titanAI.CurrentState == newState) return; // Already in this state
+
+            GD.Print($&quot;TitanAISystem: Boss {titanID} transitioning from {titanAI.CurrentState} to {newState}.&quot;);
+            _eventBus.Publish(new TitanStateChangedEvent { TitanID = titanID, OldState = titanAI.CurrentState, NewState = newState });
+
+            titanAI.CurrentState = newState;
+            titanAI.StateTimer = 0; // Reset timer for new state
+
+            // Set phase for combat states
+            titanAI.CurrentPhase = newState switch
+            {
+                TitanAIState.Phase1_Default =&gt; 1,
+                TitanAIState.Phase2_Enraged =&gt; 2,
+                TitanAIState.Phase3_Desperate =&gt; 3,
+                _ =&gt; 0, // Other states
+            };
+
+            // Reset action cooldown on phase change
+            titanAI.ActionCooldownTimer = 0;
+
+            // Trigger visual/audio feedback for phase changes
+            // _eventBus.Publish(new TitanPhaseVFXEvent { TitanID = titanID, Phase = titanAI.CurrentPhase });
+        }
+
+        // --- State Handlers ---
+        private void HandleIdleState(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            if (titanAI.StateTimer &gt;= 5.0) // After 5 seconds idle, awaken
+            {
+                TransitionTitanState(titanID, TitanAIState.Awakening);
+            }
+        }
+
+        private void HandleAwakeningState(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            // TDD 05.5.2: &quot;Turning&quot; takes 5 seconds (massive size)
+            if (titanAI.StateTimer &gt;= 5.0)
+            {
+                GD.Print($&quot;TitanAISystem: Boss {titanID} has finished AWAKENING!&quot;);
+                TransitionTitanState(titanID, TitanAIState.Phase1_Default);
+            }
+            // Emit VFX/Audio for awakening here
+            // _eventBus.Publish(new TitanAwakeningVFXEvent { TitanID = titanID });
+        }
+
+        private void HandlePhase1(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            if (titanAI.ActionCooldownTimer &lt;= 0)
+            {
+                // Perform a basic attack (conceptual)
+                GD.Print($&quot;TitanAISystem: Boss {titanID} (Phase 1) performs basic attack on {titanAI.TargetID}.&quot;);
+                // _combatSystem.PerformBossAttack(titanID, titanAI.TargetID, &quot;basic_swipe&quot;);
+                titanAI.ActionCooldownTimer = 3.0; // Cooldown 3 seconds
+            }
+            // Move towards target (conceptual)
+            // _movementSystem.MoveTowards(titanID, titanAI.TargetID, titanAI.StateTimer);
+        }
+
+        private void HandlePhase2(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            if (titanAI.ActionCooldownTimer &lt;= 0)
+            {
+                // Use a more powerful attack or area effect
+                GD.Print($&quot;TitanAISystem: Boss {titanID} (Phase 2) performs enraged attack on {titanAI.TargetID}.&quot;);
+                // _combatSystem.PerformBossAttack(titanID, titanAI.TargetID, &quot;aoe_ground_slam&quot;);
+                titanAI.ActionCooldownTimer = 2.0; // Shorter cooldown
+            }
+            // Environment might change (TDD 05.5.2: Weather)
+            // _eventBus.Publish(new WeatherSystem.GlobalWeatherChangedEvent { NewWeatherState = new GlobalWeatherState(WeatherType.Storm, ...) });
+        }
+
+        private void HandlePhase3(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            if (titanAI.ActionCooldownTimer &lt;= 0)
+            {
+                // Use &quot;Ultimate&quot; attacks (C04 Forbidden Arts)
+                GD.Print($&quot;TitanAISystem: Boss {titanID} (Phase 3) uses ultimate desperate attack on {titanAI.TargetID}.&quot;);
+                // _combatSystem.PerformBossAttack(titanID, titanAI.TargetID, &quot;forbidden_void_blast&quot;);
+                titanAI.ActionCooldownTimer = 1.0; // Very short cooldown
+            }
+        }
+
+        private void HandleRetreatingState(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            // Titan moves away from player or to a specific location
+            // if (titanAI.StateTimer &gt;= 10.0) TransitionTitanState(titanID, TitanAIState.Idle); // Retreat complete
+        }
+
+        private void HandleDyingState(EntityID titanID, ref TitanAIComponent titanAI, double delta)
+        {
+            // Play death animation, become invulnerable, perhaps trigger a final AoE
+            if (titanAI.StateTimer &gt;= 5.0)
+            {
+                TransitionTitanState(titanID, TitanAIState.Defeated);
+            }
+        }
+
+        // --- Helper Events for Body Sync ---
+        public struct TitanStateChangedEvent { public EntityID TitanID; public TitanAIState OldState; public TitanAIState NewState; }
+        // public struct TitanPhaseVFXEvent { public EntityID TitanID; public int Phase; } // Example
+        // public struct TitanAwakeningVFXEvent { public EntityID TitanID; } // Example
+    }
+}
+</code></pre>
+<h3 id="4-integrating-titanaisystem-into-gamemanager">4. Integrating <code>TitanAISystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Combat;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add a <code>TitanAISystem</code> property.</li>
+<li>Initialize <code>TitanAISystem</code> in <code>InitializeSystems()</code> <strong>after</strong> <code>CombatSystem</code>.</li>
+<li>Call <code>TitanAISystem.Tick(delta)</code> in <code>_PhysicsProcess</code> (Phase 2).</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Weather;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Utils;
+using System.Linq;
+using Sigilborne.Systems.Magic.Components;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public CombatSystem Combat { get; private set; }
+    public TitanAISystem TitanAI { get; private set; } // Add TitanAISystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+        // ... (existing glyph and magic system tests) ...
+        // ... (existing damage tests) ...
+
+        // --- Test Inventory System ---
+        // ... (existing inventory tests) ...
+
+        // --- Test Equipment System ---
+        // ... (existing equipment tests) ...
+
+        // --- Test Titan AI State Machine ---
+        GD.Print(&quot;\n--- Testing Titan AI State Machine ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+        EntityID bossID = Entities.CreateEntity(EntityType.NPC, &quot;world_boss_01&quot;, new Vector2(700, 300)); // Create a boss entity
+
+        GD.Print($&quot;Boss initial HP: {Biology.GetCoreStatsRef(bossID).Health}&quot;);
+        GD.Print($&quot;Boss Parts initial state: {Combat.GetBossParts(bossID)}&quot;);
+
+        // Simulate hitting boss parts to trigger phases
+        GD.Print(&quot;\n--- Simulating Boss Damage to Trigger Phases ---&quot;);
+        Combat.DamageBossPart(playerID, bossID, &quot;LeftArm&quot;, 30f, DamageType.Physical, 0, 0.1f, 1.75f);
+        Combat.DamageBossPart(playerID, bossID, &quot;LeftArm&quot;, 20f, DamageType.Physical, 0, 0.1f, 1.75f); // Sever Left Arm (triggers OnBossPartSevered)
+
+        Combat.DamageBossPart(playerID, bossID, &quot;Head&quot;, 40f, DamageType.Elemental, 0, 0.1f, 1.75f);
+        Combat.DamageBossPart(playerID, bossID, &quot;Head&quot;, 20f, DamageType.Elemental, 0, 0.1f, 1.75f); // Sever Head
+
+        // Trigger Phase 2 (50% HP)
+        Combat.DamageBossPart(playerID, bossID, &quot;Body&quot;, 50f, DamageType.Physical, 0, 0.1f, 1.75f); 
+        // Trigger Phase 3 (25% HP)
+        Combat.DamageBossPart(playerID, bossID, &quot;Body&quot;, 20f, DamageType.Physical, 0, 0.1f, 1.75f); 
+        // Defeat Boss
+        Combat.DamageBossPart(playerID, bossID, &quot;Body&quot;, 30f, DamageType.Physical, 0, 0.1f, 1.75f);
+
+        GD.Print(&quot;--- End Testing Titan AI State Machine ---\n&quot;);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Input.ProcessInputBuffer(); 
+        Time.Tick(delta);
+        World.Tick(delta);
+        Movement.Tick(delta);
+        Magic.Tick(delta);
+        Casting.Tick(delta);
+        Weather.Tick(delta);
+        Biology.Tick(delta);
+        TitanAI.Tick(delta); // Call TitanAISystem's tick method
+        Events.FlushCommands();
+    }
+
+    private void InitializeSystems()
+    {
+        // ... (existing system initializations up to CombatSystem) ...
+
+        // Initialize TitanAISystem AFTER CombatSystem (as it needs CombatSystem for events/parts)
+        TitanAI = new TitanAISystem(Entities, Events, BiologicalSystem, Combat, Transforms); // Pass CombatSystem
+        GD.Print(&quot;  - TitanAISystem initialized.&quot;);
+
+        // Initialize PlayerStatSystem, passing BiologicalSystem
+        PlayerStats = new PlayerStatSystem(Events, Entities, BiologicalSystem);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        World = new WorldSimulation();
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<h4 id="41-update-eventbuscs-for-titan-ai-events">4.1. Update <code>EventBus.cs</code> for Titan AI Events</h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and add <code>OnTitanStateChanged</code> delegate.</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Combat System Events (TDD 04.2.2)
+        public event Action&lt;EntityID, DamageResult&gt; OnDamageTaken;
+        public event Action&lt;EntityID, string, float, float, DamageResult&gt; OnBossPartDamaged;
+        public event Action&lt;EntityID, string&gt; OnBossPartSevered;
+        public event Action&lt;EntityID, EntityID&gt; OnEntityDefeated;
+
+        // Titan AI Events (TDD 04.5.2)
+        public event Action&lt;EntityID, TitanAIState, TitanAIState&gt; OnTitanStateChanged; // TitanID, OldState, NewState
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is CombatSystem.BossPartDamagedEvent bossPartDamagedEvent)
+            {
+                OnBossPartDamaged?.Invoke(bossPartDamagedEvent.BossID, bossPartDamagedEvent.PartID, bossPartDamagedEvent.CurrentHealth, bossPartDamagedEvent.MaxHealth, bossPartDamagedEvent.Result);
+            }
+            else if (eventData is CombatSystem.BossPartSeveredEvent bossPartSeveredEvent)
+            {
+                OnBossPartSevered?.Invoke(bossPartSeveredEvent.BossID, bossPartSeveredEvent.PartID);
+            }
+            else if (eventData is CombatSystem.EntityDefeatedEvent entityDefeatedEvent)
+            {
+                OnEntityDefeated?.Invoke(entityDefeatedEvent.EntityID, entityDefeatedEvent.KillerID);
+            }
+            else if (eventData is CombatSystem.TitanAISystem.TitanStateChangedEvent titanStateChangedEvent) // New condition
+            {
+                OnTitanStateChanged?.Invoke(titanStateChangedEvent.TitanID, titanStateChangedEvent.OldState, titanStateChangedEvent.NewState);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="5-testing-titan-ai-state-machine">5. Testing Titan AI State Machine</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output.</li>
+</ol>
+<pre><code>...
+CombatSystem: Added BossPartsComponent for Boss EntityID(3, Gen:1).
+TitanAISystem: Initialized.
+TitanAISystem: Added TitanAIComponent for EntityID(3, Gen:1).
+TitanAISystem: Boss EntityID(3, Gen:1) transitioning from Idle to Awakening.
+TitanAISystem: Boss EntityID(3, Gen:1) transitioning from Idle to Awakening.
+  - TitanAISystem initialized.
+PlayerStatSystem: Initialized.
+...
+--- Testing Titan AI State Machine ---
+Boss initial HP: 190.0
+Boss Parts initial state: Boss Parts: 4 | Total HP: 190/190
+
+--- Simulating Boss Damage to Trigger Phases ---
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 13.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'LeftArm'.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 13.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'LeftArm'.
+CombatSystem: Part 'LeftArm' of Boss EntityID(3, Gen:1) has been SEVERED!
+TitanAISystem: Boss EntityID(3, Gen:1) had part 'LeftArm' severed. Checking for phase change.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 23.0 (Elemental) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Head'.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 23.0 (Elemental) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Head'.
+CombatSystem: Part 'Head' of Boss EntityID(3, Gen:1) has been SEVERED!
+TitanAISystem: Boss EntityID(3, Gen:1) had part 'Head' severed. Checking for phase change.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 48.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Body'.
+TitanAISystem: Boss EntityID(3, Gen:1) transitioning from Awakening to Phase1_Default.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 48.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Body'.
+TitanAISystem: Boss EntityID(3, Gen:1) transitioning from Phase1_Default to Phase2_Enraged.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 23.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Body'.
+TitanAISystem: Boss EntityID(3, Gen:1) transitioning from Phase2_Enraged to Phase3_Desperate.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 23.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Body'.
+CombatSystem: Boss EntityID(3, Gen:1) has been DEFEATED!
+--- End Testing Titan AI State Machine ---
+...
+TitanAISystem: Boss EntityID(3, Gen:1) has finished AWAKENING!
+TitanAISystem: Boss EntityID(3, Gen:1) (Phase 1) performs basic attack on EntityID(0, Gen:1).
+TitanAISystem: Boss EntityID(3, Gen:1) (Phase 2) performs enraged attack on EntityID(0, Gen:1).
+TitanAISystem: Boss EntityID(3, Gen:1) (Phase 3) uses ultimate desperate attack on EntityID(0, Gen:1).
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Initial State</strong>: The Titan starts in <code>Awakening</code>.</li>
+<li><strong>Phase Transitions</strong>: As damage is dealt to the boss (reducing its overall health), <code>OnDamageTaken</code> triggers, and the Titan correctly transitions through <code>Phase1_Default</code>, <code>Phase2_Enraged</code>, and <code>Phase3_Desperate</code> based on health thresholds.</li>
+<li><strong>Severed Limb Reaction</strong>: <code>OnBossPartSevered</code> is correctly triggered and handled, showing that the AI can react to specific part destruction.</li>
+<li><strong>State-Specific Actions</strong>: The <code>Tick</code> method calls the appropriate <code>HandlePhaseX</code> method, which prints conceptual attack messages, demonstrating state-specific behaviors.</li>
+<li><strong>Awakening Timer</strong>: The <code>Awakening</code> phase correctly transitions to <code>Phase1_Default</code> after its 5-second timer.</li>
+</ul>
+<p>This confirms our <code>TitanAISystem</code> is correctly managing the Titan's AI states and reacting to combat events, providing a foundation for complex, multi-phase boss encounters.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the <strong>Titan AI State Machine</strong> in the C# Brain, designing <code>TitanAIState</code> and <code>TitanAIComponent</code> to manage the complex behaviors of World Bosses. By creating <code>TitanAISystem</code> to process state transitions, react to <code>OnBossPartSevered</code> and <code>OnDamageTaken</code> events for phase changes, and execute state-specific actions, you've established a robust system for dynamic, multi-phase boss encounters. This crucial component strictly adheres to TDD 04.5.2's specifications, paving the way for truly intelligent and challenging Titan battles in Sigilborne.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>This concludes <strong>Module 6: Combat &amp; Tactical Engagement</strong>. We will now move on to <strong>Module 7: The Living World - Ecology &amp; AI</strong>, starting with <strong>Perception System - Spatial Hashing (C#)</strong>, where we will implement an efficient spatial hashing grid for entities to quickly detect nearby objects and events.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

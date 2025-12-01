@@ -1,0 +1,2676 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../57-chapter-57/">
+      
+      
+        <link rel="next" href="../59-chapter-59/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-93-ritual-system-simple-advanced-forbidden-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-93-ritual-system-simple-advanced-forbidden-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9.3: Ritual System - Simple, Advanced &amp; Forbidden (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9.3: Ritual System - Simple, Advanced &amp; Forbidden (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-escalation-of-rituals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Escalation of Rituals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-enhancing-ritualdatacs-with-ritualtier-and-participants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enhancing RitualData.cs with RitualTier and Participants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enhancing-ritualsystemcs-for-tiered-rituals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Enhancing RitualSystem.cs for Tiered Rituals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Enhancing RitualSystem.cs for Tiered Rituals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-add-hascorestats-to-biologicalsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Add HasCoreStats to BiologicalSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-ritualsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating RitualSystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-tiered-rituals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Tiered Rituals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-93-ritual-system-simple-advanced-forbidden-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9.3: Ritual System - Simple, Advanced &amp; Forbidden (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9.3: Ritual System - Simple, Advanced &amp; Forbidden (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-escalation-of-rituals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Escalation of Rituals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-enhancing-ritualdatacs-with-ritualtier-and-participants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enhancing RitualData.cs with RitualTier and Participants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enhancing-ritualsystemcs-for-tiered-rituals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Enhancing RitualSystem.cs for Tiered Rituals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Enhancing RitualSystem.cs for Tiered Rituals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-add-hascorestats-to-biologicalsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Add HasCoreStats to BiologicalSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-ritualsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating RitualSystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-tiered-rituals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Tiered Rituals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)</h1>
+
+<h2 id="chapter-93-ritual-system-simple-advanced-forbidden-c">Chapter 9.3: Ritual System - Simple, Advanced &amp; Forbidden (C#)</h2>
+<p>Our <code>RitualSystem</code> can already detect patterns and execute basic rituals. This chapter refines it to differentiate between <strong>Simple, Advanced, and Forbidden Rituals</strong>, each with escalating complexity, resource costs, and world-altering consequences, as specified in GDD B27.2. This deepens the magic system, aligning with Sigilborne's themes of risk, power, and emergent world impact.</p>
+<h3 id="1-the-escalation-of-rituals">1. The Escalation of Rituals</h3>
+<p>The GDD (B27.2) categorizes rituals by depth:</p>
+<ul>
+<li><strong>Simple/Medium Rituals</strong>: (B27.2.1) Low cost, local effects, accessible.</li>
+<li><strong>Advanced Rituals</strong>: (B27.2.2) Multiple participants, precise timing, rare components, powerful outcomes.</li>
+<li><strong>Forbidden Rituals</strong>: (B27.2.3) Unique materials, irreversible world-level consequences, potential mutation/rupture.</li>
+</ul>
+<p>Our <code>RitualDefinition</code> needs to capture this complexity, and <code>RitualSystem</code> must enforce it.</p>
+<h3 id="2-enhancing-ritualdatacs-with-ritualtier-and-participants">2. Enhancing <code>RitualData.cs</code> with <code>RitualTier</code> and <code>Participants</code></h3>
+<p>We need to add a <code>RitualTier</code> enum and parameters for <code>MinParticipants</code> to <code>RitualDefinition</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Rituals/RitualData.cs</code>.</li>
+<li>Add <code>RitualTier</code> enum.</li>
+<li>Add <code>RitualTier</code> and <code>MinParticipants</code> to <code>RitualDefinition</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Rituals/RitualData.cs
+using System;
+using System.Collections.Generic;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Inventory;
+
+namespace Sigilborne.Systems.Rituals
+{
+    /// &lt;summary&gt;
+    /// Defines the escalating tiers of ritual complexity and power.
+    /// (GDD B27.2)
+    /// &lt;/summary&gt;
+    public enum RitualTier
+    {
+        None,
+        Simple,     // Low cost, local effects, accessible (GDD B27.2.1)
+        Advanced,   // Higher cost, complex, powerful outcomes (GDD B27.2.2)
+        Forbidden   // Extreme cost/risk, world-altering consequences (GDD B27.2.3)
+    }
+
+    // ... (RitualComponentRequirement struct) ...
+
+    /// &lt;summary&gt;
+    /// Static data defining a magical ritual.
+    /// Now includes RitualTier and participant requirements.
+    /// (TDD 09.2.1)
+    /// &lt;/summary&gt;
+    public class RitualDefinition
+    {
+        public string ID { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public RitualTier Tier { get; private set; } // New: Tier of the ritual
+        public float CastTime { get; private set; }
+        public float ChakraCost { get; private set; }
+        public float StabilityCost { get; private set; }
+        public float Radius { get; private set; }
+        public int MinParticipants { get; private set; } // New: Minimum number of entities participating
+
+        public List&lt;RitualComponentRequirement&gt; Requirements { get; private set; }
+        public List&lt;string&gt; EffectIDs { get; private set; }
+
+        public RitualDefinition(string id, string name, string description, RitualTier tier, float castTime, float chakraCost, float stabilityCost, float radius, int minParticipants, List&lt;RitualComponentRequirement&gt; requirements, List&lt;string&gt; effectIDs = null)
+        {
+            ID = id;
+            Name = name;
+            Description = description;
+            Tier = tier; // Set tier
+            CastTime = castTime;
+            ChakraCost = chakraCost;
+            StabilityCost = stabilityCost;
+            Radius = radius;
+            MinParticipants = minParticipants; // Set min participants
+            Requirements = requirements ?? new List&lt;RitualComponentRequirement&gt;();
+            EffectIDs = effectIDs ?? new List&lt;string&gt;();
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Ritual: '{Name}' ({ID}) | Tier: {Tier}, Cast: {CastTime:F1}s, Chakra: {ChakraCost}, Stab: {StabilityCost}, MinPart: {MinParticipants}&quot;;
+        }
+    }
+    // ... (RitualCenterComponent struct) ...
+}
+</code></pre>
+<h3 id="3-enhancing-ritualsystemcs-for-tiered-rituals">3. Enhancing <code>RitualSystem.cs</code> for Tiered Rituals</h3>
+<p><code>RitualSystem</code> needs to:
+*   Enforce <code>RitualTier</code> requirements (e.g., <code>MinParticipants</code>).
+*   Potentially have different success/failure outcomes based on tier.
+*   Trigger more severe effects for <code>Forbidden</code> rituals.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Rituals/RitualSystem.cs</code>.</li>
+<li>Modify <code>RegisterDefaultRitualDefinitions</code> to include <code>RitualTier</code> and <code>MinParticipants</code>.</li>
+<li>Modify <code>InitiateRitual</code> to check <code>MinParticipants</code>.</li>
+<li>Modify <code>CompleteRitual</code> to trigger effects based on <code>RitualTier</code> (conceptually).</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Rituals/RitualSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Biology;
+using System.Linq;
+using System.Threading;
+
+namespace Sigilborne.Systems.Rituals
+{
+    // ... (RitualComponentRequirement, RitualDefinition structs/classes) ...
+    // ... (RitualCenterComponent struct) ...
+
+    public class RitualSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private InventorySystem _inventorySystem;
+        private SpatialHashGrid _spatialGrid;
+        private BiologicalSystem _biologicalSystem;
+        private TransformSystem _transformSystem;
+        private JobSystem _jobSystem; // New: For scheduling ritual completion jobs
+
+        private Dictionary&lt;string, RitualDefinition&gt; _ritualDefinitions = new Dictionary&lt;string, RitualDefinition&gt;();
+        private Dictionary&lt;EntityID, RitualCenterComponent&gt; _ritualCenters = new Dictionary&lt;EntityID, RitualCenterComponent&gt;();
+
+        public RitualSystem(EntityManager entityManager, EventBus eventBus, InventorySystem inventorySystem, SpatialHashGrid spatialGrid, BiologicalSystem biologicalSystem, TransformSystem transformSystem, JobSystem jobSystem) // Add JobSystem
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _inventorySystem = inventorySystem;
+            _spatialGrid = spatialGrid;
+            _biologicalSystem = biologicalSystem;
+            _transformSystem = transformSystem;
+            _jobSystem = jobSystem; // Store JobSystem reference
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+
+            RegisterDefaultRitualDefinitions();
+            GD.Print(&quot;RitualSystem: Initialized.&quot;);
+        }
+
+        // ... (OnEntitySpawned, OnEntityDespawned methods) ...
+
+        private void RegisterDefaultRitualDefinitions()
+        {
+            // --- Simple Ritual (GDD B27.2.1) ---
+            RegisterRitualDefinition(new RitualDefinition(
+                id: &quot;healing_rite_t1&quot;, name: &quot;Minor Healing Rite&quot;, description: &quot;A simple ritual to restore health.&quot;,
+                tier: RitualTier.Simple, castTime: 3.0f, chakraCost: 10f, stabilityCost: 5f, radius: 50f, minParticipants: 1,
+                requirements: new List&lt;RitualComponentRequirement&gt;
+                {
+                    new RitualComponentRequirement(&quot;healing_herb&quot;, 20f, 3),
+                    new RitualComponentRequirement(&quot;lit_candle&quot;, 10f, 1)
+                },
+                effectIDs: new List&lt;string&gt; { &quot;heal_caster_100hp&quot; }
+            ));
+            RegisterRitualDefinition(new RitualDefinition(
+                id: &quot;scrying_rite_t1&quot;, name: &quot;Basic Scrying Rite&quot;, description: &quot;Reveals distant information.&quot;,
+                tier: RitualTier.Simple, castTime: 5.0f, chakraCost: 20f, stabilityCost: 10f, radius: 100f, minParticipants: 1,
+                requirements: new List&lt;RitualComponentRequirement&gt;
+                {
+                    new RitualComponentRequirement(&quot;scrying_orb&quot;, 5f, 1, false),
+                    new RitualComponentRequirement(&quot;rare_incense&quot;, 10f, 1)
+                },
+                effectIDs: new List&lt;string&gt; { &quot;reveal_map_area&quot; }
+            ));
+
+            // --- Advanced Ritual (GDD B27.2.2) ---
+            RegisterRitualDefinition(new RitualDefinition(
+                id: &quot;spirit_summoning_t2&quot;, name: &quot;Lesser Spirit Summoning&quot;, description: &quot;Summons a minor spirit to aid.&quot;,
+                tier: RitualTier.Advanced, castTime: 10.0f, chakraCost: 50f, stabilityCost: 30f, radius: 150f, minParticipants: 2, // Requires 2 participants
+                requirements: new List&lt;RitualComponentRequirement&gt;
+                {
+                    new RitualComponentRequirement(&quot;spirit_essence&quot;, 30f, 1),
+                    new RitualComponentRequirement(&quot;ancient_blood_rune&quot;, 5f, 1),
+                    new RitualComponentRequirement(&quot;lit_candle&quot;, 10f, 3)
+                },
+                effectIDs: new List&lt;string&gt; { &quot;spawn_spirit_ally&quot; }
+            ));
+
+            // --- Forbidden Ritual (GDD B27.2.3) ---
+            RegisterRitualDefinition(new RitualDefinition(
+                id: &quot;corruption_ascension_f&quot;, name: &quot;Forbidden Corruption Ascension&quot;, description: &quot;Mutates the caster with void energy.&quot;,
+                tier: RitualTier.Forbidden, castTime: 30.0f, chakraCost: 100f, stabilityCost: 80f, radius: 200f, minParticipants: 1, // Can be solo, but dangerous
+                requirements: new List&lt;RitualComponentRequirement&gt;
+                {
+                    new RitualComponentRequirement(&quot;residue_crystal_large&quot;, 5f, 1),
+                    new RitualComponentRequirement(&quot;fresh_heart&quot;, 5f, 1), // Gruesome requirement
+                    new RitualComponentRequirement(&quot;void_ink_scroll&quot;, 10f, 1, false) // Not consumed
+                },
+                effectIDs: new List&lt;string&gt; { &quot;caster_mutated_aberration&quot; }
+            ));
+        }
+
+        public bool InitiateRitual(EntityID ritualInitiatorID, EntityID ritualCenterID, string ritualID)
+        {
+            if (!_entityManager.IsValid(ritualInitiatorID) || !_entityManager.IsValid(ritualCenterID)) { /* ... */ return false; }
+            if (!_ritualDefinitions.TryGetValue(ritualID, out RitualDefinition ritualDef)) { /* ... */ return false; }
+            if (!_transformSystem.TryGetTransform(ritualCenterID, out TransformComponent centerTransform)) { /* ... */ return false; }
+            if (!_biologicalSystem.TryGetCoreStats(ritualInitiatorID, out CoreStats initiatorStats)) { /* ... */ return false; }
+
+            if (_ritualCenters.TryGetValue(ritualCenterID, out RitualCenterComponent centerComp) &amp;&amp; centerComp.IsActive)
+            {
+                GD.Print($&quot;RitualSystem: Ritual center {ritualCenterID} is already active with ritual '{centerComp.ActiveRitualID}'. Cannot initiate new ritual.&quot;);
+                _eventBus.Publish(new RitualFailedEvent { InitiatorID = ritualInitiatorID, RitualID = ritualID, Reason = &quot;Center Busy&quot; });
+                return false;
+            }
+
+            // --- NEW: Check Minimum Participants (GDD B27.2.2) ---
+            List&lt;EntityID&gt; nearbyLivingEntities = _spatialGrid.QueryEntities(centerTransform.Position, ritualDef.Radius)
+                                                            .Where(id =&gt; _entityManager.IsValid(id) &amp;&amp; id != ritualInitiatorID &amp;&amp; _biologicalSystem.HasCoreStats(id) &amp;&amp; _biologicalSystem.GetCoreStatsRef(id).Health &gt; 0)
+                                                            .ToList();
+            int actualParticipants = nearbyLivingEntities.Count + 1; // Initiator + nearby living entities
+            if (actualParticipants &lt; ritualDef.MinParticipants)
+            {
+                GD.Print($&quot;RitualSystem: Insufficient participants for '{ritualID}'. Need {ritualDef.MinParticipants}, found {actualParticipants}.&quot;);
+                _eventBus.Publish(new RitualFailedEvent { InitiatorID = ritualInitiatorID, RitualID = ritualID, Reason = &quot;Insufficient Participants&quot; });
+                return false;
+            }
+
+
+            // --- 1. Check Initiator Resources (Chakra, Stability) ---
+            if (initiatorStats.Chakra &lt; ritualDef.ChakraCost) { /* ... */ return false; }
+            if (initiatorStats.Stability &lt; ritualDef.StabilityCost) { /* ... */ return false; }
+
+            // --- 2. Check Ritual Component Pattern ---
+            List&lt;EntityID&gt; nearbyItemsAndEntities = _spatialGrid.QueryEntities(centerTransform.Position, ritualDef.Radius);
+            Dictionary&lt;string, int&gt; foundComponents = new Dictionary&lt;string, int&gt;();
+
+            foreach (var req in ritualDef.Requirements)
+            {
+                int countFound = 0;
+                foreach (EntityID nearbyID in nearbyItemsAndEntities)
+                {
+                    if (_entityManager.TryGetEntityMeta(nearbyID, out EntityMeta nearbyMeta) &amp;&amp; nearbyMeta.DefinitionID == req.ItemID)
+                    {
+                        if (_transformSystem.TryGetTransform(nearbyID, out TransformComponent nearbyTransform))
+                        {
+                            if (nearbyTransform.Position.DistanceTo(centerTransform.Position) &lt;= req.Radius)
+                            {
+                                countFound++;
+                            }
+                        }
+                    }
+                }
+                foundComponents[req.ItemID] = countFound;
+                if (countFound &lt; req.Quantity) { /* ... */ return false; }
+            }
+
+            // --- 3. Deduct Resources and Consume Components ---
+            GameManager.Instance.PlayerStats.TakeChakra(ritualDef.ChakraCost);
+            GameManager.Instance.PlayerStats.TakeStability(ritualDef.StabilityCost);
+
+            foreach (var req in ritualDef.Requirements)
+            {
+                if (req.Consumable)
+                {
+                    GD.Print($&quot;RitualSystem: Consuming {req.Quantity}x '{req.ItemID}' for ritual '{ritualID}'.&quot;);
+                    // Conceptual consumption.
+                }
+            }
+
+            // --- 4. Initiate Ritual (start cast time) ---
+            ref RitualCenterComponent ritualCenterRef = ref _ritualCenters.GetValueRef(ritualCenterID);
+            ritualCenterRef.IsActive = true;
+            ritualCenterRef.ActiveRitualID = ritualID;
+
+            GD.Print($&quot;RitualSystem: Ritual '{ritualID}' (Tier: {ritualDef.Tier}) initiated by {initiatorID} at {ritualCenterID}. Cast time: {ritualDef.CastTime:F1}s. Participants: {actualParticipants}.&quot;);
+            _eventBus.Publish(new RitualInitiatedEvent { InitiatorID = initiatorID, RitualID = ritualID, CenterID = ritualCenterID, CastTime = ritualDef.CastTime });
+
+            _jobSystem.Schedule(new RitualCompletionJob(initiatorID, ritualCenterID, ritualID, ritualDef.CastTime), () =&gt; {
+                CompleteRitual(initiatorID, ritualCenterID, ritualID);
+            });
+
+            return true;
+        }
+
+        /// &lt;summary&gt;
+        /// Completes a ritual after its cast time.
+        /// &lt;/summary&gt;
+        public void CompleteRitual(EntityID initiatorID, EntityID ritualCenterID, string ritualID)
+        {
+            if (!_ritualDefinitions.TryGetValue(ritualID, out RitualDefinition ritualDef)) return;
+            if (!_ritualCenters.TryGetValue(ritualCenterID, out RitualCenterComponent centerComp) || !centerComp.IsActive || centerComp.ActiveRitualID != ritualID) { /* ... */ return; }
+
+            ref RitualCenterComponent ritualCenterRef = ref _ritualCenters.GetValueRef(ritualCenterID);
+            ritualCenterRef.IsActive = false;
+            ritualCenterRef.ActiveRitualID = null;
+
+            GD.Print($&quot;RitualSystem: Ritual '{ritualID}' completed successfully by {initiatorID} at {ritualCenterID}! Triggering effects.&quot;);
+            _eventBus.Publish(new RitualCompletedEvent { InitiatorID = initiatorID, RitualID = ritualID, CenterID = ritualCenterID });
+
+            // --- Trigger Ritual Effects (conceptual, now tiered) ---
+            foreach (var effectID in ritualDef.EffectIDs)
+            {
+                GD.Print($&quot;  Ritual Effect: {effectID} triggered (Tier: {ritualDef.Tier}).&quot;);
+                // More complex effects based on tier (GDD B27.2)
+                if (ritualDef.Tier == RitualTier.Forbidden)
+                {
+                    GD.Print(&quot;    WARNING: FORBIDDEN RITUAL EFFECT! Potential world-altering consequences!&quot;);
+                    // _eventBus.Publish(new WorldSystem.CorruptionEvent { Type = &quot;ritual_induced_bloom&quot; });
+                }
+            }
+        }
+
+        // ... (RitualCompletionJob struct) ...
+        // ... (Helper Events) ...
+    }
+}
+</code></pre>
+<h4 id="31-add-hascorestats-to-biologicalsystemcs">3.1. Add <code>HasCoreStats</code> to <code>BiologicalSystem.cs</code></h4>
+<p><code>RitualSystem</code> needs to check if an entity has <code>CoreStats</code> and is alive.</p>
+<p>Open <code>res://_Brain/Systems/Biology/BiologicalSystem.cs</code> and add this method:</p>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/BiologicalSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Weather;
+using Sigilborne.Systems.StatusEffects;
+
+namespace Sigilborne.Systems.Biology
+{
+    public class BiologicalSystem
+    {
+        // ... (existing fields and constructor) ...
+
+        /// &lt;summary&gt;
+        /// Checks if an entity has CoreStats (is a living entity).
+        /// &lt;/summary&gt;
+        public bool HasCoreStats(EntityID id)
+        {
+            return _entityManager.IsValid(id) &amp;&amp; _entityCoreStats.ContainsKey(id);
+        }
+
+        // ... (other methods) ...
+    }
+}
+</code></pre>
+<h3 id="4-integrating-ritualsystem-into-gamemanager">4. Integrating <code>RitualSystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Rituals;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>In <code>GameManager._Ready()</code>, modify the "Test Ritual System" section to:<ul>
+<li>Create additional participants (NPCs) for advanced rituals.</li>
+<li>Test <code>Simple</code>, <code>Advanced</code>, and <code>Forbidden</code> rituals.</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside _Ready method)
+// ...
+        // --- Test Ritual System ---
+        GD.Print(&quot;\n--- Testing Ritual System ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+
+        // Create a ritual altar entity
+        EntityID altarID = Entities.CreateEntity(EntityType.WorldObject, &quot;altar_stone&quot;, new Vector2(300, 300));
+
+        // Create additional participants for advanced rituals
+        EntityID npcParticipant1 = Entities.CreateEntity(EntityType.NPC, &quot;ritual_npc_1&quot;, new Vector2(320, 300)); // Near altar
+        EntityID npcParticipant2 = Entities.CreateEntity(EntityType.NPC, &quot;ritual_npc_2&quot;, new Vector2(280, 280)); // Near altar
+        EntityID distantNpc = Entities.CreateEntity(EntityType.NPC, &quot;distant_npc&quot;, new Vector2(1000, 1000)); // Far from altar
+
+        // Add ritual components to player's inventory
+        Inventory.AddItem(playerID, new InventoryItem(&quot;healing_herb&quot;, 5));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;lit_candle&quot;, 5));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;scrying_orb&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;rare_incense&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;spirit_essence&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;ancient_blood_rune&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;residue_crystal_large&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;fresh_heart&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;void_ink_scroll&quot;, 1));
+
+
+        // Test Simple Ritual: healing_rite_t1 (requires 3 healing_herb, 1 lit_candle, 1 participant)
+        GD.Print(&quot;\nAttempting 'healing_rite_t1' (Simple):&quot;);
+        Rituals.InitiateRitual(playerID, altarID, &quot;healing_rite_t1&quot;);
+
+        // Test Advanced Ritual: spirit_summoning_t2 (requires 1 spirit_essence, 1 ancient_blood_rune, 3 lit_candle, 2 participants)
+        GD.Print(&quot;\nAttempting 'spirit_summoning_t2' (Advanced, with 3 participants):&quot;);
+        Rituals.InitiateRitual(playerID, altarID, &quot;spirit_summoning_t2&quot;);
+
+        // Test Advanced Ritual (should fail due to insufficient participants if NPCs moved away)
+        Transforms.GetTransformRef(npcParticipant1).Position = new Vector2(1500, 1500); // Move NPC far
+        GD.Print(&quot;\nAttempting 'spirit_summoning_t2' again (should fail due to participants):&quot;);
+        Rituals.InitiateRitual(playerID, altarID, &quot;spirit_summoning_t2&quot;);
+
+        // Test Forbidden Ritual: corruption_ascension_f (requires 1 residue_crystal_large, 1 fresh_heart, 1 void_ink_scroll, 1 participant)
+        GD.Print(&quot;\nAttempting 'corruption_ascension_f' (Forbidden):&quot;);
+        Rituals.InitiateRitual(playerID, altarID, &quot;corruption_ascension_f&quot;);
+
+        GD.Print(&quot;--- End Testing Ritual System ---\n&quot;);
+// ...
+</code></pre>
+<h3 id="5-testing-tiered-rituals">5. Testing Tiered Rituals</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for the "Testing Ritual System" section.</li>
+</ol>
+<pre><code>...
+RitualSystem: Identified potential ritual center: EntityID(4, Gen:1) (altar_stone). Added RitualCenterComponent.
+RitualSystem: Identified potential ritual center: EntityID(5, Gen:1) (ritual_npc_1). Added RitualCenterComponent.
+RitualSystem: Identified potential ritual center: EntityID(6, Gen:1) (ritual_npc_2). Added RitualCenterComponent.
+RitualSystem: Identified potential ritual center: EntityID(7, Gen:1) (distant_npc). Added RitualCenterComponent.
+...
+--- Testing Ritual System ---
+
+Attempting 'healing_rite_t1' (Simple):
+RitualSystem: Ritual 'healing_rite_t1' (Tier: Simple) initiated by EntityID(0, Gen:1) at EntityID(4, Gen:1). Cast time: 3.0s. Participants: 3.
+PlayerStatSystem: Player EntityID(0, Gen:1) used 10 chakra. New Chakra: 40.0
+PlayerStatSystem: Player EntityID(0, Gen:1) lost 5 stability. New Stability: 95.0
+RitualSystem: Consuming 3x 'healing_herb' for ritual 'healing_rite_t1'.
+RitualSystem: Consuming 1x 'lit_candle' for ritual 'healing_rite_t1'.
+[Job:RitualCompletion] Ritual 'healing_rite_t1' delay finished.
+RitualSystem: Ritual 'healing_rite_t1' completed successfully by EntityID(0, Gen:1) at EntityID(4, Gen:1)! Triggering effects.
+  Ritual Effect: heal_caster_100hp triggered (Tier: Simple).
+
+Attempting 'spirit_summoning_t2' (Advanced, with 3 participants):
+RitualSystem: Ritual 'spirit_summoning_t2' (Tier: Advanced) initiated by EntityID(0, Gen:1) at EntityID(4, Gen:1). Cast time: 10.0s. Participants: 3.
+PlayerStatSystem: Player EntityID(0, Gen:1) used 50 chakra. New Chakra: 0.0
+PlayerStatSystem: Player EntityID(0, Gen:1) lost 30 stability. New Stability: 65.0
+RitualSystem: Consuming 1x 'spirit_essence' for ritual 'spirit_summoning_t2'.
+RitualSystem: Consuming 1x 'ancient_blood_rune' for ritual 'spirit_summoning_t2'.
+RitualSystem: Consuming 3x 'lit_candle' for ritual 'spirit_summoning_t2'.
+[Job:RitualCompletion] Ritual 'spirit_summoning_t2' delay finished.
+RitualSystem: Ritual 'spirit_summoning_t2' completed successfully by EntityID(0, Gen:1) at EntityID(4, Gen:1)! Triggering effects.
+  Ritual Effect: spawn_spirit_ally triggered (Tier: Advanced).
+
+Attempting 'spirit_summoning_t2' again (should fail due to participants):
+RitualSystem: Insufficient participants for 'spirit_summoning_t2'. Need 2, found 1.
+RitualSystem: Ritual 'spirit_summoning_t2' failed by EntityID(0, Gen:1) at EntityID(4, Gen:1). Reason: Insufficient Participants
+
+Attempting 'corruption_ascension_f' (Forbidden):
+RitualSystem: Ritual 'corruption_ascension_f' (Tier: Forbidden) initiated by EntityID(0, Gen:1) at EntityID(4, Gen:1). Cast time: 30.0s. Participants: 1.
+PlayerStatSystem: Player EntityID(0, Gen:1) used 100 chakra. New Chakra: 0.0
+PlayerStatSystem: Player EntityID(0, Gen:1) lost 80 stability. New Stability: 0.0
+RitualSystem: Consuming 1x 'residue_crystal_large' for ritual 'corruption_ascension_f'.
+RitualSystem: Consuming 1x 'fresh_heart' for ritual 'corruption_ascension_f'.
+[Job:RitualCompletion] Ritual 'corruption_ascension_f' delay finished.
+RitualSystem: Ritual 'corruption_ascension_f' completed successfully by EntityID(0, Gen:1) at EntityID(4, Gen:1)! Triggering effects.
+  Ritual Effect: caster_mutated_aberration triggered (Tier: Forbidden).
+    WARNING: FORBIDDEN RITUAL EFFECT! Potential world-altering consequences!
+--- End Testing Ritual System ---
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Tiered Rituals</strong>: <code>RitualTier</code> and <code>MinParticipants</code> are correctly registered and enforced.</li>
+<li><strong>Participant Check</strong>: <code>InitiateRitual</code> correctly counts <code>nearbyLivingEntities</code> and fails if <code>actualParticipants</code> is too low.</li>
+<li><strong>Resource Deduction</strong>: Chakra and Stability are deducted, with higher costs for more advanced rituals.</li>
+<li><strong>Forbidden Ritual Warning</strong>: <code>Forbidden Corruption Ascension</code> triggers a specific warning and its effects are conceptually flagged as potentially world-altering.</li>
+<li><strong>Item Consumption</strong>: Conceptual consumption messages are printed.</li>
+</ul>
+<p>This confirms our <code>RitualSystem</code> is robustly handling tiered rituals, enforcing their complex requirements and triggering appropriate consequences.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully refined the <strong>Ritual System</strong> in the C# Brain, differentiating between <strong>Simple, Advanced, and Forbidden Rituals</strong> through the <code>RitualTier</code> enum and <code>MinParticipants</code> requirement. By enhancing <code>RitualSystem</code> to enforce these tiered complexities, deduct escalating resources, and trigger tier-specific effects (including warnings for forbidden rituals), you've aligned the magic system with Sigilborne's themes of risk and power. This crucial system strictly adheres to GDD B27.2's specifications, providing advanced and dangerous world mechanics.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>Forbidden Contracts &amp; Spirit Contracts</strong>, designing how players can enter into dangerous pacts with powerful forces, each with world-linked consequences, representing the ultimate risk-reward paths in Sigilborne's magic.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

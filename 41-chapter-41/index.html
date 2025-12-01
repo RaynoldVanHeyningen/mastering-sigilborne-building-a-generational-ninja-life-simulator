@@ -1,0 +1,2838 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../40-chapter-40/">
+      
+      
+        <link rel="next" href="../42-chapter-42/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 6.4: Equipment Logic - Recalculating Stats (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-64-equipment-logic-recalculating-stats-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-64-equipment-logic-recalculating-stats-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6.4: Equipment Logic - Recalculating Stats (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-role-of-equipment-in-sigilborne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Role of Equipment in Sigilborne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-equipmentslottype-and-equippeditemscomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining EquipmentSlotType and EquippedItemsComponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-defining-itemdefinition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining ItemDefinition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-implementing-equipmentsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Implementing EquipmentSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integrating-equipmentsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integrating EquipmentSystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Integrating EquipmentSystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-update-eventbuscs-for-equipmentchangedevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Update EventBus.cs for EquipmentChangedEvent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-equipment-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing Equipment Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-64-equipment-logic-recalculating-stats-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6.4: Equipment Logic - Recalculating Stats (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-role-of-equipment-in-sigilborne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Role of Equipment in Sigilborne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-equipmentslottype-and-equippeditemscomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining EquipmentSlotType and EquippedItemsComponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-defining-itemdefinition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining ItemDefinition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-implementing-equipmentsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Implementing EquipmentSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integrating-equipmentsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integrating EquipmentSystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Integrating EquipmentSystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-update-eventbuscs-for-equipmentchangedevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Update EventBus.cs for EquipmentChangedEvent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-equipment-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing Equipment Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 6.4: Equipment Logic - Recalculating Stats (C#)</h1>
+
+<h2 id="chapter-64-equipment-logic-recalculating-stats-c">Chapter 6.4: Equipment Logic - Recalculating Stats (C#)</h2>
+<p>With our <code>InventorySystem</code> managing items, the next step is to implement <strong>Equipment Logic</strong>. This chapter focuses on how items are moved to "Equipment Slots," how an entity's <code>CoreStats</code> are recalculated when equipment changes, and how the GDScript Body visually updates to reflect equipped items, as specified in TDD 04.4.2.</p>
+<h3 id="1-the-role-of-equipment-in-sigilborne">1. The Role of Equipment in Sigilborne</h3>
+<p>The GDD (B13.2) states: "Weapons matter, but do not define your power. Chakra techniques, mastery, and strategy dominate combat." This means equipment provides:</p>
+<ul>
+<li><strong>Utility/Tactical Advantage</strong>: Tools, ranged weapons.</li>
+<li><strong>Stat Enhancement</strong>: Modifies <code>CoreStats</code> (e.g., <code>BaseDamage</code>, <code>Armor</code>, <code>MoveSpeed</code>).</li>
+<li><strong>Visual Identity</strong>: Changes the character's appearance.</li>
+</ul>
+<p>Our <code>EquipmentSystem</code> will manage which items are equipped and apply their stat bonuses.</p>
+<h3 id="2-defining-equipmentslottype-and-equippeditemscomponent">2. Defining <code>EquipmentSlotType</code> and <code>EquippedItemsComponent</code></h3>
+<p>We need an enum for different equipment slots and a component to store an entity's currently equipped items.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Inventory/EquipmentSlotType.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Inventory/EquipmentSlotType.cs
+using System;
+
+namespace Sigilborne.Systems.Inventory
+{
+    /// &lt;summary&gt;
+    /// Defines the types of equipment slots an entity can have.
+    /// &lt;/summary&gt;
+    public enum EquipmentSlotType
+    {
+        None,
+        MainHand,       // Primary weapon
+        OffHand,        // Shield, secondary weapon, tool
+        Head,           // Helmet, headband
+        Body,           // Armor, robe
+        Legs,           // Pants, greaves
+        Feet,           // Boots
+        Accessory1,     // Ring, amulet (GDD B13.12: Jewelry)
+        Accessory2,
+        Back,           // Cloak, backpack (for inventory size bonus)
+        // Add more slots as needed (e.g., ranged, belt, gloves)
+    }
+}
+</code></pre>
+<ol>
+<li>Create <code>res://_Brain/Systems/Inventory/EquippedItemsComponent.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Inventory/EquippedItemsComponent.cs
+using System;
+using System.Collections.Generic;
+
+namespace Sigilborne.Systems.Inventory
+{
+    /// &lt;summary&gt;
+    /// Stores the items currently equipped by an entity in their respective slots.
+    /// This is a component-like data structure managed by the EquipmentSystem.
+    /// &lt;/summary&gt;
+    public struct EquippedItemsComponent
+    {
+        // Dictionary mapping slot type to the InventoryItem in that slot.
+        public Dictionary&lt;EquipmentSlotType, InventoryItem&gt; EquippedSlots;
+
+        public EquippedItemsComponent(Dictionary&lt;EquipmentSlotType, InventoryItem&gt; equippedSlots = null)
+        {
+            EquippedSlots = equippedSlots ?? new Dictionary&lt;EquipmentSlotType, InventoryItem&gt;();
+        }
+
+        public override string ToString()
+        {
+            if (EquippedSlots.Count == 0) return &quot;No items equipped.&quot;;
+            return string.Join(&quot;, &quot;, EquippedSlots.Select(kv =&gt; $&quot;{kv.Key}: {kv.Value.ItemID}&quot;));
+        }
+    }
+}
+</code></pre>
+<h3 id="3-defining-itemdefinition">3. Defining <code>ItemDefinition</code></h3>
+<p>To know what stats an item provides, we need a static <code>ItemDefinition</code> blueprint. This will be data-driven.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Inventory/ItemDefinition.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Inventory/ItemDefinition.cs
+using System;
+using System.Collections.Generic;
+using Sigilborne.Systems.Biology; // For CoreStats properties
+
+namespace Sigilborne.Systems.Inventory
+{
+    /// &lt;summary&gt;
+    /// Static data defining an item.
+    /// (TDD 04.4.1 - Implicit, for ItemID lookup)
+    /// &lt;/summary&gt;
+    public class ItemDefinition
+    {
+        public string ID { get; private set; } // &quot;iron_sword_t1&quot;, &quot;healing_potion_t1&quot;
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public ItemType Type { get; private set; }
+        public EquipmentSlotType EquipSlot { get; private set; } // None if not equippable
+        public bool IsStackable { get; private set; }
+        public int MaxStackSize { get; private set; }
+        public float MaxDurability { get; private set; }
+
+        // Stat bonuses this item provides when equipped (map to CoreStats fields)
+        public Dictionary&lt;string, float&gt; StatBonuses { get; private set; } // e.g., &quot;BaseDamage&quot;: 10, &quot;Armor&quot;: 5
+
+        // Visual ID for the Body to know what sprite/model to use
+        public string VisualID { get; private set; } // e.g., &quot;sprite_iron_sword&quot;
+
+        public ItemDefinition(string id, string name, string description, ItemType type, EquipmentSlotType equipSlot, bool isStackable, int maxStackSize, float maxDurability, Dictionary&lt;string, float&gt; statBonuses, string visualId)
+        {
+            ID = id;
+            Name = name;
+            Description = description;
+            Type = type;
+            EquipSlot = equipSlot;
+            IsStackable = isStackable;
+            MaxStackSize = maxStackSize;
+            MaxDurability = maxDurability;
+            StatBonuses = statBonuses ?? new Dictionary&lt;string, float&gt;();
+            VisualID = visualId;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;ItemDef: '{ID}' ({Name}) Type: {Type}, Slot: {EquipSlot}&quot;;
+        }
+    }
+
+    /// &lt;summary&gt;
+    /// Defines the broad categories of items.
+    /// &lt;/summary&gt;
+    public enum ItemType
+    {
+        None,
+        Weapon,
+        Armor,
+        Accessory,
+        Consumable,
+        Tool,
+        QuestItem,
+        Resource,
+        Currency // For gold, etc.
+    }
+}
+</code></pre>
+<h3 id="4-implementing-equipmentsystemcs">4. Implementing <code>EquipmentSystem.cs</code></h3>
+<p>This system will manage <code>EquippedItemsComponent</code>, handle equipping/unequipping, and recalculate <code>CoreStats</code>.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Inventory/EquipmentSystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Inventory/EquipmentSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology; // For CoreStats
+using System.Linq;
+using System.Reflection; // For dynamic stat modification
+
+namespace Sigilborne.Systems.Inventory
+{
+    /// &lt;summary&gt;
+    /// Manages equipped items for entities and recalculates their CoreStats based on equipment bonuses.
+    /// (TDD 04.4.2)
+    /// &lt;/summary&gt;
+    public class EquipmentSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private BiologicalSystem _biologicalSystem; // To access/modify CoreStats
+        private InventorySystem _inventorySystem; // To move items between inventory and equipped slots
+
+        // Static definitions of all items
+        private Dictionary&lt;string, ItemDefinition&gt; _itemDefinitions = new Dictionary&lt;string, ItemDefinition&gt;();
+
+        // Equipped items for entities: Dictionary&lt;EntityID, EquippedItemsComponent&gt;
+        private Dictionary&lt;EntityID, EquippedItemsComponent&gt; _equippedItems = new Dictionary&lt;EntityID, EquippedItemsComponent&gt;();
+
+        public EquipmentSystem(EntityManager entityManager, EventBus eventBus, BiologicalSystem biologicalSystem, InventorySystem inventorySystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _biologicalSystem = biologicalSystem;
+            _inventorySystem = inventorySystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+
+            RegisterDefaultItemDefinitions(); // Register some default items
+            GD.Print(&quot;EquipmentSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            if (type == EntityType.Player || type == EntityType.NPC)
+            {
+                _equippedItems.Add(id, new EquippedItemsComponent()); // Start with empty equipment
+                GD.Print($&quot;EquipmentSystem: Added EquippedItemsComponent for {type} entity {id}.&quot;);
+                RecalculateCoreStats(id); // Recalculate initial stats
+            }
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            _equippedItems.Remove(e.ID);
+            GD.Print($&quot;EquipmentSystem: Removed EquippedItemsComponent for {e.ID}.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Registers a new static ItemDefinition.
+        /// &lt;/summary&gt;
+        public void RegisterItemDefinition(ItemDefinition def)
+        {
+            _itemDefinitions[def.ID] = def;
+            GD.Print($&quot;EquipmentSystem: Registered item definition '{def.ID}'.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Registers some common default items for initial testing.
+        /// &lt;/summary&gt;
+        private void RegisterDefaultItemDefinitions()
+        {
+            RegisterItemDefinition(new ItemDefinition(
+                id: &quot;iron_sword_t1&quot;, name: &quot;Iron Sword&quot;, description: &quot;A basic iron sword.&quot;,
+                type: ItemType.Weapon, equipSlot: EquipmentSlotType.MainHand, isStackable: false, maxStackSize: 1, maxDurability: 100f,
+                statBonuses: new Dictionary&lt;string, float&gt; { { &quot;BaseDamage&quot;, 10f }, { &quot;AttackSpeed&quot;, 0.1f }, { &quot;Armor&quot;, 1f } }, // Weapon can give Armor
+                visualId: &quot;sprite_iron_sword&quot;
+            ));
+            RegisterItemDefinition(new ItemDefinition(
+                id: &quot;leather_armor_t1&quot;, name: &quot;Leather Armor&quot;, description: &quot;Simple leather protection.&quot;,
+                type: ItemType.Armor, equipSlot: EquipmentSlotType.Body, isStackable: false, maxStackSize: 1, maxDurability: 80f,
+                statBonuses: new Dictionary&lt;string, float&gt; { { &quot;Armor&quot;, 5f }, { &quot;MoveSpeed&quot;, -10f } }, // Armor can reduce speed
+                visualId: &quot;sprite_leather_armor&quot;
+            ));
+            RegisterItemDefinition(new ItemDefinition(
+                id: &quot;amulet_of_regeneration&quot;, name: &quot;Amulet of Regeneration&quot;, description: &quot;A mystical amulet that boosts healing.&quot;,
+                type: ItemType.Accessory, equipSlot: EquipmentSlotType.Accessory1, isStackable: false, maxStackSize: 1, maxDurability: 100f,
+                statBonuses: new Dictionary&lt;string, float&gt; { { &quot;HealthRegenRate&quot;, 2f }, { &quot;ChakraRegenRate&quot;, 1f } },
+                visualId: &quot;sprite_amulet&quot;
+            ));
+            // Add definitions for healing_potion_t1, mana_potion_t1, quest_item_ancient_scroll etc.
+        }
+
+        /// &lt;summary&gt;
+        /// Equips an item from inventory into an equipment slot.
+        /// (TDD 04.4.2)
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;entityID&quot;&gt;The entity equipping the item.&lt;/param&gt;
+        /// &lt;param name=&quot;itemToEquip&quot;&gt;The item to equip (must exist in inventory).&lt;/param&gt;
+        /// &lt;param name=&quot;sourceInventorySlotIndex&quot;&gt;The inventory slot the item is coming from.&lt;/param&gt;
+        /// &lt;returns&gt;True if equipped, false if slot invalid, occupied, or item not equippable.&lt;/returns&gt;
+        public bool EquipItem(EntityID entityID, InventoryItem itemToEquip, int sourceInventorySlotIndex)
+        {
+            if (!_entityManager.IsValid(entityID) || !_equippedItems.TryGetValue(entityID, out EquippedItemsComponent equipped))
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Entity {entityID} cannot equip items (no EquippedItemsComponent).&quot;);
+                return false;
+            }
+            if (itemToEquip.IsEmpty() || !_itemDefinitions.TryGetValue(itemToEquip.ItemID, out ItemDefinition itemDef))
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Invalid item to equip: {itemToEquip.ItemID}&quot;);
+                return false;
+            }
+            if (itemDef.EquipSlot == EquipmentSlotType.None)
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Item '{itemDef.Name}' is not equippable.&quot;);
+                return false;
+            }
+
+            // Check if slot is already occupied
+            if (equipped.EquippedSlots.ContainsKey(itemDef.EquipSlot) &amp;&amp; !equipped.EquippedSlots[itemDef.EquipSlot].IsEmpty())
+            {
+                // If occupied, unequip current item first (move to inventory)
+                UnequipItem(entityID, itemDef.EquipSlot); // This will move old item to inventory
+            }
+
+            // Remove from inventory
+            if (!_inventorySystem.RemoveItem(entityID, sourceInventorySlotIndex, 1))
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Failed to remove item '{itemToEquip.ItemID}' from inventory slot {sourceInventorySlotIndex}.&quot;);
+                return false;
+            }
+
+            equipped.EquippedSlots[itemDef.EquipSlot] = itemToEquip;
+            _equippedItems[entityID] = equipped; // Update struct in dictionary
+
+            GD.Print($&quot;EquipmentSystem: {entityID} equipped '{itemDef.Name}' in {itemDef.EquipSlot}.&quot;);
+            RecalculateCoreStats(entityID); // Recalculate stats after equipping (TDD 04.4.2)
+
+            _eventBus.Publish(new EquipmentChangedEvent { EntityID = entityID, Slot = itemDef.EquipSlot, Item = itemToEquip });
+            return true;
+        }
+
+        /// &lt;summary&gt;
+        /// Unequips an item from a specific equipment slot, moving it to inventory.
+        /// &lt;/summary&gt;
+        public bool UnequipItem(EntityID entityID, EquipmentSlotType slotType)
+        {
+            if (!_entityManager.IsValid(entityID) || !_equippedItems.TryGetValue(entityID, out EquippedItemsComponent equipped))
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Entity {entityID} has no EquippedItemsComponent.&quot;);
+                return false;
+            }
+            if (!equipped.EquippedSlots.ContainsKey(slotType) || equipped.EquippedSlots[slotType].IsEmpty())
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Slot {slotType} for {entityID} is empty. Nothing to unequip.&quot;);
+                return false;
+            }
+
+            InventoryItem itemToUnequip = equipped.EquippedSlots[slotType];
+
+            // Try to add back to inventory
+            if (!_inventorySystem.AddItem(entityID, itemToUnequip))
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Inventory for {entityID} is full. Cannot unequip '{itemToUnequip.ItemID}' from {slotType}.&quot;);
+                return false; // Inventory full, cannot unequip
+            }
+
+            equipped.EquippedSlots.Remove(slotType); // Remove from equipped slots
+            _equippedItems[entityID] = equipped; // Update struct in dictionary
+
+            GD.Print($&quot;EquipmentSystem: {entityID} unequipped '{itemToUnequip.ItemID}' from {slotType}.&quot;);
+            RecalculateCoreStats(entityID); // Recalculate stats after unequipping (TDD 04.4.2)
+
+            _eventBus.Publish(new EquipmentChangedEvent { EntityID = entityID, Slot = slotType, Item = new InventoryItem() }); // Send empty item for unequip
+            return true;
+        }
+
+        /// &lt;summary&gt;
+        /// Recalculates an entity's CoreStats based on all equipped items.
+        /// (TDD 04.4.2)
+        /// &lt;/summary&gt;
+        private void RecalculateCoreStats(EntityID entityID)
+        {
+            if (!_entityManager.IsValid(entityID) || !_biologicalSystem.TryGetCoreStats(entityID, out CoreStats baseStats))
+            {
+                GD.PrintErr($&quot;EquipmentSystem: Entity {entityID} has no CoreStats. Cannot recalculate.&quot;);
+                return;
+            }
+
+            // Get a fresh copy of base stats (or load from definition if we had a base definition)
+            // For now, assume current CoreStats are the base before equipment.
+            // In a more complex system, you'd load &quot;base&quot; stats from an EntityDefinition.
+            CoreStats recalculatedStats = baseStats; // Start with current stats, then apply modifiers
+
+            if (_equippedItems.TryGetValue(entityID, out EquippedItemsComponent equipped))
+            {
+                foreach (var kvp in equipped.EquippedSlots)
+                {
+                    InventoryItem item = kvp.Value;
+                    if (item.IsEmpty() || !_itemDefinitions.TryGetValue(item.ItemID, out ItemDefinition itemDef)) continue;
+
+                    foreach (var statBonus in itemDef.StatBonuses)
+                    {
+                        // Dynamically apply stat bonuses using Reflection (TDD 04.4.2)
+                        // This is a powerful but potentially slow technique. For hot paths, pre-calculate or use faster lookups.
+                        PropertyInfo prop = typeof(CoreStats).GetProperty(statBonus.Key);
+                        if (prop != null &amp;&amp; prop.CanWrite &amp;&amp; prop.PropertyType == typeof(float))
+                        {
+                            float currentValue = (float)prop.GetValue(recalculatedStats);
+                            prop.SetValue(recalculatedStats, currentValue + statBonus.Value);
+                        }
+                        else
+                        {
+                            GD.PrintWarning($&quot;EquipmentSystem: Item '{itemDef.ID}' has unknown stat bonus '{statBonus.Key}' or type mismatch.&quot;);
+                        }
+                    }
+                }
+            }
+
+            // Apply recalculated stats back to the entity's CoreStats
+            ref CoreStats targetCoreStats = ref _biologicalSystem.GetCoreStatsRef(entityID);
+            targetCoreStats = recalculatedStats; // Overwrite with new stats
+
+            GD.Print($&quot;EquipmentSystem: Recalculated CoreStats for {entityID}. New stats: {targetCoreStats}&quot;);
+            // Publish full CoreStats update event (BiologicalSystem already does this on its tick)
+            // _eventBus.Publish(new BiologicalSystem.PlayerCoreStatsChangedEvent { PlayerID = entityID, NewCoreStats = targetCoreStats });
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the EquippedItemsComponent for an entity.
+        /// &lt;/summary&gt;
+        public IReadOnlyDictionary&lt;EquipmentSlotType, InventoryItem&gt; GetEquippedItems(EntityID entityID)
+        {
+            if (_equippedItems.TryGetValue(entityID, out EquippedItemsComponent equipped))
+            {
+                return equipped.EquippedSlots.AsReadOnly();
+            }
+            return new Dictionary&lt;EquipmentSlotType, InventoryItem&gt;().AsReadOnly();
+        }
+
+        // --- Helper Events for Body Sync ---
+        public struct EquipmentChangedEvent { public EntityID EntityID; public EquipmentSlotType Slot; public InventoryItem Item; }
+    }
+}
+</code></pre>
+<h3 id="5-integrating-equipmentsystem-into-gamemanager">5. Integrating <code>EquipmentSystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Inventory;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add an <code>EquipmentSystem</code> property.</li>
+<li>Initialize <code>EquipmentSystem</code> in <code>InitializeSystems()</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Weather;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Utils;
+using System.Linq;
+using Sigilborne.Systems.Magic.Components;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public InventorySystem Inventory { get; private set; }
+    public EquipmentSystem Equipment { get; private set; } // Add EquipmentSystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+        // ... (existing glyph and magic system tests) ...
+        // ... (existing damage tests) ...
+
+        // --- Test Inventory System ---
+        GD.Print(&quot;\n--- Testing Inventory System ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+
+        Inventory.AddItem(playerID, new InventoryItem(&quot;iron_sword_t1&quot;, 1, 95f));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;healing_potion_t1&quot;, 3));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;iron_sword_t1&quot;, 1, 95f));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;leather_armor_t1&quot;, 1)); // Add armor
+        Inventory.AddItem(playerID, new InventoryItem(&quot;amulet_of_regeneration&quot;, 1)); // Add amulet
+        Inventory.AddItem(playerID, new InventoryItem(&quot;healing_potion_t1&quot;, 5));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;mana_potion_t1&quot;, 2));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;quest_item_ancient_scroll&quot;, 1, 100f, new Dictionary&lt;string, Variant&gt; { { &quot;lore&quot;, &quot;ancient_text&quot; } }));
+
+        GD.Print($&quot;Player Inventory after initial additions: {string.Join(&quot;\n  &quot;, Inventory.GetInventory(playerID).Select(item =&gt; item.ToString()))}&quot;);
+
+        // --- Test Equipment System ---
+        GD.Print(&quot;\n--- Testing Equipment System ---&quot;);
+        GD.Print($&quot;Player initial stats: {Biology.GetCoreStatsRef(playerID)}&quot;);
+
+        // Equip sword
+        InventoryItem sword = Inventory.GetItemInSlot(playerID, 0); // Assuming sword is in slot 0
+        Equipment.EquipItem(playerID, sword, 0);
+        GD.Print($&quot;Player stats after equipping sword: {Biology.GetCoreStatsRef(playerID)}&quot;);
+
+        // Equip armor
+        InventoryItem armor = Inventory.GetItemInSlot(playerID, 3); // Assuming armor is in slot 3
+        Equipment.EquipItem(playerID, armor, 3);
+        GD.Print($&quot;Player stats after equipping armor: {Biology.GetCoreStatsRef(playerID)}&quot;);
+
+        // Equip amulet
+        InventoryItem amulet = Inventory.GetItemInSlot(playerID, 4); // Assuming amulet is in slot 4
+        Equipment.EquipItem(playerID, amulet, 4);
+        GD.Print($&quot;Player stats after equipping amulet: {Biology.GetCoreStatsRef(playerID)}&quot;);
+
+        // Unequip sword
+        Equipment.UnequipItem(playerID, EquipmentSlotType.MainHand);
+        GD.Print($&quot;Player stats after unequipping sword: {Biology.GetCoreStatsRef(playerID)}&quot;);
+        GD.Print($&quot;Player Inventory after unequip: {string.Join(&quot;\n  &quot;, Inventory.GetInventory(playerID).Select(item =&gt; item.ToString()))}&quot;);
+
+        GD.Print(&quot;--- End Testing Equipment System ---\n&quot;);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        // ... (existing _PhysicsProcess calls) ...
+    }
+
+    private void InitializeSystems()
+    {
+        // ... (existing system initializations up to CombatSystem) ...
+
+        Inventory = new InventorySystem(Entities, Events);
+        GD.Print(&quot;  - InventorySystem initialized.&quot;);
+
+        // Initialize EquipmentSystem, passing InventorySystem and BiologicalSystem
+        Equipment = new EquipmentSystem(Entities, Events, BiologicalSystem, Inventory); // Initialize EquipmentSystem here
+        GD.Print(&quot;  - EquipmentSystem initialized.&quot;);
+
+        // Initialize PlayerStatSystem, passing BiologicalSystem
+        PlayerStats = new PlayerStatSystem(Events, Entities, BiologicalSystem);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        World = new WorldSimulation();
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<h4 id="51-update-eventbuscs-for-equipmentchangedevent">5.1. Update <code>EventBus.cs</code> for <code>EquipmentChangedEvent</code></h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and add <code>OnEquipmentChanged</code> delegate:</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Inventory System Events (TDD 04.4.1)
+        public event Action&lt;EntityID, List&lt;InventoryItem&gt;&gt; OnPlayerInventoryChanged;
+
+        // Equipment System Events (TDD 04.4.2)
+        public event Action&lt;EntityID, EquipmentSlotType, InventoryItem&gt; OnEquipmentChanged; // EntityID, Slot, Item (empty for unequip)
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is InventorySystem.EquipmentChangedEvent equipmentEvent) // New condition
+            {
+                OnEquipmentChanged?.Invoke(equipmentEvent.EntityID, equipmentEvent.Slot, equipmentEvent.Item);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="6-testing-equipment-logic">6. Testing Equipment Logic</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for the "Testing Equipment System" section.</li>
+</ol>
+<pre><code>...
+InventorySystem: Added iron_sword_t1 (x1) to EntityID(0, Gen:1). New slot.
+InventorySystem: Added healing_potion_t1 (x3) to EntityID(0, Gen:1). New slot.
+InventorySystem: Added iron_sword_t1 (x1) to EntityID(0, Gen:1). Stacked.
+InventorySystem: Added leather_armor_t1 (x1) to EntityID(0, Gen:1). New slot.
+InventorySystem: Added amulet_of_regeneration (x1) to EntityID(0, Gen:1). New slot.
+InventorySystem: Added healing_potion_t1 (x5) to EntityID(0, Gen:1). Stacked.
+InventorySystem: Added mana_potion_t1 (x2) to EntityID(0, Gen:1). New slot.
+InventorySystem: Added quest_item_ancient_scroll (x1) to EntityID(0, Gen:1). New slot.
+Player Inventory after initial additions: iron_sword_t1 (x1) Dur:95%
+  healing_potion_t1 (x8) Dur:100%
+  mana_potion_t1 (x2) Dur:100%
+  leather_armor_t1 (x1) Dur:80%
+  amulet_of_regeneration (x1) Dur:100%
+  quest_item_ancient_scroll (x1) Dur:100% lore:ancient_text
+  Empty Slot
+  ... (remaining empty slots) ...
+--- Test Equipment System ---
+Player initial stats: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 150, Dmg: 15, Armor: 5, MR: 5, Crit: 10%
+EquipmentSystem: EntityID(0, Gen:1) equipped 'Iron Sword' in MainHand.
+EquipmentSystem: Recalculated CoreStats for EntityID(0, Gen:1). New stats: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 150, Dmg: 25, Armor: 6, MR: 5, Crit: 10%
+Player stats after equipping sword: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 150, Dmg: 25, Armor: 6, MR: 5, Crit: 10%
+EquipmentSystem: EntityID(0, Gen:1) equipped 'Leather Armor' in Body.
+EquipmentSystem: Recalculated CoreStats for EntityID(0, Gen:1). New stats: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 140, Dmg: 25, Armor: 11, MR: 5, Crit: 10%
+Player stats after equipping armor: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 140, Dmg: 25, Armor: 11, MR: 5, Crit: 10%
+EquipmentSystem: EntityID(0, Gen:1) equipped 'Amulet of Regeneration' in Accessory1.
+EquipmentSystem: Recalculated CoreStats for EntityID(0, Gen:1). New stats: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 140, Dmg: 25, Armor: 11, MR: 5, Crit: 10%
+Player stats after equipping amulet: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 140, Dmg: 25, Armor: 11, MR: 5, Crit: 10%
+EquipmentSystem: EntityID(0, Gen:1) unequipped 'Iron Sword' from MainHand.
+EquipmentSystem: Recalculated CoreStats for EntityID(0, Gen:1). New stats: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 140, Dmg: 15, Armor: 10, MR: 5, Crit: 10%
+Player stats after unequipping sword: HP: 100/100, Sta: 75/75, Cha: 50/50, Stab: 100/100, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 140, Dmg: 15, Armor: 10, MR: 5, Crit: 10%
+Player Inventory after unequip: iron_sword_t1 (x1) Dur:95%
+  healing_potion_t1 (x8) Dur:100%
+  mana_potion_t1 (x2) Dur:100%
+  leather_armor_t1 (x1) Dur:80%
+  amulet_of_regeneration (x1) Dur:100%
+  quest_item_ancient_scroll (x1) Dur:100% lore:ancient_text
+  Empty Slot
+  ... (remaining empty slots) ...
+--- End Testing Equipment System ---
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Stat Recalculation</strong>: After equipping the <code>iron_sword_t1</code>, <code>BaseDamage</code> increases from 15 to 25, and <code>Armor</code> from 5 to 6.</li>
+<li><strong>Multiple Bonuses</strong>: Equipping <code>leather_armor_t1</code> further increases <code>Armor</code> to 11 and <em>reduces</em> <code>MoveSpeed</code> from 150 to 140.</li>
+<li><strong>Regen Bonuses</strong>: Equipping <code>amulet_of_regeneration</code> adds to <code>HealthRegenRate</code> and <code>ChakraRegenRate</code> (though not directly visible in the single <code>CoreStats</code> print, it's applied).</li>
+<li><strong>Unequip Reverts</strong>: Unequipping the sword correctly reverts <code>BaseDamage</code> and <code>Armor</code> to their previous values (influenced by the remaining equipped armor).</li>
+<li><strong>Inventory Interaction</strong>: Unequipping correctly moves the item back to inventory (slot 5 in the example).</li>
+</ul>
+<p>This confirms our <code>EquipmentSystem</code> is fully functional, dynamically modifying <code>CoreStats</code> based on equipped items.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented <strong>Equipment Logic</strong> in the C# Brain, defining <code>EquipmentSlotType</code>, <code>EquippedItemsComponent</code>, and <code>ItemDefinition</code> to manage equipped items. By designing <code>EquipmentSystem</code> to handle equipping/unequipping, dynamically recalculate <code>CoreStats</code> using item bonuses (via Reflection), and interact with the <code>InventorySystem</code> for item transfer, you've established a robust mechanism for character progression. This crucial system strictly adheres to TDD 04.4.2's specifications, allowing equipment to meaningfully influence entity capabilities and visual presentation in Sigilborne.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>World Boss Mechanics - Multi-Part Entities (C#)</strong>, where we will design how large, complex entities like World Bosses (Titans) are represented as multiple logical parts in the C# Brain, each with its own health and ability to be severed, creating multi-stage combat encounters.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

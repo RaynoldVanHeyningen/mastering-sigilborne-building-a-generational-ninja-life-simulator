@@ -1,0 +1,2533 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../26-chapter-26/">
+      
+      
+        <link rel="next" href="../28-chapter-28/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-43-spell-data-architecture-data-driven-definitions-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-43-spell-data-architecture-data-driven-definitions-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-power-of-data-driven-spells" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Power of Data-Driven Spells
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-refining-spelldefinition-with-component-data-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Refining SpellDefinition with Component Data Structs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Refining SpellDefinition with Component Data Structs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-projectiledatacs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. ProjectileData.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-aoedatacs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. AoEData.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-statuseffectdatacs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. StatusEffectData.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-update-spelldefinitioncs-to-reference-new-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Update SpellDefinition.cs to Reference New Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-populating-spelldefinitions-with-procedural-subtype-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Populating SpellDefinitions with Procedural Subtype Modifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-testing-data-driven-spells" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Testing Data-Driven Spells
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-43-spell-data-architecture-data-driven-definitions-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-power-of-data-driven-spells" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Power of Data-Driven Spells
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-refining-spelldefinition-with-component-data-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Refining SpellDefinition with Component Data Structs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Refining SpellDefinition with Component Data Structs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-projectiledatacs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. ProjectileData.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-aoedatacs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. AoEData.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-statuseffectdatacs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. StatusEffectData.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-update-spelldefinitioncs-to-reference-new-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Update SpellDefinition.cs to Reference New Structs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-populating-spelldefinitions-with-procedural-subtype-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Populating SpellDefinitions with Procedural Subtype Modifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-testing-data-driven-spells" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Testing Data-Driven Spells
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)</h1>
+
+<h2 id="chapter-43-spell-data-architecture-data-driven-definitions-c">Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)</h2>
+<p>Our <code>ComboResolver</code> can now identify known <code>SpellDefinition</code>s. This chapter focuses on expanding the <code>SpellDefinition</code> itself to be truly data-driven, encompassing detailed parameters for projectiles, AoE effects, and status effects, as specified in TDD 02.3. This data-first approach is crucial for supporting thousands of unique spell variations, dynamic <code>Mythic Evolution</code> (C01), and <code>Forbidden Arts</code> (C04) without extensive code changes.</p>
+<h3 id="1-the-power-of-data-driven-spells">1. The Power of Data-Driven Spells</h3>
+<ul>
+<li><strong>Flexibility</strong>: New spells can be created, modified, or evolved simply by changing data, not code.</li>
+<li><strong>Scalability</strong>: Supports a vast number of unique techniques, from simple glyphs to legendary combos.</li>
+<li><strong>Moddability</strong>: Easier for future content creators or modders to add new magic.</li>
+<li><strong>GDD Alignment</strong>: Directly supports the GDD's vision of emergent, world-specific techniques and mythic transformations.</li>
+</ul>
+<h3 id="2-refining-spelldefinition-with-component-data-structs">2. Refining <code>SpellDefinition</code> with Component Data Structs</h3>
+<p>We briefly defined placeholder <code>ProjectileData</code>, <code>AoEData</code>, and <code>StatusEffectData</code> as nested classes in <code>SpellDefinition.cs</code>. While this works, for a truly ECS-lite approach, these should ideally be separate <code>structs</code> or <code>classes</code> that <code>SpellDefinition</code> references. This allows for cleaner data and potential reusability.</p>
+<p>Let's move these into their own files in <code>res://_Brain/Systems/Magic/Components/</code> and refine their structure.</p>
+<h4 id="21-projectiledatacs">2.1. <code>ProjectileData.cs</code></h4>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/Components/ProjectileData.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/Components/ProjectileData.cs
+using System;
+using Godot; // For Vector2
+
+namespace Sigilborne.Systems.Magic.Components
+{
+    /// &lt;summary&gt;
+    /// Data for a spell that spawns a projectile.
+    /// (TDD 02.3)
+    /// &lt;/summary&gt;
+    public struct ProjectileData
+    {
+        public float Speed;         // Speed of the projectile
+        public float Size;          // Visual size/radius for collision
+        public int Pierce;          // Number of enemies it can pierce through
+        public string VisualID;     // ID for the Body to know which visual to spawn (e.g., &quot;fireball_vfx&quot;)
+        public Vector2 Offset;      // Offset from caster's position
+
+        public ProjectileData(float speed, float size, int pierce, string visualId, Vector2 offset)
+        {
+            Speed = speed;
+            Size = size;
+            Pierce = pierce;
+            VisualID = visualId;
+            Offset = offset;
+        }
+
+        public override string ToString() =&gt; $&quot;Proj(Spd:{Speed},Sz:{Size},Vis:{VisualID})&quot;;
+    }
+}
+</code></pre>
+<h4 id="22-aoedatacs">2.2. <code>AoEData.cs</code></h4>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/Components/AoEData.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/Components/AoEData.cs
+using System;
+
+namespace Sigilborne.Systems.Magic.Components
+{
+    /// &lt;summary&gt;
+    /// Data for a spell that creates an Area of Effect (AoE).
+    /// (TDD 02.3)
+    /// &lt;/summary&gt;
+    public struct AoEData
+    {
+        public float Radius;        // Radius of the AoE
+        public float Falloff;       // How damage/effect diminishes with distance from center (0-1)
+        public string VisualID;     // ID for the Body to know which visual to spawn (e.g., &quot;explosion_vfx&quot;)
+        public float Duration;      // How long the AoE persists (if not instantaneous)
+
+        public AoEData(float radius, float falloff, string visualId, float duration = 0f)
+        {
+            Radius = radius;
+            Falloff = falloff;
+            VisualID = visualId;
+            Duration = duration;
+        }
+
+        public override string ToString() =&gt; $&quot;AoE(Rad:{Radius},Vis:{VisualID})&quot;;
+    }
+}
+</code></pre>
+<h4 id="23-statuseffectdatacs">2.3. <code>StatusEffectData.cs</code></h4>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/Components/StatusEffectData.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/Components/StatusEffectData.cs
+using System;
+
+namespace Sigilborne.Systems.Magic.Components
+{
+    /// &lt;summary&gt;
+    /// Data for a status effect applied by a spell.
+    /// (TDD 02.3)
+    /// &lt;/summary&gt;
+    public struct StatusEffectData
+    {
+        public string EffectID;     // Unique ID of the status effect (e.g., &quot;burn_t1&quot;, &quot;stun_short&quot;)
+        public float Duration;      // How long the effect lasts
+        public float Strength;      // Magnitude of the effect (e.g., damage per tick, slow amount)
+
+        public StatusEffectData(string effectId, float duration, float strength)
+        {
+            EffectID = effectId;
+            Duration = duration;
+            Strength = strength;
+        }
+
+        public override string ToString() =&gt; $&quot;Effect({EffectID},Dur:{Duration},Str:{Strength})&quot;;
+    }
+}
+</code></pre>
+<h4 id="24-update-spelldefinitioncs-to-reference-new-structs">2.4. Update <code>SpellDefinition.cs</code> to Reference New Structs</h4>
+<p>Now, modify <code>res://_Brain/Systems/Magic/SpellDefinition.cs</code> to use these new structs and remove the nested class definitions.</p>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/SpellDefinition.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Magic.Components; // Add this using directive
+
+namespace Sigilborne.Systems.Magic
+{
+    /// &lt;summary&gt;
+    /// Represents the static data defining a single spell or combo technique.
+    /// Spells are data-driven to allow for thousands of variations and mythic evolution.
+    /// (TDD 02.3)
+    /// &lt;/summary&gt;
+    public class SpellDefinition
+    {
+        public string ID { get; private set; }
+        public List&lt;GlyphConcept&gt; Sequence { get; private set; }
+        public float BaseDamage { get; private set; }
+        public float ChakraCost { get; private set; }
+        public float CastTime { get; private set; }
+        public float StabilityCost { get; private set; }
+        public float ResidueGeneration { get; private set; }
+        public bool IsMythic { get; private set; }
+        public bool IsForbidden { get; private set; }
+
+        // Components (ECS-lite) - Now using our dedicated structs (TDD 02.3)
+        // Use nullable types or default values if a spell doesn't always have these.
+        public ProjectileData? Projectile { get; private set; } // Nullable struct
+        public AoEData? Explosion { get; private set; } // Nullable struct
+        public List&lt;StatusEffectData&gt; Effects { get; private set; }
+
+        public SpellDefinition(string id, List&lt;GlyphConcept&gt; sequence, float baseDamage, float chakraCost, float castTime, float stabilityCost, float residueGeneration, bool isMythic, bool isForbidden, ProjectileData? projectile = null, AoEData? explosion = null, List&lt;StatusEffectData&gt; effects = null)
+        {
+            ID = id;
+            Sequence = sequence ?? new List&lt;GlyphConcept&gt;();
+            BaseDamage = baseDamage;
+            ChakraCost = chakraCost;
+            CastTime = castTime;
+            StabilityCost = stabilityCost;
+            ResidueGeneration = residueGeneration;
+            IsMythic = isMythic;
+            IsForbidden = isForbidden;
+            Projectile = projectile;
+            Explosion = explosion;
+            Effects = effects ?? new List&lt;StatusEffectData&gt;();
+        }
+
+        public override string ToString()
+        {
+            string seq = string.Join(&quot;-&gt;&quot;, Sequence.Select(c =&gt; c.ToString()));
+            string components = &quot;&quot;;
+            if (Projectile.HasValue) components += $&quot; {Projectile.Value}&quot;;
+            if (Explosion.HasValue) components += $&quot; {Explosion.Value}&quot;;
+            if (Effects.Any()) components += $&quot; {string.Join(&quot;, &quot;, Effects.Select(e =&gt; e.ToString()))}&quot;;
+
+            return $&quot;Spell: '{ID}' ({seq}) | Dmg: {BaseDamage}, Chakra: {ChakraCost}, StabCost: {StabilityCost}{components}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-populating-spelldefinitions-with-procedural-subtype-modifiers">3. Populating <code>SpellDefinition</code>s with Procedural Subtype Modifiers</h3>
+<p>Now that <code>WorldGlyphDefinition</code> has subtypes and modifiers, and <code>SpellDefinition</code> has component data, we can leverage this to create more dynamic spells.</p>
+<p>When we register a spell, its <code>BaseDamage</code>, <code>ChakraCost</code>, etc., and the parameters for <code>ProjectileData</code>, <code>AoEData</code>, <code>StatusEffectData</code> can be influenced by the <code>WorldGlyphDefinition</code>s that make up its sequence. This is the "emergent behavior" the GDD (B02.1) talks about.</p>
+<p>Let's modify <code>GameManager._Ready()</code> to register spells that incorporate these modifiers.</p>
+<p>Open <code>res://_Brain/Core/GameManager.cs</code> and modify the "Test Combo Resolver and Spell Definitions" section:</p>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside _Ready method)
+// ...
+        // --- Test Combo Resolver and Spell Definitions ---
+        GD.Print(&quot;\n--- Testing Combo Resolver and Spell Definitions ---&quot;);
+
+        // Get WorldGlyphDefinitions for our test symbols
+        WorldGlyphDefinition def0 = GlyphMap.GetDefinitionBySymbol(testSymbol); // Bloom
+        WorldGlyphDefinition def1 = GlyphMap.GetDefinitionBySymbol(testSymbol2); // Consume
+        WorldGlyphDefinition def2 = GlyphMap.GetDefinitionBySymbol(testSymbol3); // Pulse
+        WorldGlyphDefinition def3 = GlyphMap.GetDefinitionBySymbol(testSymbol4); // e.g., Bind
+
+        // Helper to get modifier value safely
+        Func&lt;WorldGlyphDefinition, GlyphModifierType, float, float&gt; getMod = (def, type, defaultValue) =&gt; 
+            def.Modifiers.TryGetValue(type, out float val) ? val : defaultValue;
+
+        // --- Spell 1: Bloom -&gt; Consume (Example: Toxic Projectile) ---
+        // Base stats for the spell
+        float baseDmg1 = 10f * getMod(def0, GlyphModifierType.DamageMultiplier, 1.0f) * getMod(def1, GlyphModifierType.DamageMultiplier, 1.0f);
+        float chakraCost1 = 5f + getMod(def0, GlyphModifierType.StabilityCost, 0f) + getMod(def1, GlyphModifierType.StabilityCost, 0f);
+        float stabilityCost1 = 0.1f + getMod(def0, GlyphModifierType.ResidueGeneration, 0f) + getMod(def1, GlyphModifierType.ResidueGeneration, 0f);
+
+        // Projectile data influenced by glyphs
+        ProjectileData projData1 = new ProjectileData(
+            speed: 200f * getMod(def0, GlyphModifierType.Speed, 1.0f),
+            size: 10f * getMod(def1, GlyphModifierType.Radius, 1.0f), // Consume might make it smaller/denser
+            pierce: 1,
+            visualId: &quot;projectile_basic&quot;,
+            offset: Vector2.Zero
+        );
+        List&lt;StatusEffectData&gt; effects1 = new List&lt;StatusEffectData&gt;();
+        if (def0.Subtype == GlyphSubtype.ToxicBloom) effects1.Add(new StatusEffectData(&quot;poison_t1&quot;, getMod(def0, GlyphModifierType.Duration, 3f), getMod(def0, GlyphModifierType.DamageMultiplier, 1f)));
+
+        List&lt;GlyphConcept&gt; spell1Sequence = new List&lt;GlyphConcept&gt; { def0.Concept, def1.Concept };
+        SpellDefinition spell1 = new SpellDefinition(&quot;Test_BloomConsume&quot;, spell1Sequence, baseDmg1, chakraCost1, 0.5f, stabilityCost1, 0.05f, false, false,
+                                                    projectile: projData1,
+                                                    effects: effects1);
+        ComboResolver.RegisterSpell(spell1);
+
+        // --- Spell 2: Bloom -&gt; Consume -&gt; Pulse (Example: Healing AoE) ---
+        float baseHeal2 = 15f * getMod(def0, GlyphModifierType.HealingAmount, 1.0f) + getMod(def2, GlyphModifierType.HealingAmount, 0f); // Pulse could add healing
+        float chakraCost2 = 15f + getMod(def0, GlyphModifierType.StabilityCost, 0f) + getMod(def1, GlyphModifierType.StabilityCost, 0f) + getMod(def2, GlyphModifierType.StabilityCost, 0f);
+        float stabilityCost2 = 0.3f + getMod(def0, GlyphModifierType.ResidueGeneration, 0f) + getMod(def1, GlyphModifierType.ResidueGeneration, 0f) + getMod(def2, GlyphModifierType.ResidueGeneration, 0f);
+
+        AoEData aoeData2 = new AoEData(
+            radius: 50f * getMod(def0, GlyphModifierType.Radius, 1.0f) * getMod(def2, GlyphModifierType.Radius, 1.0f),
+            falloff: 0.5f,
+            visualId: &quot;aoe_healing_pulse&quot;,
+            duration: getMod(def0, GlyphModifierType.Duration, 0f) + getMod(def2, GlyphModifierType.Duration, 0f) // If pulse has duration
+        );
+        List&lt;StatusEffectData&gt; effects2 = new List&lt;StatusEffectData&gt;();
+        if (def0.Subtype == GlyphSubtype.HealingGrowth) effects2.Add(new StatusEffectData(&quot;regen_t1&quot;, aoeData2.Duration, getMod(def0, GlyphModifierType.HealingAmount, 1f)));
+
+        List&lt;GlyphConcept&gt; spell2Sequence = new List&lt;GlyphConcept&gt; { def0.Concept, def1.Concept, def2.Concept };
+        SpellDefinition spell2 = new SpellDefinition(&quot;Test_BloomConsumePulse&quot;, spell2Sequence, baseHeal2, chakraCost2, 1.0f, stabilityCost2, 0.1f, false, false,
+                                                    explosion: aoeData2, // AoE for healing
+                                                    effects: effects2);
+        ComboResolver.RegisterSpell(spell2);
+
+        // --- Spell 3: Pulse -&gt; Bloom (Example: Stun/Slow) ---
+        float baseDmg3 = 15f * getMod(def2, GlyphModifierType.DamageMultiplier, 1.0f) * getMod(def0, GlyphModifierType.DamageMultiplier, 1.0f);
+        float chakraCost3 = 8f + getMod(def2, GlyphModifierType.StabilityCost, 0f) + getMod(def0, GlyphModifierType.StabilityCost, 0f);
+        float stabilityCost3 = 0.2f + getMod(def2, GlyphModifierType.ResidueGeneration, 0f) + getMod(def0, GlyphModifierType.ResidueGeneration, 0f);
+
+        List&lt;StatusEffectData&gt; effects3 = new List&lt;StatusEffectData&gt; { new StatusEffectData(&quot;stun_short&quot;, 1.0f, 1.0f) };
+        if (def2.Subtype == GlyphSubtype.Shockwave) effects3.Add(new StatusEffectData(&quot;slow_t1&quot;, getMod(def2, GlyphModifierType.Duration, 3f), getMod(def2, GlyphModifierType.Speed, 1f)));
+
+        List&lt;GlyphConcept&gt; spell3Sequence = new List&lt;GlyphConcept&gt; { def2.Concept, def0.Concept };
+        SpellDefinition spell3 = new SpellDefinition(&quot;Test_PulseBloom&quot;, spell3Sequence, baseDmg3, chakraCost3, 0.7f, stabilityCost3, 0.0f, false, false,
+                                                    effects: effects3);
+        ComboResolver.RegisterSpell(spell3);
+
+        GD.Print(&quot;\n--- Combo Resolver Trie Structure ---&quot;);
+        ComboResolver.PrintTrie();
+        GD.Print(&quot;-------------------------------------\n&quot;);
+
+        GD.Print(&quot;--- End Testing Combo Resolver and Spell Definitions ---\n&quot;);
+// ...
+</code></pre>
+<p><strong>Key Changes in <code>GameManager._Ready()</code>:</strong></p>
+<ul>
+<li><strong><code>getMod</code> Helper</strong>: A lambda function <code>getMod</code> is used to safely retrieve modifier values from <code>WorldGlyphDefinition.Modifiers</code>, providing a default if the modifier isn't present.</li>
+<li><strong>Dynamic Spell Stats</strong>: <code>baseDmg</code>, <code>chakraCost</code>, <code>stabilityCost</code>, and the parameters for <code>ProjectileData</code>, <code>AoEData</code>, and <code>StatusEffectData</code> are now calculated by multiplying or adding values from the <code>WorldGlyphDefinition</code>'s <code>Modifiers</code>. This makes each spell's numerical properties unique to the current world's glyph definitions.</li>
+<li><strong><code>ProjectileData</code>, <code>AoEData</code>, <code>StatusEffectData</code> Instantiation</strong>: Now correctly uses the new struct constructors.</li>
+</ul>
+<h3 id="4-testing-data-driven-spells">4. Testing Data-Driven Spells</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for "Testing Combo Resolver and Spell Definitions".<ul>
+<li>The <code>Spell: 'ID' (...)</code> string representation will now include the details of the <code>Projectile</code>, <code>AoE</code>, and <code>StatusEffect</code> data.</li>
+<li>Crucially, the <code>Dmg</code>, <code>Chakra</code>, <code>StabCost</code>, and parameters within the component data (e.g., <code>Proj(Spd:X,Sz:Y)</code>) will reflect the values influenced by the <code>GlyphModifierType</code>s of the specific <code>WorldGlyphDefinition</code>s in your current world seed. These numbers will change if you change the <code>worldSeed</code> in <code>GameManager.InitializeSystems()</code>.</li>
+</ul>
+</li>
+</ol>
+<p>This output demonstrates that your <code>SpellDefinition</code>s are truly data-driven, with their properties dynamically influenced by the world's unique glyph mappings and their associated subtypes and modifiers.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully expanded Sigilborne's <code>SpellDefinition</code> to be truly <strong>data-driven</strong>, incorporating detailed parameters for projectiles, AoE effects, and status effects using dedicated structs. By leveraging the procedural <code>GlyphSubtype</code>s and <code>Modifiers</code> from <code>WorldGlyphMap</code> to dynamically calculate spell properties during registration, you've established a powerful mechanism for creating thousands of unique technique variations. This crucial step strictly adheres to TDD 02.3's specifications, laying the groundwork for <code>Mythic Evolution</code> and <code>Forbidden Arts</code> through flexible, data-centric spell definitions.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on the <strong>Casting State Machine</strong>, implementing the player's casting flow (Idle, Channeling, Casting, Recovery) in the C# Brain, which will govern when spells can be input and executed, and how chakra costs and stability are managed.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

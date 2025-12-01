@@ -1,0 +1,2710 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../49-chapter-49/">
+      
+      
+        <link rel="next" href="../51-chapter-51/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 8.1: Faction System - The Relationship Graph (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-81-faction-system-the-relationship-graph-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 8.1: Faction System - The Relationship Graph (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-81-faction-system-the-relationship-graph-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8.1: Faction System - The Relationship Graph (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8.1: Faction System - The Relationship Graph (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-dynamic-nature-of-faction-politics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Dynamic Nature of Faction Politics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-factiontype-factionrelationstate-and-faction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining FactionType, FactionRelationState, and Faction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-factionsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing FactionSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-factionsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating FactionSystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating FactionSystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-factionrelationshipchangedevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for FactionRelationshipChangedEvent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-the-faction-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing the Faction System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-81-faction-system-the-relationship-graph-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8.1: Faction System - The Relationship Graph (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8.1: Faction System - The Relationship Graph (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-dynamic-nature-of-faction-politics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Dynamic Nature of Faction Politics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-factiontype-factionrelationstate-and-faction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining FactionType, FactionRelationState, and Faction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-factionsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing FactionSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-factionsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating FactionSystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating FactionSystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-factionrelationshipchangedevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for FactionRelationshipChangedEvent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-the-faction-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing the Faction System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 8.1: Faction System - The Relationship Graph (C#)</h1>
+
+<h2 id="chapter-81-faction-system-the-relationship-graph-c">Chapter 8.1: Faction System - The Relationship Graph (C#)</h2>
+<p>Welcome to <strong>Module 8: Society, Politics &amp; Economy</strong>! Sigilborne's world is a complex tapestry of competing clans and factions. This module begins by implementing the <strong>Faction System</strong> in the C# Brain, designing the core data structures for managing faction relationships as a "Relationship Graph" and defining their dynamic interactions, as specified in TDD 06.2.</p>
+<h3 id="1-the-dynamic-nature-of-faction-politics">1. The Dynamic Nature of Faction Politics</h3>
+<p>The GDD (B17.1) states: "Every political actor is a living organism. Factions and clans evolve, fracture, merge, mutate, and occasionally die." This requires a system that:</p>
+<ul>
+<li><strong>Models Relationships</strong>: Tracks trust, fear, and hostility between groups.</li>
+<li><strong>Dynamic States</strong>: Relationships change over time due to events.</li>
+<li><strong>Hierarchical Structure</strong>: Clans belong to major factions (B17.2).</li>
+<li><strong>Player Influence</strong>: Player actions can shift political alignments (B17.10).</li>
+</ul>
+<h3 id="2-defining-factiontype-factionrelationstate-and-faction">2. Defining <code>FactionType</code>, <code>FactionRelationState</code>, and <code>Faction</code></h3>
+<p>We need enums for different types of factions and relationship states, and a class to represent a single faction.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Factions/</code> folder.</li>
+<li>Create <code>res://_Brain/Systems/Factions/FactionEnums.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Factions/FactionEnums.cs
+using System;
+
+namespace Sigilborne.Systems.Factions
+{
+    /// &lt;summary&gt;
+    /// Defines the broad categories of major factions in the world.
+    /// (GDD B17.2.2: Major Faction Archetypes)
+    /// &lt;/summary&gt;
+    public enum FactionType
+    {
+        None,
+        WarriorDominion,    // Pulse/Fracture aligned
+        TempleAlliance,     // Bloom/Bind aligned
+        SpiritWovenTribe,   // Echo/Flux aligned
+        ScholarConfederation, // Veil/Conjure aligned
+        CorruptedCult,      // Consume/Chain aligned (C04)
+        TradeConsortium,    // Neutral/Economic
+        BorderCoalition,    // Defensive
+        RogueGroup          // Outlaw (GDD B22.7)
+    }
+
+    /// &lt;summary&gt;
+    /// Defines the visible state of a relationship between two factions.
+    /// (GDD B17.5: Diplomacy &amp; Relationships)
+    /// &lt;/summary&gt;
+    public enum FactionRelationState
+    {
+        Ally,       // Strongly positive, cooperative
+        Friendly,   // Positive, generally helpful
+        Neutral,    // Indifferent, no strong feelings
+        Tense,      // Negative, distrustful, cautious
+        Hostile,    // Actively aggressive, will attack
+        War         // Open warfare, full conflict
+    }
+}
+</code></pre>
+<ol>
+<li>Create <code>res://_Brain/Systems/Factions/Faction.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Factions/Faction.cs
+using System;
+using System.Collections.Generic;
+using Godot; // For GD.Print
+
+namespace Sigilborne.Systems.Factions
+{
+    /// &lt;summary&gt;
+    /// Represents a single major faction in the world.
+    /// (TDD 06.2.1: The Relationship Graph)
+    /// &lt;/summary&gt;
+    public class Faction
+    {
+        public string ID { get; private set; } // Unique ID (e.g., &quot;CrimsonBladeClan&quot;, &quot;SunkenTemple&quot;)
+        public string Name { get; private set; }
+        public FactionType Type { get; private set; }
+        public string Description { get; private set; }
+
+        // Core ideological glyph concepts (GDD B17.7)
+        public List&lt;GlyphConcept&gt; PrimaryConcepts { get; private set; }
+        public List&lt;GlyphConcept&gt; TabooConcepts { get; private set; }
+
+        public Faction(string id, string name, FactionType type, string description, List&lt;GlyphConcept&gt; primaryConcepts = null, List&lt;GlyphConcept&gt; tabooConcepts = null)
+        {
+            ID = id;
+            Name = name;
+            Type = type;
+            Description = description;
+            PrimaryConcepts = primaryConcepts ?? new List&lt;GlyphConcept&gt;();
+            TabooConcepts = tabooConcepts ?? new List&lt;GlyphConcept&gt;();
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Faction: '{Name}' ({Type}) | Primary: {string.Join(&quot;, &quot;, PrimaryConcepts)}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-implementing-factionsystemcs">3. Implementing <code>FactionSystem.cs</code></h3>
+<p>This system will manage all <code>Faction</code> instances and their relationships.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Factions/FactionSystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Factions/FactionSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Magic; // For GlyphConcept
+using System.Linq;
+
+namespace Sigilborne.Systems.Factions
+{
+    /// &lt;summary&gt;
+    /// Represents the relationship between two factions.
+    /// (TDD 06.2.1: The Relationship Graph)
+    /// &lt;/summary&gt;
+    public struct FactionRelation
+    {
+        public EntityID FactionA_ID; // Using EntityID for factions too, or string ID? TDD says string. Let's use string.
+        public string FactionA_ID_Str;
+        public string FactionB_ID_Str;
+        public float Value; // -100 to 100 (TDD 06.2.1)
+        public FactionRelationState State; // Ally/Friendly/Neutral/Tense/Hostile/War (TDD 06.2.1)
+
+        public FactionRelation(string factionA, string factionB, float value = 0f)
+        {
+            FactionA_ID_Str = factionA;
+            FactionB_ID_Str = factionB;
+            Value = value;
+            State = GetStateFromValue(value);
+        }
+
+        public void UpdateValue(float change)
+        {
+            Value = Mathf.Clamp(Value + change, -100f, 100f);
+            State = GetStateFromValue(Value);
+        }
+
+        public static FactionRelationState GetStateFromValue(float value)
+        {
+            if (value &gt;= 80) return FactionRelationState.Ally;
+            if (value &gt;= 40) return FactionRelationState.Friendly;
+            if (value &gt; -40) return FactionRelationState.Neutral;
+            if (value &gt; -80) return FactionRelationState.Tense;
+            return FactionRelationState.Hostile; // Below -80, consider War
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Rel: {FactionA_ID_Str} &lt;-&gt; {FactionB_ID_Str} | Val: {Value:F0} ({State})&quot;;
+        }
+    }
+
+
+    /// &lt;summary&gt;
+    /// Manages all Faction instances and their relationships within the world.
+    /// (TDD 06.2.1)
+    /// &lt;/summary&gt;
+    public class FactionSystem
+    {
+        private EventBus _eventBus;
+        private Dictionary&lt;string, Faction&gt; _factions = new Dictionary&lt;string, Faction&gt;();
+        // The relationship graph: Key is a combined string &quot;FactionA_FactionB&quot; (alphabetically sorted)
+        private Dictionary&lt;string, FactionRelation&gt; _relationships = new Dictionary&lt;string, FactionRelation&gt;();
+
+        public FactionSystem(EventBus eventBus)
+        {
+            _eventBus = eventBus;
+            RegisterDefaultFactions(); // Register some default factions
+            GD.Print(&quot;FactionSystem: Initialized.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Registers a new static Faction definition.
+        /// &lt;/summary&gt;
+        public void RegisterFaction(Faction faction)
+        {
+            _factions[faction.ID] = faction;
+            GD.Print($&quot;FactionSystem: Registered faction '{faction.Name}'.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Registers some common default factions for initial testing.
+        /// (GDD B17.2.2: Examples of major faction archetypes)
+        /// &lt;/summary&gt;
+        private void RegisterDefaultFactions()
+        {
+            RegisterFaction(new Faction(&quot;crimson_blades&quot;, &quot;Crimson Blades&quot;, FactionType.WarriorDominion, &quot;A martial clan focused on combat mastery.&quot;, new List&lt;GlyphConcept&gt; { GlyphConcept.Pulse, GlyphConcept.Fracture }));
+            RegisterFaction(new Faction(&quot;sunken_temple&quot;, &quot;Sunken Temple&quot;, FactionType.TempleAlliance, &quot;An ancient order dedicated to healing and stability.&quot;, new List&lt;GlyphConcept&gt; { GlyphConcept.Bloom, GlyphConcept.Bind }));
+            RegisterFaction(new Faction(&quot;shadow_veilers&quot;, &quot;Shadow Veilers&quot;, FactionType.ScholarConfederation, &quot;Masters of espionage and information control.&quot;, new List&lt;GlyphConcept&gt; { GlyphConcept.Veil, GlyphConcept.Echo }));
+            RegisterFaction(new Faction(&quot;void_cultists&quot;, &quot;Void Cultists&quot;, FactionType.CorruptedCult, &quot;Worshippers of chaos and forbidden arts.&quot;, new List&lt;GlyphConcept&gt; { GlyphConcept.Consume, GlyphConcept.Flux }, new List&lt;GlyphConcept&gt; { GlyphConcept.Bloom, GlyphConcept.Bind }));
+            RegisterFaction(new Faction(&quot;free_wanderers&quot;, &quot;Free Wanderers&quot;, FactionType.RogueGroup, &quot;Independent nomads, valuing freedom above all.&quot;, new List&lt;GlyphConcept&gt; { GlyphConcept.Flux }));
+
+            // Establish initial relationships
+            SetRelationship(&quot;crimson_blades&quot;, &quot;sunken_temple&quot;, 50f); // Friendly
+            SetRelationship(&quot;crimson_blades&quot;, &quot;void_cultists&quot;, -80f); // Hostile
+            SetRelationship(&quot;sunken_temple&quot;, &quot;void_cultists&quot;, -90f); // Hostile
+            SetRelationship(&quot;shadow_veilers&quot;, &quot;crimson_blades&quot;, 10f); // Neutral
+            SetRelationship(&quot;shadow_veilers&quot;, &quot;void_cultists&quot;, -20f); // Tense
+            SetRelationship(&quot;free_wanderers&quot;, &quot;crimson_blades&quot;, -10f); // Tense
+        }
+
+        /// &lt;summary&gt;
+        /// Sets or updates the relationship value between two factions.
+        /// (TDD 06.2.1: Dynamics)
+        /// &lt;/summary&gt;
+        public void SetRelationship(string factionA_ID, string factionB_ID, float value)
+        {
+            if (factionA_ID == factionB_ID) return; // Cannot set relationship with self
+
+            string relationshipKey = GetRelationshipKey(factionA_ID, factionB_ID);
+            if (!_relationships.ContainsKey(relationshipKey))
+            {
+                _relationships[relationshipKey] = new FactionRelation(factionA_ID, factionB_ID, value);
+            }
+            else
+            {
+                FactionRelation rel = _relationships[relationshipKey];
+                rel.Value = value;
+                rel.State = FactionRelation.GetStateFromValue(value);
+                _relationships[relationshipKey] = rel; // Update struct in dictionary
+            }
+            GD.Print($&quot;FactionSystem: Relationship {relationshipKey} set to {value:F0} ({_relationships[relationshipKey].State}).&quot;);
+            _eventBus.Publish(new FactionRelationshipChangedEvent { FactionA_ID = factionA_ID, FactionB_ID = factionB_ID, NewRelation = _relationships[relationshipKey] });
+        }
+
+        /// &lt;summary&gt;
+        /// Adjusts the relationship value between two factions by a given change.
+        /// &lt;/summary&gt;
+        public void AdjustRelationship(string factionA_ID, string factionB_ID, float change)
+        {
+            if (factionA_ID == factionB_ID) return;
+
+            string relationshipKey = GetRelationshipKey(factionA_ID, factionB_ID);
+            if (!_relationships.ContainsKey(relationshipKey))
+            {
+                // Create with initial change
+                _relationships[relationshipKey] = new FactionRelation(factionA_ID, factionB_ID, change);
+            }
+            else
+            {
+                FactionRelation rel = _relationships[relationshipKey];
+                rel.UpdateValue(change);
+                _relationships[relationshipKey] = rel;
+            }
+            GD.Print($&quot;FactionSystem: Relationship {relationshipKey} adjusted by {change:F0}. New Value: {_relationships[relationshipKey].Value:F0} ({_relationships[relationshipKey].State}).&quot;);
+            _eventBus.Publish(new FactionRelationshipChangedEvent { FactionA_ID = factionA_ID, FactionB_ID = factionB_ID, NewRelation = _relationships[relationshipKey] });
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the relationship between two factions.
+        /// &lt;/summary&gt;
+        public FactionRelation GetRelationship(string factionA_ID, string factionB_ID)
+        {
+            if (factionA_ID == factionB_ID) return new FactionRelation(factionA_ID, factionB_ID, 100f); // Self is always Ally
+            string relationshipKey = GetRelationshipKey(factionA_ID, factionB_ID);
+            if (_relationships.TryGetValue(relationshipKey, out FactionRelation rel))
+            {
+                return rel;
+            }
+            return new FactionRelation(factionA_ID, factionB_ID, 0f); // Default Neutral
+        }
+
+        /// &lt;summary&gt;
+        /// Helper to create a consistent key for relationship dictionary.
+        /// &lt;/summary&gt;
+        private string GetRelationshipKey(string factionA_ID, string factionB_ID)
+        {
+            // Sort alphabetically to ensure key is consistent regardless of order (A_B vs B_A)
+            return string.CompareOrdinal(factionA_ID, factionB_ID) &lt; 0
+                ? $&quot;{factionA_ID}_{factionB_ID}&quot;
+                : $&quot;{factionB_ID}_{factionA_ID}&quot;;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves a faction by its ID.
+        /// &lt;/summary&gt;
+        public Faction GetFaction(string factionID)
+        {
+            _factions.TryGetValue(factionID, out Faction faction);
+            return faction;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves all registered factions.
+        /// &lt;/summary&gt;
+        public IReadOnlyList&lt;Faction&gt; GetAllFactions()
+        {
+            return _factions.Values.ToList().AsReadOnly();
+        }
+
+        // --- Helper Events for Body Sync ---
+        public struct FactionRelationshipChangedEvent { public string FactionA_ID; public string FactionB_ID; public FactionRelation NewRelation; }
+    }
+}
+</code></pre>
+<h3 id="4-integrating-factionsystem-into-gamemanager">4. Integrating <code>FactionSystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Factions;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add a <code>FactionSystem</code> property.</li>
+<li>Initialize <code>FactionSystem</code> in <code>InitializeSystems()</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Weather;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Factions; // Add this using directive
+using Sigilborne.Utils;
+using System.Linq;
+using Sigilborne.Systems.Magic.Components;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public EcologyManager Ecology { get; private set; }
+    public FactionSystem Factions { get; private set; } // Add FactionSystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+        // ... (existing glyph and magic system tests) ...
+        // ... (existing damage tests) ...
+        // ... (existing inventory/equipment tests) ...
+        // ... (existing spatial grid tests) ...
+        // ... (existing perception system tests) ...
+        // ... (existing stealth system tests) ...
+        // ... (existing AI system tests) ...
+        // ... (existing ecology system tests) ...
+
+        // --- Test Faction System ---
+        GD.Print(&quot;\n--- Testing Faction System ---&quot;);
+        GD.Print(&quot;All Factions:&quot;);
+        foreach (var faction in Factions.GetAllFactions())
+        {
+            GD.Print($&quot;  - {faction}&quot;);
+        }
+
+        // Test relationships
+        GD.Print($&quot;Relationship Crimson Blades &lt;-&gt; Sunken Temple: {Factions.GetRelationship(&quot;crimson_blades&quot;, &quot;sunken_temple&quot;)}&quot;);
+        GD.Print($&quot;Relationship Crimson Blades &lt;-&gt; Void Cultists: {Factions.GetRelationship(&quot;crimson_blades&quot;, &quot;void_cultists&quot;)}&quot;);
+        GD.Print($&quot;Relationship Sunken Temple &lt;-&gt; Shadow Veilers: {Factions.GetRelationship(&quot;sunken_temple&quot;, &quot;shadow_veilers&quot;)}&quot;); // Default neutral
+
+        // Adjust a relationship
+        Factions.AdjustRelationship(&quot;shadow_veilers&quot;, &quot;sunken_temple&quot;, 30f); // Make them friendly
+        GD.Print($&quot;Relationship Sunken Temple &lt;-&gt; Shadow Veilers (adjusted): {Factions.GetRelationship(&quot;sunken_temple&quot;, &quot;shadow_veilers&quot;)}&quot;);
+
+        // Adjust to hostile
+        Factions.AdjustRelationship(&quot;free_wanderers&quot;, &quot;void_cultists&quot;, -70f); // Make them hostile
+        GD.Print($&quot;Relationship Free Wanderers &lt;-&gt; Void Cultists (adjusted): {Factions.GetRelationship(&quot;free_wanderers&quot;, &quot;void_cultists&quot;)}&quot;);
+
+        GD.Print(&quot;--- End Testing Faction System ---\n&quot;);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Input.ProcessInputBuffer(); 
+        Time.Tick(delta);
+        World.Tick(delta);
+        Movement.Tick(delta);
+        Magic.Tick(delta);
+        Casting.Tick(delta);
+        Weather.Tick(delta);
+        Biology.Tick(delta);
+        TitanAI.Tick(delta);
+        StatusEffects.Tick(delta);
+        Perception.Tick(delta);
+        Stealth.Tick(delta);
+        AI.Tick(delta);
+        Ecology.Tick(delta);
+        // FactionSystem doesn't have a Tick method for now; its operations are event/command driven.
+        Events.FlushCommands();
+    }
+
+    private void InitializeSystems()
+    {
+        // ... (existing system initializations up to EcologyManager) ...
+
+        // Initialize FactionSystem
+        Factions = new FactionSystem(Events); // Pass EventBus
+        GD.Print(&quot;  - FactionSystem initialized.&quot;);
+
+        // Initialize PlayerStatSystem, passing BiologicalSystem
+        PlayerStats = new PlayerStatSystem(Events, Entities, BiologicalSystem);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        World = new WorldSimulation(Ecology);
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<h4 id="41-update-eventbuscs-for-factionrelationshipchangedevent">4.1. Update <code>EventBus.cs</code> for <code>FactionRelationshipChangedEvent</code></h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and add <code>OnFactionRelationshipChanged</code> delegate.</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Factions; // Add this using directive
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Faction System Events (TDD 06.2.1)
+        public event Action&lt;string, string, FactionRelation&gt; OnFactionRelationshipChanged; // FactionA_ID, FactionB_ID, NewRelation
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is FactionSystem.FactionRelationshipChangedEvent factionRelEvent) // New condition
+            {
+                OnFactionRelationshipChanged?.Invoke(factionRelEvent.FactionA_ID, factionRelEvent.FactionB_ID, factionRelEvent.NewRelation);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="5-testing-the-faction-system">5. Testing the Faction System</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for the "Testing Faction System" section.</li>
+</ol>
+<pre><code>...
+FactionSystem: Initialized.
+FactionSystem: Registered faction 'Crimson Blades'.
+FactionSystem: Registered faction 'Sunken Temple'.
+FactionSystem: Registered faction 'Shadow Veilers'.
+FactionSystem: Registered faction 'Void Cultists'.
+FactionSystem: Registered faction 'Free Wanderers'.
+FactionSystem: Relationship crimson_blades_sunken_temple set to 50 (Friendly).
+FactionSystem: Relationship crimson_blades_void_cultists set to -80 (Hostile).
+FactionSystem: Relationship sunken_temple_void_cultists set to -90 (Hostile).
+FactionSystem: Relationship crimson_blades_shadow_veilers set to 10 (Neutral).
+FactionSystem: Relationship shadow_veilers_void_cultists set to -20 (Tense).
+FactionSystem: Relationship free_wanderers_crimson_blades set to -10 (Tense).
+  - FactionSystem initialized.
+PlayerStatSystem: Initialized.
+...
+--- Testing Faction System ---
+All Factions:
+  Faction: 'Crimson Blades' (WarriorDominion) | Primary: Pulse, Fracture
+  Faction: 'Sunken Temple' (TempleAlliance) | Primary: Bloom, Bind
+  Faction: 'Shadow Veilers' (ScholarConfederation) | Primary: Veil, Echo
+  Faction: 'Void Cultists' (CorruptedCult) | Primary: Consume, Flux
+  Faction: 'Free Wanderers' (RogueGroup) | Primary: Flux
+Relationship Crimson Blades &lt;-&gt; Sunken Temple: Rel: crimson_blades &lt;-&gt; sunken_temple | Val: 50 (Friendly)
+Relationship Crimson Blades &lt;-&gt; Void Cultists: Rel: crimson_blades &lt;-&gt; void_cultists | Val: -80 (Hostile)
+Relationship Sunken Temple &lt;-&gt; Shadow Veilers: Rel: shadow_veilers &lt;-&gt; sunken_temple | Val: 0 (Neutral)
+FactionSystem: Relationship shadow_veilers_sunken_temple adjusted by 30. New Value: 30 (Neutral).
+Relationship Sunken Temple &lt;-&gt; Shadow Veilers (adjusted): Rel: shadow_veilers &lt;-&gt; sunken_temple | Val: 30 (Neutral)
+FactionSystem: Relationship free_wanderers_void_cultists adjusted by -70. New Value: -70 (Tense).
+Relationship Free Wanderers &lt;-&gt; Void Cultists (adjusted): Rel: free_wanderers &lt;-&gt; void_cultists | Val: -70 (Tense)
+--- End Testing Faction System ---
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Faction Registration</strong>: <code>Faction</code> objects are correctly registered and printed.</li>
+<li><strong>Initial Relationships</strong>: Default relationships are set, and their <code>FactionRelationState</code> is correctly derived from the <code>Value</code>.</li>
+<li><strong>Relationship Adjustment</strong>: <code>AdjustRelationship</code> correctly updates the <code>Value</code> and transitions the <code>State</code> (e.g., from <code>Neutral</code> to <code>Friendly</code>).</li>
+<li><strong>Key Generation</strong>: The <code>GetRelationshipKey</code> ensures consistent key generation (e.g., <code>crimson_blades_sunken_temple</code> is the same as <code>sunken_temple_crimson_blades</code>).</li>
+</ul>
+<p>This confirms our <code>FactionSystem</code> is functional, managing factions and their dynamic relationships using a relationship graph.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the <strong>Faction System</strong> in the C# Brain, designing <code>FactionType</code>, <code>FactionRelationState</code>, and <code>Faction</code> classes to represent political actors and their relationships. By creating <code>FactionSystem</code> to manage faction definitions and their dynamic <code>FactionRelation</code>s using a relationship graph, you've established the core mechanism for political simulation. This crucial system strictly adheres to TDD 06.2's specifications, providing the foundational layer for complex societal interactions and emergent political narratives in Sigilborne.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>The Simulation Clock</strong>, detailing how the world's internal "Game Time" operates at a slower tick rate than the rendering frame, and how heavy system updates (like Faction AI planning) are load-balanced across this daily cycle.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

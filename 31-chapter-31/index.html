@@ -1,0 +1,3429 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../30-chapter-30/">
+      
+      
+        <link rel="next" href="../32-chapter-32/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 5.2: Core Stats (Struct) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-52-core-stats-struct" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 5.2: Core Stats (Struct)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-52-core-stats-struct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5.2: Core Stats (Struct)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5.2: Core Stats (Struct)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-need-for-a-unified-core-stats-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Need for a Unified Core Stats Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-corestatscs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining CoreStats.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-refactoring-biologicalsystemcs-to-use-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Refactoring BiologicalSystem.cs to use CoreStats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-refactoring-playerstatsystemcs-to-use-biologicalsystems-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Refactoring PlayerStatSystem.cs to use BiologicalSystem's CoreStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Refactoring PlayerStatSystem.cs to use BiologicalSystem&#39;s CoreStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-gamemanager-to-pass-biologicalsystem-to-playerstatsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update GameManager to Pass BiologicalSystem to PlayerStatSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-update-eventbuscs-for-new-playerstatsystem-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Update EventBus.cs for New PlayerStatSystem Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-refactoring-movementsystemcs-for-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Refactoring MovementSystem.cs for CoreStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Refactoring MovementSystem.cs for CoreStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-add-trygetcorestats-to-biologicalsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Add TryGetCoreStats to BiologicalSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-update-gamemanager-to-pass-biologicalsystem-to-movementsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Update GameManager to Pass BiologicalSystem to MovementSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-refactor-magicsystemcs-for-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Refactor MagicSystem.cs for CoreStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Refactor MagicSystem.cs for CoreStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-update-castingsystemcs-to-use-biologicalsystems-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Update CastingSystem.cs to use BiologicalSystem's CoreStats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-update-gamemanager-to-pass-biologicalsystem-to-castingsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Update GameManager to Pass BiologicalSystem to CastingSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-update-debug-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Update Debug Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-update-gdscript-hud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Update GDScript HUD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-testing-the-casting-state-machine-with-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Testing the Casting State Machine with CoreStats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-52-core-stats-struct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5.2: Core Stats (Struct)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5.2: Core Stats (Struct)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-need-for-a-unified-core-stats-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Need for a Unified Core Stats Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-corestatscs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining CoreStats.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-refactoring-biologicalsystemcs-to-use-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Refactoring BiologicalSystem.cs to use CoreStats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-refactoring-playerstatsystemcs-to-use-biologicalsystems-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Refactoring PlayerStatSystem.cs to use BiologicalSystem's CoreStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Refactoring PlayerStatSystem.cs to use BiologicalSystem&#39;s CoreStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-gamemanager-to-pass-biologicalsystem-to-playerstatsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update GameManager to Pass BiologicalSystem to PlayerStatSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-update-eventbuscs-for-new-playerstatsystem-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Update EventBus.cs for New PlayerStatSystem Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-refactoring-movementsystemcs-for-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Refactoring MovementSystem.cs for CoreStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Refactoring MovementSystem.cs for CoreStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-add-trygetcorestats-to-biologicalsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Add TryGetCoreStats to BiologicalSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-update-gamemanager-to-pass-biologicalsystem-to-movementsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Update GameManager to Pass BiologicalSystem to MovementSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-refactor-magicsystemcs-for-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Refactor MagicSystem.cs for CoreStats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Refactor MagicSystem.cs for CoreStats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-update-castingsystemcs-to-use-biologicalsystems-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Update CastingSystem.cs to use BiologicalSystem's CoreStats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-update-gamemanager-to-pass-biologicalsystem-to-castingsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Update GameManager to Pass BiologicalSystem to CastingSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-update-debug-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Update Debug Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-update-gdscript-hud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Update GDScript HUD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-testing-the-casting-state-machine-with-corestats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Testing the Casting State Machine with CoreStats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 5.2: Core Stats (Struct)</h1>
+
+<h2 id="chapter-52-core-stats-struct">Chapter 5.2: Core Stats (Struct)</h2>
+<p>In Sigilborne, every living entity (player, NPC, animal) possesses a set of fundamental statistics that define its capabilities and well-being. This chapter focuses on thoroughly defining the <strong>Core Stats</strong> struct, building upon our existing <code>BioState</code> and <code>PlayerStats</code> concepts. This will centralize stat management, making it efficient to access and modify these values across various systems in the C# Brain, as specified in TDD 03.2.</p>
+<h3 id="1-the-need-for-a-unified-core-stats-definition">1. The Need for a Unified Core Stats Definition</h3>
+<p>We currently have <code>BioState</code> (for hunger, thirst, temp) and <code>PlayerStats</code> (for health, chakra, stamina). While <code>BioState</code> is authoritative for biological needs, <code>PlayerStats</code> is a bit redundant now that <code>BiologicalSystem</code> is the source of truth for the player's core combat stats.</p>
+<p>A single, comprehensive <code>CoreStats</code> struct will:</p>
+<ul>
+<li><strong>Centralize Data</strong>: All critical stats in one place.</li>
+<li><strong>Efficiency</strong>: <code>struct</code> for value semantics and cache-friendliness.</li>
+<li><strong>Clarity</strong>: Clear definition of an entity's capabilities.</li>
+<li><strong>Flexibility</strong>: Easily extendable for new stats.</li>
+</ul>
+<h3 id="2-defining-corestatscs">2. Defining <code>CoreStats.cs</code></h3>
+<p>This <code>CoreStats</code> struct will replace the role of <code>PlayerStats</code> and be the primary stat container within <code>BiologicalSystem</code> for all entities.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Biology/CoreStats.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/CoreStats.cs
+using System;
+using Godot; // For Vector2 if needed
+
+namespace Sigilborne.Systems.Biology
+{
+    /// &lt;summary&gt;
+    /// Stores the core statistics for any entity that has biological or combat capabilities.
+    /// This struct serves as the comprehensive stat container for entities.
+    /// (TDD 03.2 - Expanding on BioState concept)
+    /// &lt;/summary&gt;
+    public struct CoreStats
+    {
+        // --- Core Survival/Biological Stats (from BioState) ---
+        public float Health;
+        public float MaxHealth;
+        public float Stamina;
+        public float MaxStamina;
+        public float Chakra;
+        public float MaxChakra;
+        public float Hunger;       // 0-100, 0 = starving
+        public float MaxHunger;    // Always 100 for simplicity
+        public float Thirst;       // 0-100, 0 = dehydrated
+        public float MaxThirst;    // Always 100 for simplicity
+        public float BodyTemp;     // Celsius
+        public float NormalBodyTemp; // Reference normal temp for this entity
+
+        // --- Combat/Magic-related Stats (new or consolidated) ---
+        public float BaseDamage;       // Base physical damage for attacks
+        public float AttackSpeed;      // How fast an entity attacks
+        public float Armor;            // Physical damage reduction
+        public float MagicResistance;  // Magical damage reduction
+        public float MoveSpeed;        // Base movement speed
+        public float SprintMultiplier; // Multiplier for sprint speed
+        public float CastSpeed;        // Multiplier for spell cast time (lower = faster)
+        public float Stability;        // Current Chakra Stability (0-100) (GDD B03.6)
+        public float MaxStability;     // Max Chakra Stability (e.g., 100)
+        public float StabilityRegenRate; // How fast stability recovers
+        public float ChakraRegenRate;  // How fast chakra recovers
+        public float StaminaRegenRate; // How fast stamina recovers
+
+        public CoreStats(float maxHealth, float maxStamina, float maxChakra, float baseDamage = 10f, float attackSpeed = 1.0f,
+                         float armor = 0f, float magicResistance = 0f, float moveSpeed = 150f, float sprintMultiplier = 1.5f,
+                         float castSpeed = 1.0f, float maxStability = 100f, float stabilityRegenRate = 5f,
+                         float chakraRegenRate = 2f, float staminaRegenRate = 10f, float normalBodyTemp = 37.0f)
+        {
+            MaxHealth = maxHealth;
+            Health = maxHealth;
+            MaxStamina = maxStamina;
+            Stamina = maxStamina;
+            MaxChakra = maxChakra;
+            Chakra = maxChakra;
+            MaxHunger = 100f;
+            Hunger = MaxHunger;
+            MaxThirst = 100f;
+            Thirst = MaxThirst;
+            NormalBodyTemp = normalBodyTemp;
+            BodyTemp = normalBodyTemp;
+
+            BaseDamage = baseDamage;
+            AttackSpeed = attackSpeed;
+            Armor = armor;
+            MagicResistance = magicResistance;
+            MoveSpeed = moveSpeed;
+            SprintMultiplier = sprintMultiplier;
+            CastSpeed = castSpeed;
+            MaxStability = maxStability;
+            Stability = MaxStability; // Start full
+            StabilityRegenRate = stabilityRegenRate;
+            ChakraRegenRate = chakraRegenRate;
+            StaminaRegenRate = staminaRegenRate;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;HP: {Health:F0}/{MaxHealth:F0}, Sta: {Stamina:F0}/{MaxStamina:F0}, Cha: {Chakra:F0}/{MaxChakra:F0}, Stab: {Stability:F0}/{MaxStability:F0}, Hunger: {Hunger:F0}, Thirst: {Thirst:F0}, Temp: {BodyTemp:F1}°C, Spd: {MoveSpeed:F0}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-refactoring-biologicalsystemcs-to-use-corestats">3. Refactoring <code>BiologicalSystem.cs</code> to use <code>CoreStats</code></h3>
+<p>The <code>BiologicalSystem</code> will now store <code>CoreStats</code> for each entity instead of <code>BioState</code>. This means <code>PlayerStatSystem</code> will also directly interact with <code>CoreStats</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Biology/BiologicalSystem.cs</code>.</li>
+<li>Replace <code>private Dictionary&lt;EntityID, BioState&gt; _bioStates = new Dictionary&lt;EntityID, BioState&gt;();</code> with:
+    <code>private Dictionary&lt;EntityID, CoreStats&gt; _entityCoreStats = new Dictionary&lt;EntityID, CoreStats&gt;();</code></li>
+<li>Modify <code>OnEntitySpawned</code> to add <code>CoreStats</code> instances.</li>
+<li>Modify <code>OnEntityDespawned</code> to remove <code>CoreStats</code> instances.</li>
+<li>Update <code>ProcessBioTick</code> to operate on <code>CoreStats</code> and include regeneration logic for Health, Stamina, Chakra, and Stability.</li>
+<li>Update <code>GetBioStateRef</code> to <code>GetCoreStatsRef</code>.</li>
+<li>Update <code>PlayerBioStateChangedEvent</code> to <code>PlayerCoreStatsChangedEvent</code> and pass <code>CoreStats</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/BiologicalSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Magic; // For GlyphConcept if environmental resonance affects regen
+
+namespace Sigilborne.Systems.Biology
+{
+    public class BiologicalSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private TransformSystem _transformSystem;
+        private MovementSystem _movementSystem;
+
+        // Dictionary to store CoreStats for all entities that have one.
+        private Dictionary&lt;EntityID, CoreStats&gt; _entityCoreStats = new Dictionary&lt;EntityID, CoreStats&gt;(); // Changed from _bioStates
+
+        private const float BIO_TICK_RATE = 1.0f; // 1.0f = once per real second (1Hz)
+        private float _bioTickTimer;
+
+        public BiologicalSystem(EntityManager entityManager, EventBus eventBus, TransformSystem transformSystem, MovementSystem movementSystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _transformSystem = transformSystem;
+            _movementSystem = movementSystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+
+            GD.Print(&quot;BiologicalSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            if (type == EntityType.Player || type == EntityType.NPC || type == EntityType.Animal)
+            {
+                // Initialize CoreStats (TDD 03.2)
+                // For player, PlayerStatSystem will further initialize/override this.
+                // For NPCs/Animals, load from definitionID (e.g., &quot;goblin_grunt&quot; has specific stats).
+                // For now, let's give generic stats.
+                _entityCoreStats.Add(id, new CoreStats(100f, 75f, 50f)); // HP, Stamina, Chakra
+                GD.Print($&quot;BiologicalSystem: Added CoreStats for {type} entity {id}.&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityID id)
+        {
+            _entityCoreStats.Remove(id); // Changed from _bioStates
+            GD.Print($&quot;BiologicalSystem: Removed CoreStats for {id}.&quot;);
+        }
+
+        public void Tick(double delta)
+        {
+            _bioTickTimer += (float)delta;
+            if (_bioTickTimer &gt;= BIO_TICK_RATE)
+            {
+                ProcessBioTick();
+                _bioTickTimer = 0;
+            }
+        }
+
+        private void ProcessBioTick()
+        {
+            // GD.Print($&quot;BiologicalSystem: Processing Bio-Tick (Game Time: {GameManager.Instance.Time.CurrentGameTime:F1})&quot;);
+
+            foreach (var kvp in _entityCoreStats) // Changed from _bioStates
+            {
+                EntityID id = kvp.Key;
+                ref CoreStats coreStats = ref _entityCoreStats.GetValueRef(id); // Get mutable ref
+
+                if (!_entityManager.IsValid(id)) continue;
+
+                float activityMultiplier = GetActivityLevel(id);
+                float weatherMultiplier = 1.0f;
+
+                // --- Hunger and Thirst Decay ---
+                coreStats.Hunger -= 1.0f * activityMultiplier * weatherMultiplier;
+                coreStats.Hunger = Mathf.Max(0, coreStats.Hunger);
+
+                coreStats.Thirst -= 1.5f * activityMultiplier * weatherMultiplier;
+                coreStats.Thirst = Mathf.Max(0, coreStats.Thirst);
+
+                // --- Regeneration (Health, Stamina, Chakra, Stability) (GDD B03.4, B03.6) ---
+                // Health Regen (only if not starving/dehydrated, and not in combat)
+                if (coreStats.Hunger &gt; 10 &amp;&amp; coreStats.Thirst &gt; 10 &amp;&amp; coreStats.Health &lt; coreStats.MaxHealth)
+                {
+                    coreStats.Health += coreStats.HealthRegenRate * BIO_TICK_RATE;
+                    coreStats.Health = Mathf.Min(coreStats.MaxHealth, coreStats.Health);
+                }
+
+                // Stamina Regen
+                if (coreStats.Stamina &lt; coreStats.MaxStamina)
+                {
+                    coreStats.Stamina += coreStats.StaminaRegenRate * BIO_TICK_RATE;
+                    coreStats.Stamina = Mathf.Min(coreStats.MaxStamina, coreStats.Stamina);
+                }
+
+                // Chakra Regen
+                if (coreStats.Chakra &lt; coreStats.MaxChakra)
+                {
+                    coreStats.Chakra += coreStats.ChakraRegenRate * BIO_TICK_RATE;
+                    coreStats.Chakra = Mathf.Min(coreStats.MaxChakra, coreStats.Chakra);
+                }
+
+                // Stability Regen (GDD B03.6)
+                if (coreStats.Stability &lt; coreStats.MaxStability)
+                {
+                    coreStats.Stability += coreStats.StabilityRegenRate * BIO_TICK_RATE;
+                    coreStats.Stability = Mathf.Min(coreStats.MaxStability, coreStats.Stability);
+                }
+
+                // --- Apply consequences of low stats (GDD B14.4) ---
+                if (coreStats.Hunger &lt;= 0) { /* GD.Print($&quot;BiologicalSystem: {id} is starving!&quot;); */ }
+                if (coreStats.Thirst &lt;= 0) { /* GD.Print($&quot;BiologicalSystem: {id} is dehydrated!&quot;); */ }
+
+                // Publish updates for the Body (e.g., UI for player)
+                if (id == _entityManager.GetPlayerEntityID())
+                {
+                    _eventBus.Publish(new PlayerCoreStatsChangedEvent { PlayerID = id, NewCoreStats = coreStats }); // Changed event
+                }
+            }
+        }
+
+        public float GetActivityLevel(EntityID id) { /* ... */ return 1.0f; }
+
+        /// &lt;summary&gt;
+        /// Provides a mutable reference to an entity's CoreStats.
+        /// Other systems (e.g., PlayerStatSystem, CombatSystem) can modify these.
+        /// &lt;/summary&gt;
+        public ref CoreStats GetCoreStatsRef(EntityID id) // Changed from GetBioStateRef
+        {
+            if (!_entityManager.IsValid(id) || !_entityCoreStats.ContainsKey(id)) // Changed from _bioStates
+            {
+                throw new InvalidOperationException($&quot;Entity {id} is invalid or does not have CoreStats.&quot;);
+            }
+            return ref _entityCoreStats.GetValueRef(id); // Changed from _bioStates
+        }
+
+        // --- Helper Events for Body Sync ---
+        public struct PlayerCoreStatsChangedEvent { public EntityID PlayerID; public CoreStats NewCoreStats; } // Changed event
+    }
+}
+</code></pre>
+<h3 id="4-refactoring-playerstatsystemcs-to-use-biologicalsystems-corestats">4. Refactoring <code>PlayerStatSystem.cs</code> to use <code>BiologicalSystem</code>'s <code>CoreStats</code></h3>
+<p>The <code>PlayerStatSystem</code> no longer needs its own <code>PlayerStats</code> struct. It will directly access and modify the player's <code>CoreStats</code> via <code>BiologicalSystem</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Biology/PlayerStatSystem.cs</code>.</li>
+<li>Remove the <code>PlayerStats</code> struct definition.</li>
+<li>Modify the <code>PlayerStatSystem</code> class to interact with <code>BiologicalSystem</code>'s <code>CoreStats</code> directly.</li>
+<li>Remove <code>OnEntitySpawned</code> logic, as <code>BiologicalSystem</code> handles initial <code>CoreStats</code> creation.</li>
+<li>Update <code>GetPlayerStats</code>, <code>TakeDamage</code>, <code>TakeChakra</code> to use <code>_biologicalSystem.GetCoreStatsRef()</code>.</li>
+<li>Add <code>TakeStamina</code> method.</li>
+<li>Update event structs to pass individual float values, as <code>CoreStats</code> is too large for frequent full struct passing.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/PlayerStatSystem.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+
+namespace Sigilborne.Systems.Biology
+{
+    // Removed PlayerStats struct definition.
+
+    public class PlayerStatSystem
+    {
+        private EventBus _eventBus;
+        private EntityManager _entityManager;
+        private BiologicalSystem _biologicalSystem;
+
+        private EntityID _playerEntityID;
+
+        public PlayerStatSystem(EventBus eventBus, EntityManager entityManager, BiologicalSystem biologicalSystem)
+        {
+            _eventBus = eventBus;
+            _entityManager = entityManager;
+            _biologicalSystem = biologicalSystem;
+
+            _playerEntityID = _entityManager.GetPlayerEntityID();
+
+            GD.Print(&quot;PlayerStatSystem: Initialized.&quot;);
+
+            // Publish initial player stats from BiologicalSystem's CoreStats
+            ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+            _eventBus.Publish(new PlayerHealthChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Health, MaxValue = playerCoreStats.MaxHealth });
+            _eventBus.Publish(new PlayerChakraChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Chakra, MaxValue = playerCoreStats.MaxChakra });
+            _eventBus.Publish(new PlayerStaminaChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Stamina, MaxValue = playerCoreStats.MaxStamina });
+            _eventBus.Publish(new PlayerStabilityChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Stability, MaxValue = playerCoreStats.MaxStability }); // New event
+        }
+
+        // Removed GetPlayerStats(), as systems should access CoreStats via BiologicalSystem directly or use events.
+
+        public void TakeDamage(float amount)
+        {
+            ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+            if (playerCoreStats.Health &lt;= 0) return;
+
+            playerCoreStats.Health -= amount;
+            if (playerCoreStats.Health &lt; 0) playerCoreStats.Health = 0;
+
+            GD.Print($&quot;PlayerStatSystem: Player {_playerEntityID} took {amount} damage. New Health: {playerCoreStats.Health}&quot;);
+            _eventBus.Publish(new PlayerHealthChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Health, MaxValue = playerCoreStats.MaxHealth });
+
+            if (playerCoreStats.Health == 0)
+            {
+                GD.Print($&quot;PlayerStatSystem: Player {_playerEntityID} has died!&quot;);
+                _eventBus.Publish(new PlayerDiedEvent { PlayerID = _playerEntityID });
+            }
+        }
+
+        public void TakeChakra(float amount)
+        {
+            ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+            if (amount &lt; 0) return;
+
+            playerCoreStats.Chakra -= amount;
+            if (playerCoreStats.Chakra &lt; 0) playerCoreStats.Chakra = 0;
+
+            GD.Print($&quot;PlayerStatSystem: Player {_playerEntityID} used {amount} chakra. New Chakra: {playerCoreStats.Chakra}&quot;);
+            _eventBus.Publish(new PlayerChakraChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Chakra, MaxValue = playerCoreStats.MaxChakra });
+        }
+
+        /// &lt;summary&gt;
+        /// Authoritatively deducts stamina from the player.
+        /// &lt;/summary&gt;
+        public void TakeStamina(float amount) // New method
+        {
+            ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+            if (amount &lt; 0) return;
+
+            playerCoreStats.Stamina -= amount;
+            if (playerCoreStats.Stamina &lt; 0) playerCoreStats.Stamina = 0;
+
+            GD.Print($&quot;PlayerStatSystem: Player {_playerEntityID} used {amount} stamina. New Stamina: {playerCoreStats.Stamina}&quot;);
+            _eventBus.Publish(new PlayerStaminaChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Stamina, MaxValue = playerCoreStats.MaxStamina });
+        }
+
+        /// &lt;summary&gt;
+        /// Authoritatively deducts stability from the player.
+        /// (GDD B03.6)
+        /// &lt;/summary&gt;
+        public void TakeStability(float amount) // New method
+        {
+            ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+            if (amount &lt; 0) return;
+
+            playerCoreStats.Stability -= amount;
+            if (playerCoreStats.Stability &lt; 0) playerCoreStats.Stability = 0; // Stability can potentially go negative for chaos residue effects later.
+
+            GD.Print($&quot;PlayerStatSystem: Player {_playerEntityID} lost {amount} stability. New Stability: {playerCoreStats.Stability}&quot;);
+            _eventBus.Publish(new PlayerStabilityChangedEvent { PlayerID = _playerEntityID, NewValue = playerCoreStats.Stability, MaxValue = playerCoreStats.MaxStability });
+        }
+
+
+        // --- Helper Events for Body Sync ---
+        // Changed event structs to pass NewValue and MaxValue for generic display.
+        public struct PlayerHealthChangedEvent { public EntityID PlayerID; public float NewValue; public float MaxValue; }
+        public struct PlayerChakraChangedEvent { public EntityID PlayerID; public float NewValue; public float MaxValue; }
+        public struct PlayerStaminaChangedEvent { public EntityID PlayerID; public float NewValue; public float MaxValue; }
+        public struct PlayerStabilityChangedEvent { public EntityID PlayerID; public float NewValue; public float MaxValue; } // New event
+        public struct PlayerDiedEvent { public EntityID PlayerID; }
+    }
+}
+</code></pre>
+<h4 id="41-update-gamemanager-to-pass-biologicalsystem-to-playerstatsystem">4.1. Update <code>GameManager</code> to Pass <code>BiologicalSystem</code> to <code>PlayerStatSystem</code></h4>
+<p>Open <code>res://_Brain/Core/GameManager.cs</code> and modify the <code>PlayerStatSystem</code> initialization in <code>InitializeSystems()</code>:</p>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside InitializeSystems)
+// ...
+        BiologicalSystem = new BiologicalSystem(Entities, Events, Transforms, Movement);
+        GD.Print(&quot;  - BiologicalSystem initialized.&quot;);
+
+        // Initialize PlayerStatSystem, passing BiologicalSystem
+        PlayerStats = new PlayerStatSystem(Events, Entities, BiologicalSystem); // Pass BiologicalSystem
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+// ...
+</code></pre>
+<h4 id="42-update-eventbuscs-for-new-playerstatsystem-events">4.2. Update <code>EventBus.cs</code> for New PlayerStatSystem Events</h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and modify/add delegates for <code>PlayerStatSystem</code>'s new event signatures.</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Player Stat Events (TDD 01.4) - updated signatures
+        public event Action&lt;EntityID, float, float&gt; OnPlayerHealthChanged;
+        public event Action&lt;EntityID&gt; OnPlayerDied;
+        public event Action&lt;EntityID, float, float&gt; OnPlayerChakraChanged;
+        public event Action&lt;EntityID, float, float&gt; OnPlayerStaminaChanged;
+        public event Action&lt;EntityID, float, float&gt; OnPlayerStabilityChanged; // New event
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is PlayerStatSystem.PlayerHealthChangedEvent healthEvent) // Updated signature
+            {
+                OnPlayerHealthChanged?.Invoke(healthEvent.PlayerID, healthEvent.NewValue, healthEvent.MaxValue);
+            }
+            else if (eventData is PlayerStatSystem.PlayerChakraChangedEvent chakraEvent) // Updated signature
+            {
+                OnPlayerChakraChanged?.Invoke(chakraEvent.PlayerID, chakraEvent.NewValue, chakraEvent.MaxValue);
+            }
+            else if (eventData is PlayerStatSystem.PlayerStaminaChangedEvent staminaEvent) // Updated signature
+            {
+                OnPlayerStaminaChanged?.Invoke(staminaEvent.PlayerID, staminaEvent.NewValue, staminaEvent.MaxValue);
+            }
+            else if (eventData is PlayerStatSystem.PlayerStabilityChangedEvent stabilityEvent) // New condition
+            {
+                OnPlayerStabilityChanged?.Invoke(stabilityEvent.PlayerID, stabilityEvent.NewValue, stabilityEvent.MaxValue);
+            }
+            else if (eventData is BiologicalSystem.PlayerCoreStatsChangedEvent bioStateEvent) // Updated to CoreStats
+            {
+                // This event is now for the *full* CoreStats update, used for UI that displays all.
+                OnPlayerCoreStatsChanged?.Invoke(bioStateEvent.PlayerID, bioStateEvent.NewCoreStats);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="5-refactoring-movementsystemcs-for-corestats">5. Refactoring <code>MovementSystem.cs</code> for <code>CoreStats</code></h3>
+<p>The <code>MovementSystem</code> needs to get <code>MoveSpeed</code> and <code>SprintMultiplier</code> from <code>CoreStats</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Movement/MovementSystem.cs</code>.</li>
+<li>Remove the <code>MovementParametersComponent</code> struct definition.</li>
+<li>Remove <code>private Dictionary&lt;EntityID, MovementParametersComponent&gt; _movementParams</code>.</li>
+<li>Modify <code>OnEntitySpawned</code> to remove <code>_movementParams.Add()</code>.</li>
+<li>Update <code>Tick</code> to retrieve <code>MoveSpeed</code> and <code>SprintMultiplier</code> directly from <code>BiologicalSystem.GetCoreStatsRef(id)</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Movement/MovementSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Biology; // Add this using directive
+
+namespace Sigilborne.Systems.Movement
+{
+    // ... (VelocityComponent struct) ...
+    // Removed MovementParametersComponent struct definition.
+
+    public class MovementSystem
+    {
+        private EntityManager _entityManager;
+        private InputSystem _inputSystem;
+        private EventBus _eventBus;
+        private TransformSystem _transformSystem;
+        private BiologicalSystem _biologicalSystem; // New: Reference to BiologicalSystem
+
+        private Dictionary&lt;EntityID, VelocityComponent&gt; _velocities = new Dictionary&lt;EntityID, VelocityComponent&gt;();
+        // Removed _movementParams dictionary.
+        private Dictionary&lt;EntityID, PlayerMovementStateComponent&gt; _playerMovementStates = new Dictionary&lt;EntityID, PlayerMovementStateComponent&gt;();
+
+        public MovementSystem(EntityManager entityManager, InputSystem inputSystem, EventBus eventBus, TransformSystem transformSystem, BiologicalSystem biologicalSystem) // Add BiologicalSystem
+        {
+            _entityManager = entityManager;
+            _inputSystem = inputSystem;
+            _eventBus = eventBus;
+            _transformSystem = transformSystem;
+            _biologicalSystem = biologicalSystem; // Store BiologicalSystem reference
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+
+            GD.Print(&quot;MovementSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            if (type == EntityType.Player)
+            {
+                _velocities.Add(id, new VelocityComponent(Vector2.Zero));
+                // MovementParametersComponent is no longer added here.
+                _playerMovementStates.Add(id, new PlayerMovementStateComponent());
+                GD.Print($&quot;MovementSystem: Added movement components for Player {id}&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityID id)
+        {
+            _velocities.Remove(id);
+            // Removed _movementParams.Remove(id);
+            _playerMovementStates.Remove(id);
+            GD.Print($&quot;MovementSystem: Removed movement components for {id}&quot;);
+        }
+
+        public void Tick(double delta)
+        {
+            PlayerInputFrame currentInput = _inputSystem.GetLatestInput();
+
+            foreach (var kvp in _velocities)
+            {
+                EntityID id = kvp.Key;
+
+                // Get CoreStats for movement parameters (TDD 03.2)
+                if (!_entityManager.IsValid(id) || !_biologicalSystem.TryGetCoreStats(id, out CoreStats coreStats)) // Use TryGetCoreStats for safety
+                {
+                    continue;
+                }
+
+                ref VelocityComponent currentVelocity = ref _velocities.GetValueRef(id);
+                Vector2 targetMoveVector = currentInput.MoveVector;
+                float currentSpeed = coreStats.MoveSpeed; // Get from CoreStats
+                float friction = 0.8f; // Default friction, could be part of CoreStats or external
+                float acceleration = 10f; // Default acceleration, could be part of CoreStats or external
+                float targetRotationDegrees = _transformSystem.GetTransformRef(id).RotationDegrees;
+
+                // --- Player-specific Movement Logic (Shift-Sliding) ---
+                if (id == _entityManager.GetPlayerEntityID())
+                {
+                    ref PlayerMovementStateComponent playerMoveState = ref _playerMovementStates.GetValueRef(id);
+
+                    if (currentInput.IsShiftHeld)
+                    {
+                        if (targetMoveVector.LengthSquared() &gt; 0.1f)
+                        {
+                            playerMoveState.LastLockedMoveVector = targetMoveVector;
+                            playerMoveState.IsShiftSliding = true;
+                        }
+                        targetMoveVector = playerMoveState.LastLockedMoveVector;
+                        playerMoveState.IsShiftSliding = (targetMoveVector.LengthSquared() &gt; 0.1f);
+                    }
+                    else
+                    {
+                        playerMoveState.IsShiftSliding = false;
+                        playerMoveState.LastLockedMoveVector = Vector2.Zero;
+                    }
+                }
+                // --- End Player-specific Movement Logic ---
+
+                if (currentInput.IsSprintHeld &amp;&amp; !(_playerMovementStates.TryGetValue(id, out var state) &amp;&amp; state.IsShiftSliding))
+                {
+                    currentSpeed *= coreStats.SprintMultiplier; // Get from CoreStats
+                }
+
+                Vector2 desiredVelocity = targetMoveVector * currentSpeed;
+
+                currentVelocity.Velocity = currentVelocity.Velocity.Lerp(desiredVelocity, acceleration * (float)delta);
+
+                if (!(_playerMovementStates.TryGetValue(id, out var state2) &amp;&amp; state2.IsShiftSliding) &amp;&amp; targetMoveVector == Vector2.Zero &amp;&amp; currentVelocity.Velocity.LengthSquared() &gt; 0.1f)
+                {
+                    currentVelocity.Velocity = currentVelocity.Velocity.Lerp(Vector2.Zero, friction * (float)delta);
+                }
+                else if (!(_playerMovementStates.TryGetValue(id, out var state3) &amp;&amp; state3.IsShiftSliding) &amp;&amp; targetMoveVector == Vector2.Zero &amp;&amp; currentVelocity.Velocity.LengthSquared() &lt;= 0.1f)
+                {
+                    currentVelocity.Velocity = Vector2.Zero;
+                }
+
+                if (targetMoveVector.LengthSquared() &gt; 0.1f)
+                {
+                    targetRotationDegrees = targetMoveVector.Angle() * (180f / Mathf.Pi);
+                }
+
+                _eventBus.Publish(new EntityManager.EntityVelocityUpdateEvent { ID = id, TargetVelocity = currentVelocity.Velocity, TargetRotationDegrees = targetRotationDegrees });
+            }
+        }
+
+        public Vector2 GetVelocity(EntityID id) { /* ... */ return Vector2.Zero; }
+    }
+}
+</code></pre>
+<h4 id="51-add-trygetcorestats-to-biologicalsystemcs">5.1. Add <code>TryGetCoreStats</code> to <code>BiologicalSystem.cs</code></h4>
+<p>The <code>MovementSystem</code> needs a safe way to get <code>CoreStats</code>.</p>
+<p>Open <code>res://_Brain/Systems/Biology/BiologicalSystem.cs</code> and add this method:</p>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/BiologicalSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Magic;
+
+namespace Sigilborne.Systems.Biology
+{
+    public class BiologicalSystem
+    {
+        // ... (existing fields and constructor) ...
+
+        public ref CoreStats GetCoreStatsRef(EntityID id) { /* ... */ return ref _entityCoreStats.GetValueRef(id); }
+
+        /// &lt;summary&gt;
+        /// Safely attempts to get a copy of an entity's CoreStats.
+        /// &lt;/summary&gt;
+        public bool TryGetCoreStats(EntityID id, out CoreStats coreStats)
+        {
+            if (_entityManager.IsValid(id) &amp;&amp; _entityCoreStats.TryGetValue(id, out coreStats))
+            {
+                return true;
+            }
+            coreStats = default;
+            return false;
+        }
+
+        // ... (Helper Events) ...
+    }
+}
+</code></pre>
+<h4 id="52-update-gamemanager-to-pass-biologicalsystem-to-movementsystem">5.2. Update <code>GameManager</code> to Pass <code>BiologicalSystem</code> to <code>MovementSystem</code></h4>
+<p>Open <code>res://_Brain/Core/GameManager.cs</code> and modify the <code>MovementSystem</code> initialization in <code>InitializeSystems()</code>:</p>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside InitializeSystems)
+// ...
+        Movement = new MovementSystem(Entities, Input, Events, Transforms, BiologicalSystem); // Pass BiologicalSystem
+        GD.Print(&quot;  - MovementSystem initialized.&quot;);
+// ...
+</code></pre>
+<h3 id="6-refactor-magicsystemcs-for-corestats">6. Refactor <code>MagicSystem.cs</code> for <code>CoreStats</code></h3>
+<p>The <code>MagicSystem</code> needs to deduct chakra and stability, and potentially check <code>CastSpeed</code> from <code>CoreStats</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Magic/MagicSystem.cs</code>.</li>
+<li>Modify <code>MagicSystem</code> constructor to pass <code>BiologicalSystem</code>.</li>
+<li>Update <code>ProcessGlyphInput</code> and <code>ResolveCombo</code> to use <code>BiologicalSystem.GetCoreStatsRef()</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/MagicSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Biology; // Add this using directive
+
+namespace Sigilborne.Systems.Magic
+{
+    public class MagicSystem
+    {
+        // ... (existing fields) ...
+        private BiologicalSystem _biologicalSystem; // New: Reference to BiologicalSystem
+
+        public MagicSystem(EntityManager entityManager, InputSystem inputSystem, EventBus eventBus,
+                           PlayerHotbarSystem playerHotbar, PlayerGlyphKnowledgeSystem playerGlyphKnowledge,
+                           WorldGlyphMap worldGlyphMap, GameManager gameManager, ComboResolver comboResolver,
+                           CastingSystem castingSystem, BiologicalSystem biologicalSystem) // Add BiologicalSystem
+        {
+            _entityManager = entityManager;
+            _inputSystem = inputSystem;
+            _eventBus = eventBus;
+            _playerHotbar = playerHotbar;
+            _playerGlyphKnowledge = playerGlyphKnowledge;
+            _worldGlyphMap = worldGlyphMap;
+            _gameManager = gameManager;
+
+            _playerEntityID = _entityManager.GetPlayerEntityID();
+
+            _glyphInputBuffer = new GlyphInputBuffer(MAX_GLYPH_BUFFER_SIZE);
+            _comboResolver = comboResolver;
+            _castingSystem = castingSystem;
+            _biologicalSystem = biologicalSystem; // Store BiologicalSystem reference
+            GD.Print(&quot;MagicSystem: Initialized.&quot;);
+        }
+
+        // ... (Tick, ProcessGlyphInput methods) ...
+
+        private void ResolveCombo()
+        {
+            ReadOnlySpan&lt;GlyphInputFrame&gt; recentInputsSpan = _glyphInputBuffer.GetRecentUnconsumed(_gameManager.Time.CurrentGameTime - MAX_COMBO_DELAY);
+
+            if (recentInputsSpan.IsEmpty) return;
+
+            // Check if player is currently in a state that prevents new casts (TDD 02.4)
+            if (_castingSystem.GetPlayerCastingState().CurrentState != CastState.Idle)
+            {
+                GD.Print($&quot;MagicSystem: Player is not Idle ({_castingSystem.GetPlayerCastingState().CurrentState}), cannot initiate new cast.&quot;);
+                return; // Cannot initiate a new cast if not idle
+            }
+
+            GD.Print($&quot;MagicSystem: Attempting to resolve combo with {recentInputsSpan.Length} recent inputs.&quot;);
+
+            SpellDefinition resolvedSpell = _comboResolver.ResolveCombo(recentInputsSpan);
+
+            if (resolvedSpell != null)
+            {
+                // Get player's current CoreStats for resource checks (Chakra, Stability, CastSpeed)
+                ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+
+                // Check Chakra cost
+                if (playerCoreStats.Chakra &lt; resolvedSpell.ChakraCost)
+                {
+                    GD.Print($&quot;CastingSystem: Insufficient Chakra to cast '{resolvedSpell.ID}'. (Need: {resolvedSpell.ChakraCost}, Have: {playerCoreStats.Chakra})&quot;);
+                    _eventBus.Publish(new CastingSystem.CastFailedEvent { PlayerID = _playerEntityID, Reason = &quot;Insufficient Chakra&quot; });
+                    return;
+                }
+                // Check Stability cost (GDD B03.2)
+                if (playerCoreStats.Stability &lt; resolvedSpell.StabilityCost)
+                {
+                    GD.Print($&quot;CastingSystem: Insufficient Stability to cast '{resolvedSpell.ID}'. (Need: {resolvedSpell.StabilityCost}, Have: {playerCoreStats.Stability})&quot;);
+                    _eventBus.Publish(new CastingSystem.CastFailedEvent { PlayerID = _playerEntityID, Reason = &quot;Insufficient Stability&quot; });
+                    return;
+                }
+
+                // If resources are sufficient, initiate the cast via CastingSystem.
+                // CastingSystem will deduct resources and manage state.
+                if (_castingSystem.InitiateCast(resolvedSpell)) // InitiateCast will now deduct resources
+                {
+                    GD.Print($&quot;MagicSystem: Resolved and initiated cast for known spell: '{resolvedSpell.ID}'!&quot;);
+                    _eventBus.Publish(new ComboResolvedEvent { PlayerID = _playerEntityID, IsSuccess = true, IsDiscovery = false, ResultText = $&quot;Cast {resolvedSpell.ID}!&quot;, ConceptSequence = resolvedSpell.Sequence });
+                    _glyphInputBuffer.MarkConsumed(recentInputsSpan.ToArray());
+                }
+                else
+                {
+                    GD.Print($&quot;MagicSystem: Failed to initiate cast for '{resolvedSpell.ID}' (e.g., CastingSystem rejected).&quot;);
+                }
+                return;
+            }
+            // ... (existing placeholder resolution logic) ...
+        }
+    }
+}
+</code></pre>
+<h4 id="61-update-castingsystemcs-to-use-biologicalsystems-corestats">6.1. Update <code>CastingSystem.cs</code> to use <code>BiologicalSystem</code>'s <code>CoreStats</code></h4>
+<p>The <code>CastingSystem</code> needs to deduct chakra and stability.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Magic/CastingSystem.cs</code>.</li>
+<li>Modify <code>CastingSystem</code> constructor to pass <code>BiologicalSystem</code>.</li>
+<li>Remove direct <code>_playerStatSystem</code> calls for chakra/stability deduction. Delegate to <code>PlayerStatSystem</code> which in turn uses <code>BiologicalSystem</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/CastingSystem.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic.Components;
+
+namespace Sigilborne.Systems.Magic
+{
+    public class CastingSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private PlayerStatSystem _playerStatSystem; // Still needed for damage/chakra/stamina deduction methods
+        private TransformSystem _transformSystem;
+        private BiologicalSystem _biologicalSystem; // New: Reference to BiologicalSystem
+
+        private EntityID _playerEntityID;
+        private PlayerCastingState _playerCastingState;
+
+        private const float DEFAULT_RECOVERY_TIME = 0.3f;
+
+        public CastingSystem(EntityManager entityManager, EventBus eventBus, PlayerStatSystem playerStatSystem, TransformSystem transformSystem, BiologicalSystem biologicalSystem) // Add BiologicalSystem
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _playerStatSystem = playerStatSystem;
+            _transformSystem = transformSystem;
+            _biologicalSystem = biologicalSystem; // Store BiologicalSystem reference
+
+            _playerEntityID = _entityManager.GetPlayerEntityID();
+            _playerCastingState = new PlayerCastingState(_playerEntityID);
+
+            GD.Print(&quot;CastingSystem: Initialized.&quot;);
+        }
+
+        public void Tick(double delta) { /* ... */ }
+
+        public bool InitiateCast(SpellDefinition spell)
+        {
+            if (_playerCastingState.CurrentState != CastState.Idle)
+            {
+                GD.Print($&quot;CastingSystem: Cannot cast spell '{spell.ID}', not in Idle state ({_playerCastingState.CurrentState}).&quot;);
+                return false;
+            }
+
+            // Resource checks are now done in MagicSystem before calling InitiateCast.
+            // So, if we reach here, resources are sufficient.
+
+            // Deduct resources (TDD 02.4: Mana deducted)
+            _playerStatSystem.TakeChakra(spell.ChakraCost); // Deduct chakra
+            _playerStatSystem.TakeStability(spell.StabilityCost); // Deduct stability (GDD B03.2)
+
+            // Adjust CastTime based on player's CastSpeed (from CoreStats)
+            ref CoreStats playerCoreStats = ref _biologicalSystem.GetCoreStatsRef(_playerEntityID);
+            double finalCastTime = spell.CastTime / playerCoreStats.CastSpeed; // Faster CastSpeed reduces cast time
+
+            _playerCastingState.CurrentSpell = spell;
+            TransitionToState(CastState.CastStart, finalCastTime); // Use finalCastTime
+
+            GD.Print($&quot;CastingSystem: Initiated cast for '{spell.ID}'. Chakra cost: {spell.ChakraCost}, Stability cost: {spell.StabilityCost}. Final Cast Time: {finalCastTime:F2}s.&quot;);
+            _eventBus.Publish(new CastStateChangedEvent { PlayerID = _playerEntityID, NewState = CastState.CastStart, SpellID = spell.ID });
+
+            return true;
+        }
+
+        public PlayerCastingState GetPlayerCastingState() { return _playerCastingState; }
+
+        private void TransitionToState(CastState newState, double timerDuration = 0) { /* ... */ }
+        private void ExecuteSpellEffect(SpellDefinition spell) { /* ... */ }
+    }
+}
+</code></pre>
+<h4 id="62-update-gamemanager-to-pass-biologicalsystem-to-castingsystem">6.2. Update <code>GameManager</code> to Pass <code>BiologicalSystem</code> to <code>CastingSystem</code></h4>
+<p>Open <code>res://_Brain/Core/GameManager.cs</code> and modify the <code>CastingSystem</code> initialization in <code>InitializeSystems()</code>:</p>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside InitializeSystems)
+// ...
+        // Initialize CastingSystem, passing BiologicalSystem
+        Casting = new CastingSystem(Entities, Events, PlayerStats, Transforms, BiologicalSystem); // Pass BiologicalSystem
+        GD.Print(&quot;  - CastingSystem initialized.&quot;);
+
+        // Initialize MagicSystem, passing CastingSystem and BiologicalSystem
+        Magic = new MagicSystem(Entities, Input, Events, PlayerHotbar, PlayerGlyphKnowledge, GlyphMap, this, ComboResolver, Casting, BiologicalSystem); // Pass BiologicalSystem
+        GD.Print(&quot;  - MagicSystem initialized.&quot;);
+// ...
+</code></pre>
+<h3 id="7-update-debug-console">7. Update Debug Console</h3>
+<p>Open <code>res://_Brain/Utils/DebugCommandSystem.cs</code> and update the <code>damage</code> command to use <code>PlayerStats.TakeDamage</code> (which is now updated). Also add commands for <code>chakra</code> and <code>stability</code>.</p>
+<pre><code class="language-csharp">// _Brain/Utils/DebugCommandSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+
+namespace Sigilborne.Utils
+{
+    // ... (DebugCommand struct) ...
+
+    public class DebugCommandSystem
+    {
+        // ... (fields and constructor) ...
+
+        private void RegisterDefaultCommands()
+        {
+            // ... (existing commands) ...
+
+            RegisterCommand(&quot;damage&quot;, &quot;Damages the player: /damage [amount]&quot;, (args) =&gt;
+            {
+                if (args.Length != 1 || !float.TryParse(args[0], out float amount))
+                {
+                    GD.PrintErr(&quot;Usage: /damage [amount]&quot;);
+                    return;
+                }
+                _gameManager.PlayerStats.TakeDamage(amount);
+                GD.Print($&quot;Player took {amount} damage.&quot;);
+            });
+
+            RegisterCommand(&quot;chakra&quot;, &quot;Adds/removes chakra: /chakra [amount]&quot;, (args) =&gt;
+            {
+                if (args.Length != 1 || !float.TryParse(args[0], out float amount))
+                {
+                    GD.PrintErr(&quot;Usage: /chakra [amount]&quot;);
+                    return;
+                }
+                // For adding chakra, we'll need a different method or a direct CoreStats access.
+                // For now, let's just make it take chakra (negative amount means adding).
+                _gameManager.PlayerStats.TakeChakra(-amount); // Negative amount to add
+                GD.Print($&quot;Player chakra adjusted by {amount}.&quot;);
+            });
+
+            RegisterCommand(&quot;stability&quot;, &quot;Adds/removes stability: /stability [amount]&quot;, (args) =&gt;
+            {
+                if (args.Length != 1 || !float.TryParse(args[0], out float amount))
+                {
+                    GD.PrintErr(&quot;Usage: /stability [amount]&quot;);
+                    return;
+                }
+                _gameManager.PlayerStats.TakeStability(-amount); // Negative amount to add
+                GD.Print($&quot;Player stability adjusted by {amount}.&quot;);
+            });
+
+            RegisterCommand(&quot;spawn&quot;, &quot;Spawns an entity: /spawn [type] [def_id] [x] [y]&quot;, (args) =&gt;
+            {
+                // ... (existing spawn command) ...
+            });
+        }
+    }
+}
+</code></pre>
+<h3 id="8-update-gdscript-hud">8. Update GDScript HUD</h3>
+<p>Open <code>res://_Body/Scripts/UI/HUDController.gd</code> and add a <code>stability_label</code> and connect to <code>OnPlayerStabilityChanged</code>.</p>
+<pre><code class="language-gdscript"># _Body/Scripts/UI/HUDController.gd
+class_name HUDController extends CanvasLayer
+
+@onready var health_label: Label = $MainHBox/VBoxStats/HealthLabel
+@onready var chakra_label: Label = $MainHBox/VBoxStats/ChakraLabel
+@onready var stamina_label: Label = $MainHBox/VBoxStats/StaminaLabel
+@onready var stability_label: Label = $MainHBox/VBoxStats/StabilityLabel # New
+@onready var hunger_label: Label = $MainHBox/VBoxNeeds/HungerLabel
+@onready var thirst_label: Label = $MainHBox/VBoxNeeds/ThirstLabel
+
+var player_entity_id: int = -1
+
+func _ready():
+    GD.print(&quot;HUDController: Initialized. Connecting to C# PlayerStatSystem &amp; BiologicalSystem events.&quot;)
+    if GameManager.Instance != null and GameManager.Instance.Events != null:
+        GameManager.Instance.Events.OnPlayerHealthChanged.connect(Callable(self, &quot;_on_player_health_changed&quot;))
+        GameManager.Instance.Events.OnPlayerChakraChanged.connect(Callable(self, &quot;_on_player_chakra_changed&quot;))
+        GameManager.Instance.Events.OnPlayerStaminaChanged.connect(Callable(self, &quot;_on_player_stamina_changed&quot;))
+        GameManager.Instance.Events.OnPlayerStabilityChanged.connect(Callable(self, &quot;_on_player_stability_changed&quot;)) # New
+        GameManager.Instance.Events.OnPlayerDied.connect(Callable(self, &quot;_on_player_died&quot;))
+        GameManager.Instance.Events.OnPlayerCoreStatsChanged.connect(Callable(self, &quot;_on_player_core_stats_changed&quot;)) # Updated from BioStateChanged
+        GameManager.Instance.Events.OnEntitySpawned.connect(Callable(self, &quot;_on_entity_spawned&quot;))
+        GD.print(&quot;HUDController: Successfully connected to C# PlayerStatSystem &amp; BiologicalSystem events.&quot;)
+    else:
+        push_error(&quot;HUDController: GameManager or EventBus not ready! Cannot connect C# events.&quot;)
+
+func _on_entity_spawned(id: int, type: int, definition_id: String, initial_position: Vector2, initial_rotation: float) -&gt; void:
+    if type == 0: # EntityType.Player has value 0
+        player_entity_id = id
+        GD.print(&quot;HUDController: Detected player entity with ID: %s&quot; % player_entity_id)
+
+func _on_player_health_changed(id: int, new_value: float, max_value: float) -&gt; void:
+    if id == player_entity_id:
+        health_label.text = &quot;HP: %s/%s&quot; % [int(new_value), int(max_value)]
+
+func _on_player_chakra_changed(id: int, new_value: float, max_value: float) -&gt; void:
+    if id == player_entity_id:
+        chakra_label.text = &quot;CHA: %s/%s&quot; % [int(new_value), int(max_value)]
+
+func _on_player_stamina_changed(id: int, new_value: float, max_value: float) -&gt; void:
+    if id == player_entity_id:
+        stamina_label.text = &quot;STA: %s/%s&quot; % [int(new_value), int(max_value)]
+
+func _on_player_stability_changed(id: int, new_value: float, max_value: float) -&gt; void: # New
+    if id == player_entity_id:
+        stability_label.text = &quot;STAB: %s/%s&quot; % [int(new_value), int(max_value)]
+
+func _on_player_core_stats_changed(id: int, new_core_stats: Variant) -&gt; void: # Updated to CoreStats
+    if id == player_entity_id:
+        hunger_label.text = &quot;HUN: %s&quot; % int(new_core_stats.Hunger)
+        thirst_label.text = &quot;THI: %s&quot; % int(new_core_stats.Thirst)
+
+func _on_player_died(id: int) -&gt; void:
+    if id == player_entity_id:
+        health_label.text = &quot;HP: DEAD&quot;
+        chakra_label.text = &quot;CHA: DEAD&quot;
+        stamina_label.text = &quot;STA: DEAD&quot;
+        stability_label.text = &quot;STAB: DEAD&quot;
+        hunger_label.text = &quot;HUN: DEAD&quot;
+        thirst_label.text = &quot;THI: DEAD&quot;
+        GD.print(&quot;HUDController: Player %s has died visually!&quot; % id)
+</code></pre>
+<p>Also, update <code>res://_Body/Scenes/UI/HUD.tscn</code> to add a <code>StabilityLabel</code> to <code>VBoxStats</code>.</p>
+<h3 id="9-testing-the-casting-state-machine-with-corestats">9. Testing the Casting State Machine with CoreStats</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the new Stability UI element. It should start at 100/100.</li>
+<li><strong>Test 1 (Known Spell - <code>testSymbol</code> -&gt; <code>testSymbol2</code>)</strong>:<ul>
+<li>Quickly press <code>0</code> then <code>1</code>.</li>
+<li>Observe the Chakra and Stability values decreasing on the HUD as the spell casts.</li>
+</ul>
+</li>
+<li><strong>Test 2 (Insufficient Chakra/Stability)</strong>:<ul>
+<li>Use the debug console <code>/chakra -50</code> (to reduce chakra) or <code>/stability -100</code> (to reduce stability).</li>
+<li>Attempt to cast <code>Test_BloomConsume</code>.</li>
+<li>You should see messages about insufficient chakra/stability in the console, and the spell should not initiate.</li>
+</ul>
+</li>
+<li><strong>Test 3 (CastSpeed effect)</strong>:<ul>
+<li>The player's default <code>CastSpeed</code> is 1.0.</li>
+<li>If you could modify <code>PlayerStats.CastSpeed</code> (e.g., via a debug command: <code>/castspeed 2.0</code>), the <code>CastStart</code> duration would halve.</li>
+</ul>
+</li>
+</ol>
+<p>This comprehensive test confirms that <code>CastingSystem</code> correctly manages the player's casting flow, interacts with <code>PlayerStatSystem</code> to deduct chakra and stability from <code>CoreStats</code>, and uses <code>CoreStats.CastSpeed</code> to determine spell <code>CastTime</code>.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the <strong>Casting State Machine</strong> in the C# Brain, governing the player's spellcasting flow through distinct states (Idle, Channeling, CastStart, Casting, Recovery). By designing <code>CastingSystem</code> to manage these transitions, deduct <code>ChakraCost</code> and <code>StabilityCost</code> from <code>CoreStats</code> (via <code>PlayerStatSystem</code>), and utilize <code>CoreStats.CastSpeed</code> for <code>CastTime</code> adjustments, you've established precise control over spell execution. This crucial system strictly adheres to TDD 02.4's specifications, providing a robust foundation for Sigilborne's dynamic magic, with all core stats now unified under <code>CoreStats</code>.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>This concludes <strong>Module 4: Combos &amp; Casting - The Art of Ninjutsu</strong>. We will now move back to <strong>Module 5: Chakra &amp; Life Systems</strong>, starting with <strong>Metabolism System - Dynamic Decay Rates (C#)</strong>, where we will refine how hunger, thirst, and other biological needs dynamically decay based on player activity and environmental factors.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

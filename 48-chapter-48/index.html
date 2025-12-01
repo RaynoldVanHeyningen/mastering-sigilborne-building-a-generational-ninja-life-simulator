@@ -1,0 +1,2746 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../47-chapter-47/">
+      
+      
+        <link rel="next" href="../49-chapter-49/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 7.5: Ecology Simulation - Virtual Agents (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-75-ecology-simulation-virtual-agents-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-75-ecology-simulation-virtual-agents-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7.5: Ecology Simulation - Virtual Agents (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-challenge-of-a-living-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Challenge of a "Living World"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-virtualagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining VirtualAgent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-ecologymanagercs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing EcologyManager.cs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Implementing EcologyManager.cs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-update-entitymanagercs-for-getallactiveentityids-and-trygetentitymeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Update EntityManager.cs for GetAllActiveEntityIDs and TryGetEntityMeta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-update-corestatscs-for-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Update CoreStats.cs for Position
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-update-gamemanager-to-pass-ecologymanager-to-worldsimulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Update GameManager to Pass EcologyManager to WorldSimulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-update-_braincoreworldsimulationcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Update _Brain/Core/WorldSimulation.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-testing-ecology-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Testing Ecology Simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-75-ecology-simulation-virtual-agents-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7.5: Ecology Simulation - Virtual Agents (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-challenge-of-a-living-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Challenge of a "Living World"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-virtualagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining VirtualAgent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-ecologymanagercs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing EcologyManager.cs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Implementing EcologyManager.cs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-update-entitymanagercs-for-getallactiveentityids-and-trygetentitymeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Update EntityManager.cs for GetAllActiveEntityIDs and TryGetEntityMeta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-update-corestatscs-for-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Update CoreStats.cs for Position
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-update-gamemanager-to-pass-ecologymanager-to-worldsimulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Update GameManager to Pass EcologyManager to WorldSimulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-update-_braincoreworldsimulationcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Update _Brain/Core/WorldSimulation.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-testing-ecology-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Testing Ecology Simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 7.5: Ecology Simulation - Virtual Agents (C#)</h1>
+
+<h2 id="chapter-75-ecology-simulation-virtual-agents-c">Chapter 7.5: Ecology Simulation - Virtual Agents (C#)</h2>
+<p>Sigilborne's world is a living, breathing ecosystem, even beyond the player's immediate vicinity. This chapter implements the <strong>Ecology Simulation</strong> system, designing how animals and NPCs exist and behave as "Virtual Agents" even when the player is far away in unloaded chunks. These virtual agents will be simulated at a very slow tick rate, maintaining the illusion of a persistent, evolving world, as specified in TDD 05.4.</p>
+<h3 id="1-the-challenge-of-a-living-world">1. The Challenge of a "Living World"</h3>
+<p>The GDD (B03) states: "The world exists <strong>with or without the player</strong>." This means:</p>
+<ul>
+<li><strong>Persistence</strong>: NPCs don't just disappear when off-screen; their lives continue.</li>
+<li><strong>Performance</strong>: Simulating every detail of every entity in the entire world all the time is impossible.</li>
+<li><strong>Abstraction</strong>: We need a lightweight representation for distant entities.</li>
+<li><strong>Hydration/Dehydration</strong>: Seamlessly transition entities between full simulation and lightweight virtual states.</li>
+</ul>
+<h3 id="2-defining-virtualagent">2. Defining <code>VirtualAgent</code></h3>
+<p>TDD 05.4.1 defines <code>VirtualAgent</code> as a lightweight data struct. We'll enhance it slightly to include more relevant data for ecology simulation.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Ecology/</code> folder.</li>
+<li>Create <code>res://_Brain/Systems/Ecology/VirtualAgent.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Ecology/VirtualAgent.cs
+using System;
+using Godot; // For Vector2
+using Sigilborne.Entities; // For EntityID, EntityType
+using Sigilborne.Systems.Biology; // For CoreStats
+
+namespace Sigilborne.Systems.Ecology
+{
+    /// &lt;summary&gt;
+    /// A lightweight data representation of an entity in an unloaded chunk.
+    /// (TDD 05.4.1)
+    /// &lt;/summary&gt;
+    public struct VirtualAgent
+    {
+        public EntityID ID;                 // The original EntityID
+        public EntityType Type;             // Player, NPC, Animal
+        public string DefinitionID;         // e.g., &quot;goblin_grunt&quot;, &quot;deer_male&quot;
+        public Vector2 Position;            // World position
+        public float RotationDegrees;       // Rotation
+        public CoreStats CurrentStats;      // Core stats (health, hunger, thirst, etc.)
+        public int CurrentChunkX;           // Which chunk this agent is in
+        public int CurrentChunkY;
+
+        // --- AI State for Virtual Agents ---
+        // Simplified AI state, e.g., &quot;Wandering&quot;, &quot;Hunting&quot;, &quot;Eating&quot;
+        public string SimplifiedAIState;    
+        public EntityID TargetID;           // Simplified target (e.g., player, food source)
+
+        public VirtualAgent(EntityID id, EntityType type, string definitionID, Vector2 position, float rotationDegrees, CoreStats currentStats, string simplifiedAIState = &quot;Wandering&quot;, EntityID targetID = default)
+        {
+            ID = id;
+            Type = type;
+            DefinitionID = definitionID;
+            Position = position;
+            RotationDegrees = rotationDegrees;
+            CurrentStats = currentStats;
+            CurrentChunkX = (int)MathF.Floor(position.X / GameManager.Instance.World.ChunkSize); // Assuming WorldSystem has ChunkSize
+            CurrentChunkY = (int)MathF.Floor(position.Y / GameManager.Instance.World.ChunkSize);
+            SimplifiedAIState = simplifiedAIState;
+            TargetID = targetID;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;VA {ID} ({DefinitionID}) Pos: {Position} HP: {CurrentStats.Health:F0} HUN: {CurrentStats.Hunger:F0} State: {SimplifiedAIState}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-implementing-ecologymanagercs">3. Implementing <code>EcologyManager.cs</code></h3>
+<p>This system will manage the collection of <code>VirtualAgent</code>s, simulate them at a slow tick, and handle the hydration/dehydration (spawning/despawning) process.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Ecology/EcologyManager.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Ecology/EcologyManager.cs
+using Godot;
+using System;
+using System.Collections.Concurrent; // For ConcurrentBag
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.AI; // For AI components, SpatialGrid
+using Sigilborne.Systems.Movement; // For movement simulation
+using Sigilborne.Systems.Weather; // For environmental impact
+using Sigilborne.Utils; // For JobSystem
+using System.Linq;
+
+namespace Sigilborne.Systems.Ecology
+{
+    /// &lt;summary&gt;
+    /// Manages the ecology simulation, including Virtual Agents in unloaded chunks.
+    /// Handles hydration (spawning) and dehydration (despawning) of entities.
+    /// (TDD 05.4)
+    /// &lt;/summary&gt;
+    public class EcologyManager
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private BiologicalSystem _biologicalSystem;
+        private TransformSystem _transformSystem;
+        private AISystem _aiSystem;
+        private MovementSystem _movementSystem;
+        private WeatherSystem _weatherSystem;
+        private JobSystem _jobSystem;
+        private SpatialHashGrid _spatialGrid; // Needed for querying nearby virtual agents
+
+        // TDD 05.4.1: Stores Virtual Agents in unloaded chunks.
+        // Using ConcurrentBag for thread-safe adding/removing if jobs interact directly.
+        private ConcurrentBag&lt;VirtualAgent&gt; _virtualAgents = new ConcurrentBag&lt;VirtualAgent&gt;();
+
+        // TDD 13.3: Double Buffering for Ecology Simulation (Conceptual)
+        // For simplicity in this chapter, we'll directly modify _virtualAgents.
+        // A full implementation would use two ConcurrentBags and swap them.
+
+        private const float VIRTUAL_AGENT_TICK_RATE = 10.0f; // Simulate virtual agents every 10 real seconds
+        private float _virtualAgentTickTimer;
+
+        // Player's current loaded chunk (used for hydration/dehydration radius)
+        private Vector2I _playerLoadedChunk = Vector2I.Zero;
+        private const int LOAD_RADIUS_CHUNKS = 2; // TDD 08.2.1: Player loads chunks within a radius (e.g., 2 chunks)
+
+        public EcologyManager(EntityManager entityManager, EventBus eventBus, BiologicalSystem biologicalSystem, TransformSystem transformSystem, AISystem aiSystem, MovementSystem movementSystem, WeatherSystem weatherSystem, JobSystem jobSystem, SpatialHashGrid spatialGrid)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _biologicalSystem = biologicalSystem;
+            _transformSystem = transformSystem;
+            _aiSystem = aiSystem;
+            _movementSystem = movementSystem;
+            _weatherSystem = weatherSystem;
+            _jobSystem = jobSystem;
+            _spatialGrid = spatialGrid;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+            _eventBus.OnPlayerCoreStatsChanged += OnPlayerCoreStatsChanged; // To track player's chunk
+
+            GD.Print(&quot;EcologyManager: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            // For entities spawned by the GameManager (e.g., player, test NPC),
+            // ensure they are *not* added to virtual agents initially if they are in loaded chunks.
+            // This method is mainly for entities that *transition* from virtual to active.
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            // This is primarily for entities explicitly destroyed.
+            // Entities dehydrating (transitioning from active to virtual) will be handled separately.
+        }
+
+        private void OnPlayerCoreStatsChanged(EntityID playerID, CoreStats newCoreStats)
+        {
+            // TDD 08.2.1: Track player's current chunk to manage load radius.
+            Vector2I newPlayerChunk = new Vector2I(
+                (int)MathF.Floor(newCoreStats.Position.X / GameManager.Instance.World.ChunkSize),
+                (int)MathF.Floor(newCoreStats.Position.Y / GameManager.Instance.World.ChunkSize)
+            );
+
+            if (newPlayerChunk != _playerLoadedChunk)
+            {
+                _playerLoadedChunk = newPlayerChunk;
+                // GD.Print($&quot;EcologyManager: Player entered new chunk: {_playerLoadedChunk}. Triggering Hydration/Dehydration.&quot;);
+                HydrateAndDehydrateChunks();
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Main update loop for the EcologyManager.
+        /// Manages the Virtual Agent Tick.
+        /// &lt;/summary&gt;
+        public void Tick(double delta)
+        {
+            _virtualAgentTickTimer += (float)delta;
+            if (_virtualAgentTickTimer &gt;= VIRTUAL_AGENT_TICK_RATE)
+            {
+                ProcessVirtualAgentTick();
+                _virtualAgentTickTimer = 0;
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Processes a slow tick for all virtual agents.
+        /// (TDD 05.4.1: Simulation - Update Virtual Agents at a very slow tick rate)
+        /// &lt;/summary&gt;
+        private void ProcessVirtualAgentTick()
+        {
+            GD.Print($&quot;EcologyManager: Processing Virtual Agent Tick. ({_virtualAgents.Count} virtual agents)&quot;);
+
+            // TDD 13.4.1: Ecology Simulation - Task: Update hunger/movement for virtual animals.
+            // For simplicity, we'll do this on the main thread for now.
+            // A full implementation would use the JobSystem to process chunks of _virtualAgents.
+
+            List&lt;VirtualAgent&gt; updatedAgents = new List&lt;VirtualAgent&gt;();
+            foreach (VirtualAgent agent in _virtualAgents)
+            {
+                VirtualAgent updatedAgent = agent; // Create a mutable copy
+
+                // --- Simulate simplified biological processes ---
+                updatedAgent.CurrentStats.Hunger = Mathf.Max(0, updatedAgent.CurrentStats.Hunger - 5); // Hunger always decays
+                updatedAgent.CurrentStats.Thirst = Mathf.Max(0, updatedAgent.CurrentStats.Thirst - 7); // Thirst always decays
+
+                // --- Simulate simplified AI/movement ---
+                // For now, simple random wander or move towards player if hungry/thirsty
+                if (updatedAgent.CurrentStats.Hunger &lt;= 20 || updatedAgent.CurrentStats.Thirst &lt;= 20)
+                {
+                    updatedAgent.SimplifiedAIState = &quot;SeekingSustenance&quot;;
+                    // Move towards a conceptual food/water source (placeholder)
+                    updatedAgent.Position += new Vector2((float)_rand.NextDouble() * 10 - 5, (float)_rand.NextDouble() * 10 - 5);
+                }
+                else
+                {
+                    updatedAgent.SimplifiedAIState = &quot;Wandering&quot;;
+                    updatedAgent.Position += new Vector2((float)_rand.NextDouble() * 2 - 1, (float)_rand.NextDouble() * 2 - 1); // Small random walk
+                }
+
+                updatedAgents.Add(updatedAgent);
+            }
+            // Replace old virtual agents with updated ones (conceptual double buffering)
+            _virtualAgents = new ConcurrentBag&lt;VirtualAgent&gt;(updatedAgents);
+        }
+
+        /// &lt;summary&gt;
+        /// Manages the transition of entities between Active (full simulation) and Virtual (lightweight) states.
+        /// (TDD 05.4.3: Transition (Hydration/Dehydration))
+        /// &lt;/summary&gt;
+        private void HydrateAndDehydrateChunks()
+        {
+            // --- Dehydration: Convert active entities in unloaded chunks to virtual agents ---
+            // Iterate all active entities
+            List&lt;EntityID&gt; activeEntitiesToDehydrate = new List&lt;EntityID&gt;();
+            foreach (EntityID activeID in _entityManager.GetAllActiveEntityIDs()) // Assuming GetAllActiveEntityIDs exists
+            {
+                if (activeID == _entityManager.GetPlayerEntityID()) continue; // Never dehydrate player
+
+                if (_transformSystem.TryGetTransform(activeID, out TransformComponent transform))
+                {
+                    Vector2I entityChunk = new Vector2I(
+                        (int)MathF.Floor(transform.Position.X / GameManager.Instance.World.ChunkSize),
+                        (int)MathF.Floor(transform.Position.Y / GameManager.Instance.World.ChunkSize)
+                    );
+
+                    // If entity is outside the loaded radius, dehydrate it
+                    if (!IsChunkInLoadRadius(entityChunk))
+                    {
+                        if (_biologicalSystem.TryGetCoreStats(activeID, out CoreStats stats) &amp;&amp; _entityManager.TryGetEntityMeta(activeID, out EntityMeta meta))
+                        {
+                            _virtualAgents.Add(new VirtualAgent(activeID, meta.Type, meta.DefinitionID, transform.Position, transform.RotationDegrees, stats));
+                            activeEntitiesToDehydrate.Add(activeID);
+                            // GD.Print($&quot;EcologyManager: Dehydrating {activeID} (Type: {meta.Type}).&quot;);
+                        }
+                    }
+                }
+            }
+            // Destroy active entities that were dehydrated (must be done on main thread)
+            foreach (EntityID id in activeEntitiesToDehydrate)
+            {
+                _entityManager.DestroyEntity(id);
+            }
+
+            // --- Hydration: Convert virtual agents in loaded chunks to active entities ---
+            List&lt;VirtualAgent&gt; virtualAgentsToHydrate = new List&lt;VirtualAgent&gt;();
+            List&lt;VirtualAgent&gt; remainingVirtualAgents = new List&lt;VirtualAgent&gt;();
+
+            foreach (VirtualAgent agent in _virtualAgents)
+            {
+                Vector2I agentChunk = new Vector2I(
+                    (int)MathF.Floor(agent.Position.X / GameManager.Instance.World.ChunkSize),
+                    (int)MathF.Floor(agent.Position.Y / GameManager.Instance.World.ChunkSize)
+                );
+
+                if (IsChunkInLoadRadius(agentChunk))
+                {
+                    // Hydrate this agent (spawn active entity)
+                    // TDD 05.4.2: Spawning - Instantiate actual Godot Nodes.
+                    // This creates a new active entity, but uses the old ID.
+                    _entityManager.CreateEntity(agent.Type, agent.DefinitionID, agent.Position, agent.RotationDegrees);
+                    // Update the new active entity's stats from the virtual agent (TDD 05.4.2)
+                    ref CoreStats hydratedStats = ref _biologicalSystem.GetCoreStatsRef(agent.ID);
+                    hydratedStats = agent.CurrentStats;
+                    // GD.Print($&quot;EcologyManager: Hydrating {agent.ID} (Type: {agent.Type}).&quot;);
+                }
+                else
+                {
+                    remainingVirtualAgents.Add(agent); // Keep it virtual
+                }
+            }
+            // Replace the ConcurrentBag with only the remaining virtual agents
+            _virtualAgents = new ConcurrentBag&lt;VirtualAgent&gt;(remainingVirtualAgents);
+        }
+
+        /// &lt;summary&gt;
+        /// Checks if a given chunk is within the player's loaded radius.
+        /// &lt;/summary&gt;
+        private bool IsChunkInLoadRadius(Vector2I chunkCoords)
+        {
+            return Mathf.Abs(chunkCoords.X - _playerLoadedChunk.X) &lt;= LOAD_RADIUS_CHUNKS &amp;&amp;
+                   Mathf.Abs(chunkCoords.Y - _playerLoadedChunk.Y) &lt;= LOAD_RADIUS_CHUNKS;
+        }
+
+        private Random _rand = new Random(); // For simple virtual agent movement
+    }
+}
+</code></pre>
+<h4 id="31-update-entitymanagercs-for-getallactiveentityids-and-trygetentitymeta">3.1. Update <code>EntityManager.cs</code> for <code>GetAllActiveEntityIDs</code> and <code>TryGetEntityMeta</code></h4>
+<p><code>EcologyManager</code> needs to iterate active entities and safely get <code>EntityMeta</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Entities/EntityManager.cs</code> and add these methods:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Entities/EntityManager.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+
+namespace Sigilborne.Entities
+{
+    // ... (EntityID, EntityMeta, EntityType structs/enums) ...
+
+    public class EntityManager
+    {
+        // ... (existing fields) ...
+
+        /// &lt;summary&gt;
+        /// Retrieves all currently active EntityIDs.
+        /// (TDD 05.4.3)
+        /// &lt;/summary&gt;
+        public IEnumerable&lt;EntityID&gt; GetAllActiveEntityIDs()
+        {
+            for (int i = 0; i &lt; MAX_ENTITIES; i++)
+            {
+                if (_entityMetas[i].IsActive)
+                {
+                    yield return new EntityID(i, _entityMetas[i].Generation);
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Safely attempts to get the EntityMeta for a given EntityID.
+        /// &lt;/summary&gt;
+        public bool TryGetEntityMeta(EntityID id, out EntityMeta meta)
+        {
+            if (IsValid(id))
+            {
+                meta = _entityMetas[id.Index];
+                return true;
+            }
+            meta = default;
+            return false;
+        }
+
+        // ... (other methods) ...
+    }
+}
+</code></pre>
+<h4 id="32-update-corestatscs-for-position">3.2. Update <code>CoreStats.cs</code> for Position</h4>
+<p><code>CoreStats</code> needs a <code>Position</code> field for <code>VirtualAgent</code>s. This is a simplification; ideally, <code>VirtualAgent</code> would store <code>TransformComponent</code> data directly.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Biology/CoreStats.cs</code> and add a <code>Position</code> field.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/CoreStats.cs
+using System;
+using Godot; // For Vector2
+
+namespace Sigilborne.Systems.Biology
+{
+    public struct CoreStats
+    {
+        // ... (existing stats) ...
+        public Vector2 Position; // New: For VirtualAgent tracking
+
+        public CoreStats(float maxHealth, float maxStamina, float maxChakra, float baseDamage = 10f, float attackSpeed = 1.0f,
+                         float armor = 0f, float magicResistance = 0f, float moveSpeed = 150f, float sprintMultiplier = 1.5f,
+                         float castSpeed = 1.0f, float maxStability = 100f, float stabilityRegenRate = 5f,
+                         float chakraRegenRate = 2f, float staminaRegenRate = 10f, float normalBodyTemp = 37.0f,
+                         float critChance = 0.05f, float critMultiplier = 1.5f, float blockChance = 0f, float blockReduction = 0.5f,
+                         Vector2 initialPosition = default) // Add initialPosition
+        {
+            // ... (existing initializations) ...
+            Position = initialPosition; // Initialize position
+        }
+
+        public override string ToString() { /* ... */ }
+    }
+}
+</code></pre>
+<ol>
+<li>Update <code>BiologicalSystem.OnEntitySpawned</code> to pass <code>initialPosition</code> to <code>CoreStats</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Biology/BiologicalSystem.cs (in OnEntitySpawned)
+// ...
+            if (type == EntityType.Player)
+            {
+                _entityCoreStats.Add(id, new CoreStats(
+                    maxHealth: 100f, maxStamina: 75f, maxChakra: 50f,
+                    baseDamage: 15f, attackSpeed: 1.0f, armor: 5f, magicResistance: 5f,
+                    moveSpeed: 150f, sprintMultiplier: 1.5f, castSpeed: 1.0f,
+                    maxStability: 100f, stabilityRegenRate: 5f, chakraRegenRate: 2f, staminaRegenRate: 10f,
+                    normalBodyTemp: 37.0f, critChance: 0.1f, critMultiplier: 1.75f, blockChance: 0.1f, blockReduction: 0.5f,
+                    initialPosition: initialPosition // Pass initialPosition
+                ));
+                GD.Print($&quot;BiologicalSystem: Added CoreStats for Player {id}. Stats: {_entityCoreStats[id]}&quot;);
+            }
+            else if (type == EntityType.NPC || type == EntityType.Animal)
+            {
+                _entityCoreStats.Add(id, new CoreStats(
+                    maxHealth: 50f, maxStamina: 30f, maxChakra: 20f,
+                    baseDamage: 8f, attackSpeed: 1.0f, armor: 2f, magicResistance: 2f,
+                    moveSpeed: 100f, sprintMultiplier: 1.2f, castSpeed: 1.0f,
+                    maxStability: 50f, stabilityRegenRate: 3f, chakraRegenRate: 1f, staminaRegenRate: 5f,
+                    normalBodyTemp: 37.0f, critChance: 0.05f, critMultiplier: 1.5f, blockChance: 0f, blockReduction: 0f,
+                    initialPosition: initialPosition // Pass initialPosition
+                ));
+                GD.Print($&quot;BiologicalSystem: Added CoreStats for {type} entity {id}. Stats: {_entityCoreStats[id]}&quot;);
+            }
+// ...
+</code></pre>
+<h4 id="33-update-gamemanager-to-pass-ecologymanager-to-worldsimulation">3.3. Update <code>GameManager</code> to Pass <code>EcologyManager</code> to <code>WorldSimulation</code></h4>
+<p><code>WorldSimulation</code> will oversee the <code>EcologyManager</code>. Also, <code>WorldSimulation</code> needs a <code>ChunkSize</code> property.</p>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Ecology;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add a <code>EcologyManager</code> property.</li>
+<li>Initialize <code>EcologyManager</code> in <code>InitializeSystems()</code> <strong>after</strong> all its dependencies.</li>
+<li>Modify <code>WorldSimulation</code> to have a <code>ChunkSize</code> property and constructor, and to take <code>EcologyManager</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside InitializeSystems)
+// ...
+        // Initialize EcologyManager AFTER all its dependencies
+        Ecology = new EcologyManager(Entities, Events, BiologicalSystem, Transforms, AI, Movement, Weather, Jobs, SpatialGrid); // Pass dependencies
+        GD.Print(&quot;  - EcologyManager initialized.&quot;);
+
+        // Initialize PlayerStatSystem, passing BiologicalSystem
+        PlayerStats = new PlayerStatSystem(Events, Entities, BiologicalSystem);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        // Initialize WorldSimulation, passing EcologyManager
+        World = new WorldSimulation(Ecology); // Pass EcologyManager
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+// ...
+</code></pre>
+<h4 id="34-update-_braincoreworldsimulationcs">3.4. Update <code>_Brain/Core/WorldSimulation.cs</code></h4>
+<pre><code class="language-csharp">// _Brain/Core/WorldSimulation.cs
+using Godot;
+using System;
+using Sigilborne.Systems.Ecology; // Add this using directive
+
+namespace Sigilborne.Core
+{
+    public class WorldSimulation
+    {
+        public EcologyManager Ecology { get; private set; } // New: Reference to EcologyManager
+        public float ChunkSize { get; private set; } = 128f; // TDD 05.4.1: Chunk size (e.g., 128x128 pixels)
+
+        public WorldSimulation(EcologyManager ecologyManager) // Add EcologyManager parameter
+        {
+            Ecology = ecologyManager; // Store EcologyManager reference
+            GD.Print(&quot;WorldSimulation: Initialized.&quot;);
+        }
+
+        public void Tick(double delta)
+        {
+            // Update child systems here
+            Ecology.Tick(delta); // EcologyManager needs to tick for virtual agents
+            // GD.Print($&quot;WorldSimulation: Tick at {GameManager.Instance.Time.CurrentGameTime:F2}&quot;); // Example
+        }
+    }
+}
+</code></pre>
+<h3 id="4-testing-ecology-simulation">4. Testing Ecology Simulation</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output.<ul>
+<li>You'll see <code>EcologyManager: Initialized.</code> and <code>WorldSimulation: Initialized.</code></li>
+<li>Every 10 seconds (our <code>VIRTUAL_AGENT_TICK_RATE</code>), you should see <code>EcologyManager: Processing Virtual Agent Tick.</code> messages.</li>
+<li>The <code>VirtualAgent</code>s' hunger/thirst will decay, and their simplified AI states (<code>Wandering</code>, <code>SeekingSustenance</code>) will be printed.</li>
+<li>Move the player around. When the player crosses a chunk boundary (e.g., from <code>(0,0)</code> to <code>(1,0)</code> if <code>ChunkSize</code> is 128), <code>EcologyManager</code> should print <code>Hydrating/Dehydrating</code> messages.<ul>
+<li><code>EcologyManager: Dehydrating EntityID(1, Gen:1) (Type: NPC).</code></li>
+<li><code>EcologyManager: Hydrating EntityID(1, Gen:1) (Type: NPC).</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>This confirms our <code>EcologyManager</code> is correctly simulating <code>VirtualAgent</code>s in the background and handling the hydration/dehydration process as the player moves between chunks.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the <strong>Ecology Simulation</strong> system, designing <code>VirtualAgent</code> as a lightweight data representation for entities in unloaded chunks and creating <code>EcologyManager</code> to manage their lifecycle. By implementing a slow "Virtual Agent Tick" for background simulation and orchestrating the hydration/dehydration process based on the player's loaded chunk radius, you've ensured a persistent and evolving world, strictly adhering to TDD 05.4's specifications. This crucial step maintains the illusion of a living ecosystem without compromising performance.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>Spawning &amp; Despawning</strong>, detailing how <code>EcologyManager</code> and <code>EntityManager</code> seamlessly convert entities between "Virtual Agent" (data-only) and "Active Entity" (Godot node) states as the player enters and leaves chunks.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

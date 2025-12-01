@@ -1,0 +1,2576 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../19-chapter-19/">
+      
+      
+        <link rel="next" href="../21-chapter-21/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-31-glyph-database-concepts-vs-symbols-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-31-glyph-database-concepts-vs-symbols-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-philosophical-core-dynamic-magic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Philosophical Core: Dynamic Magic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-glyph-concepts-enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining Glyph Concepts (Enums)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-defining-glyph-symbols-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining Glyph Symbols (IDs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-the-glyph-database-worldglyphmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Glyph Database: WorldGlyphMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integrating-worldglyphmap-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integrating WorldGlyphMap into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-glyph-database-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing Glyph Database Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-31-glyph-database-concepts-vs-symbols-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-philosophical-core-dynamic-magic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Philosophical Core: Dynamic Magic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-glyph-concepts-enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining Glyph Concepts (Enums)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-defining-glyph-symbols-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining Glyph Symbols (IDs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-the-glyph-database-worldglyphmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Glyph Database: WorldGlyphMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integrating-worldglyphmap-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integrating WorldGlyphMap into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-glyph-database-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing Glyph Database Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)</h1>
+
+<h2 id="chapter-31-glyph-database-concepts-vs-symbols-c">Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)</h2>
+<p>Welcome to <strong>Module 3: The Glyph System - Language of Ninjutsu</strong>! This module dives into Sigilborne's core magic system. Unlike traditional RPGs with fixed spell lists, Sigilborne's magic is dynamic: the meaning of a "hand sign" (glyph symbol) is randomized per world. This chapter lays the groundwork by separating abstract <code>Concepts</code> (the mechanical effects like Fire, Water) from <code>Symbols</code> (the visual hand signs like Triangle, Circle) and establishing a database to manage them in the C# Brain, as specified in TDD 15.2.</p>
+<h3 id="1-the-philosophical-core-dynamic-magic">1. The Philosophical Core: Dynamic Magic</h3>
+<p>The GDD (B01.3) states that each glyph's actual effect (its "meaning") is generated uniquely per world. This is achieved by decoupling the visual representation from its mechanical function.</p>
+<ul>
+<li><strong>Concepts</strong>: These are the underlying, stable magical archetypes (e.g., Bloom, Veil, Pulse, Bind). They are universal across all worlds.</li>
+<li><strong>Symbols</strong>: These are the visual hand signs the player sees and performs (e.g., a specific hand gesture, a rune-like graphic). They are also universal in their visual form, but their <em>meaning</em> changes.</li>
+</ul>
+<p>The "magic" happens when a <code>Symbol</code> is <em>mapped</em> to a <code>Concept</code> for a specific world.</p>
+<h3 id="2-defining-glyph-concepts-enums">2. Defining Glyph <code>Concepts</code> (Enums)</h3>
+<p><code>Concepts</code> represent the fundamental magical archetypes. They are stable and unchanging, providing long-term player intuition.</p>
+<ol>
+<li>Create a new folder <code>res://_Brain/Systems/Magic/</code>.</li>
+<li>Create <code>res://_Brain/Systems/Magic/GlyphConcepts.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/GlyphConcepts.cs
+using System;
+
+namespace Sigilborne.Systems.Magic
+{
+    /// &lt;summary&gt;
+    /// Represents the fundamental, stable magical archetypes (mechanical categories).
+    /// These concepts are universal across all worlds.
+    /// (GDD B01.2, TDD 15.2)
+    /// &lt;/summary&gt;
+    public enum GlyphConcept
+    {
+        None,       // Default or invalid concept
+        Bloom,      // Growth, expansion, healing
+        Veil,       // Concealment, distortion, illusion
+        Pulse,      // Shock, bursts, force
+        Bind,       // Control, restraint, entanglement
+        Consume,    // Drain, corruption, decay
+        Fracture,   // Division, instability, breaking
+        Echo,       // Duplication, resonance, memory
+        Project,    // Beams, projectiles, focused energy
+        Conjure,    // Materialization, summoning
+        Shape,      // Form manipulation, alteration
+        Flux,       // Transformation, chaotic change
+        Chain,      // Propagation, linking, spreading
+        // Add more concepts as defined in GDD B01.2 if needed
+    }
+}
+</code></pre>
+<h3 id="3-defining-glyph-symbols-ids">3. Defining Glyph <code>Symbols</code> (IDs)</h3>
+<p><code>Symbols</code> are the visual hand signs. They are unique and fixed in their visual appearance across the global database, but their <em>assigned meaning</em> (to a <code>GlyphConcept</code>) changes per world.</p>
+<p>We'll define these as simple string IDs for now, representing distinct visual assets.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/GlyphSymbols.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/GlyphSymbols.cs
+using System;
+using System.Collections.Generic;
+
+namespace Sigilborne.Systems.Magic
+{
+    /// &lt;summary&gt;
+    /// Represents the static, visual hand-sign symbols available in the global pool.
+    /// Each symbol has a unique string ID corresponding to a visual asset.
+    /// (GDD B01.1, TDD 15.2)
+    /// &lt;/summary&gt;
+    public static class GlyphSymbols
+    {
+        // Example static list of all available glyph symbol IDs.
+        // In a real game, these might be loaded from a config file or asset manifest.
+        public static readonly IReadOnlyList&lt;string&gt; AllSymbols = new List&lt;string&gt;
+        {
+            &quot;symbol_triangle&quot;,
+            &quot;symbol_circle&quot;,
+            &quot;symbol_square&quot;,
+            &quot;symbol_spiral&quot;,
+            &quot;symbol_dot&quot;,
+            &quot;symbol_cross&quot;,
+            &quot;symbol_wave&quot;,
+            &quot;symbol_star&quot;,
+            &quot;symbol_moon&quot;,
+            &quot;symbol_sun&quot;,
+            // Add more symbols to reach the GDD's 100+ global pool
+            &quot;symbol_diamond&quot;, &quot;symbol_pentagon&quot;, &quot;symbol_hexagon&quot;, &quot;symbol_infinity&quot;,
+            &quot;symbol_lightning&quot;, &quot;symbol_leaf&quot;, &quot;symbol_drop&quot;, &quot;symbol_fire&quot;,
+            &quot;symbol_eye&quot;, &quot;symbol_mouth&quot;, &quot;symbol_hand&quot;, &quot;symbol_foot&quot;,
+            &quot;symbol_mountain&quot;, &quot;symbol_river&quot;, &quot;symbol_cloud&quot;, &quot;symbol_tree&quot;,
+            // ... and so on, up to 100+ unique visual identifiers.
+        };
+
+        /// &lt;summary&gt;
+        /// Returns a subset of all available symbols, simulating a world drawing 50-80 glyphs
+        /// from the global pool (GDD B01.2).
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;worldSeed&quot;&gt;The seed for world generation.&lt;/param&gt;
+        /// &lt;param name=&quot;count&quot;&gt;The number of symbols to select.&lt;/param&gt;
+        /// &lt;returns&gt;A list of selected symbol IDs for a specific world.&lt;/returns&gt;
+        public static List&lt;string&gt; SelectWorldSymbols(int worldSeed, int count)
+        {
+            if (count &gt; AllSymbols.Count) count = AllSymbols.Count;
+            if (count &lt; 0) count = 0;
+
+            Random rand = new Random(worldSeed);
+            List&lt;string&gt; selected = new List&lt;string&gt;(AllSymbols);
+
+            // Shuffle and take the first 'count' elements
+            for (int i = selected.Count - 1; i &gt; 0; i--)
+            {
+                int j = rand.Next(i + 1);
+                string temp = selected[i];
+                selected[i] = selected[j];
+                selected[j] = temp;
+            }
+
+            return selected.Take(count).ToList();
+        }
+    }
+}
+</code></pre>
+<h3 id="4-the-glyph-database-worldglyphmap">4. The Glyph Database: <code>WorldGlyphMap</code></h3>
+<p>This is the core data structure that stores the unique <code>Symbol</code> to <code>Concept</code> mapping for a given world. TDD 15.2 specifies that this mapping is stored in <code>WorldData.GlyphMap</code>. For now, we'll implement it as a standalone class.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/WorldGlyphMap.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/WorldGlyphMap.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Sigilborne.Systems.Magic
+{
+    /// &lt;summary&gt;
+    /// Represents a single glyph definition for a specific world, mapping a visual symbol to a mechanical concept.
+    /// (TDD 15.2)
+    /// &lt;/summary&gt;
+    public struct WorldGlyphDefinition
+    {
+        public string SymbolID;     // e.g., &quot;symbol_triangle&quot;
+        public GlyphConcept Concept; // e.g., GlyphConcept.Fire
+        // Subtype information will be added in a later chapter (GDD B01.3, TDD 15.4)
+
+        public WorldGlyphDefinition(string symbolId, GlyphConcept concept)
+        {
+            SymbolID = symbolId;
+            Concept = concept;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Symbol: '{SymbolID}' -&gt; Concept: {Concept}&quot;;
+        }
+    }
+
+    /// &lt;summary&gt;
+    /// The authoritative database for a world's unique Glyph Symbol to Concept mapping.
+    /// This is generated once per world seed.
+    /// (TDD 15.2)
+    /// &lt;/summary&gt;
+    public class WorldGlyphMap
+    {
+        private Dictionary&lt;string, WorldGlyphDefinition&gt; _symbolToDefinition = new Dictionary&lt;string, WorldGlyphDefinition&gt;();
+        private Dictionary&lt;GlyphConcept, WorldGlyphDefinition&gt; _conceptToDefinition = new Dictionary&lt;GlyphConcept, WorldGlyphDefinition&gt;(); // Optional reverse lookup
+
+        // Expose the definitions as a read-only list for iteration or UI display
+        public IReadOnlyList&lt;WorldGlyphDefinition&gt; AllWorldGlyphs =&gt; _symbolToDefinition.Values.ToList().AsReadOnly();
+
+        public WorldGlyphMap(int worldSeed, int glyphCount)
+        {
+            GenerateWorldGlyphMap(worldSeed, glyphCount);
+            GD.Print($&quot;WorldGlyphMap: Generated {AllWorldGlyphs.Count} glyph definitions for world seed {worldSeed}.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Generates the unique Symbol to Concept mapping for a new world.
+        /// (TDD 15.2: Generation Logic)
+        /// &lt;/summary&gt;
+        private void GenerateWorldGlyphMap(int worldSeed, int glyphCount)
+        {
+            Random rand = new Random(worldSeed);
+
+            // 1. Select a subset of symbols for this world (GDD B01.2)
+            List&lt;string&gt; selectedSymbols = GlyphSymbols.SelectWorldSymbols(worldSeed, glyphCount);
+
+            // 2. Get all available concepts (excluding 'None')
+            List&lt;GlyphConcept&gt; availableConcepts = Enum.GetValues(typeof(GlyphConcept))
+                                                        .Cast&lt;GlyphConcept&gt;()
+                                                        .Where(c =&gt; c != GlyphConcept.None)
+                                                        .ToList();
+
+            // Ensure we don't try to map more symbols than concepts available
+            if (selectedSymbols.Count &gt; availableConcepts.Count)
+            {
+                GD.PrintErr($&quot;WorldGlyphMap: Not enough unique concepts ({availableConcepts.Count}) for {selectedSymbols.Count} symbols. Some symbols will share concepts.&quot;);
+                // For now, we'll allow sharing concepts, or just map fewer symbols.
+                // A more robust system might disallow this or add &quot;minor&quot; concepts.
+            }
+
+            // Shuffle concepts to ensure random assignment
+            for (int i = availableConcepts.Count - 1; i &gt; 0; i--)
+            {
+                int j = rand.Next(i + 1);
+                GlyphConcept temp = availableConcepts[i];
+                availableConcepts[i] = availableConcepts[j];
+                availableConcepts[j] = temp;
+            }
+
+            // 3. Assign each selected symbol to a unique concept (or reuse if concepts run out)
+            for (int i = 0; i &lt; selectedSymbols.Count; i++)
+            {
+                string symbol = selectedSymbols[i];
+                GlyphConcept concept = availableConcepts[i % availableConcepts.Count]; // Cycle through concepts if more symbols than unique concepts
+
+                WorldGlyphDefinition def = new WorldGlyphDefinition(symbol, concept);
+                _symbolToDefinition.Add(symbol, def);
+                // For reverse lookup, store only if concept isn't already mapped (i.e., unique concept mapping)
+                if (!_conceptToDefinition.ContainsKey(concept))
+                {
+                    _conceptToDefinition.Add(concept, def);
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the WorldGlyphDefinition for a given SymbolID.
+        /// &lt;/summary&gt;
+        public WorldGlyphDefinition GetDefinitionBySymbol(string symbolID)
+        {
+            if (_symbolToDefinition.TryGetValue(symbolID, out WorldGlyphDefinition def))
+            {
+                return def;
+            }
+            GD.PrintErr($&quot;WorldGlyphMap: No definition found for symbol '{symbolID}'.&quot;);
+            return new WorldGlyphDefinition(symbolID, GlyphConcept.None);
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the WorldGlyphDefinition for a given GlyphConcept.
+        /// (Useful for AI or systems that know the concept but need the symbol)
+        /// &lt;/summary&gt;
+        public WorldGlyphDefinition GetDefinitionByConcept(GlyphConcept concept)
+        {
+            if (_conceptToDefinition.TryGetValue(concept, out WorldGlyphDefinition def))
+            {
+                return def;
+            }
+            GD.PrintErr($&quot;WorldGlyphMap: No definition found for concept '{concept}'.&quot;);
+            return new WorldGlyphDefinition(&quot;unknown_symbol&quot;, GlyphConcept.None);
+        }
+    }
+}
+</code></pre>
+<h3 id="5-integrating-worldglyphmap-into-gamemanager">5. Integrating <code>WorldGlyphMap</code> into <code>GameManager</code></h3>
+<p>Now, let's make <code>WorldGlyphMap</code> a core system of our <code>GameManager</code>.</p>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Magic;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add a <code>WorldGlyphMap</code> property.</li>
+<li>Initialize <code>WorldGlyphMap</code> in <code>InitializeSystems()</code>. We'll pass a <code>worldSeed</code> (e.g., from a future <code>WorldGenerationSystem</code>) and a <code>glyphCount</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Magic; // Add this using directive
+using Sigilborne.Utils;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public PhysicsSystem Physics { get; private set; }
+    public WorldGlyphMap GlyphMap { get; private set; } // Add WorldGlyphMap property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Input.ProcessInputBuffer(); 
+        Time.Tick(delta);
+        World.Tick(delta);
+        Movement.Tick(delta);
+        Events.FlushCommands();
+    }
+
+    private void InitializeSystems()
+    {
+        Events = new EventBus();
+        GD.Print(&quot;  - EventBus initialized.&quot;);
+
+        Time = new TimeSystem();
+        GD.Print(&quot;  - TimeSystem initialized.&quot;);
+
+        Entities = new EntityManager(Events);
+        GD.Print(&quot;  - EntityManager initialized.&quot;);
+
+        Transforms = new TransformSystem(Entities, Events);
+        GD.Print(&quot;  - TransformSystem initialized.&quot;);
+
+        Jobs = new JobSystem(Events);
+        GD.Print(&quot;  - JobSystem initialized.&quot;);
+
+        PlayerStats = new PlayerStatSystem(Events, Entities);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        DebugCommands = new DebugCommandSystem(this);
+        GD.Print(&quot;  - DebugCommandSystem initialized.&quot;);
+
+        Input = new InputSystem();
+        GD.Print(&quot;  - InputSystem initialized.&quot;);
+
+        Movement = new MovementSystem(Entities, Input, Events, Transforms);
+        GD.Print(&quot;  - MovementSystem initialized.&quot;);
+
+        Physics = new PhysicsSystem(Entities, Transforms, Events);
+        GD.Print(&quot;  - PhysicsSystem initialized.&quot;);
+
+        // Initialize WorldGlyphMap (TDD 15.2)
+        // For now, use a fixed seed and glyph count. These will come from world generation later.
+        int currentWorldSeed = 12345;
+        int numGlyphsForWorld = 10; // GDD B01.2: Player typically learns 8-12 early, 20-30 late.
+                                   // This is the number available in *this* world.
+        GlyphMap = new WorldGlyphMap(currentWorldSeed, numGlyphsForWorld);
+        GD.Print(&quot;  - WorldGlyphMap initialized.&quot;);
+
+        World = new WorldSimulation();
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<h3 id="6-testing-glyph-database-generation">6. Testing Glyph Database Generation</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>In the Output console, you should see messages indicating the <code>WorldGlyphMap</code> initialization.</li>
+</ol>
+<pre><code>...
+  - PhysicsSystem initialized.
+WorldGlyphMap: Generated 10 glyph definitions for world seed 12345.
+  - WorldGlyphMap initialized.
+  - WorldSimulation initialized.
+...
+</code></pre>
+<p>You can also use the debug console to inspect the generated map (we'll add a command for this later). For now, you can temporarily add a print loop in <code>GameManager._Ready()</code> to see the generated definitions:</p>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside _Ready, after GlyphMap initialization)
+        GD.Print(&quot;\n--- Generated World Glyphs ---&quot;);
+        foreach (var glyphDef in GlyphMap.AllWorldGlyphs)
+        {
+            GD.Print(glyphDef.ToString());
+        }
+        GD.Print(&quot;------------------------------\n&quot;);
+</code></pre>
+<p>Run again, and you'll see a list like:</p>
+<pre><code>--- Generated World Glyphs ---
+Symbol: 'symbol_leaf' -&gt; Concept: Bloom
+Symbol: 'symbol_cross' -&gt; Concept: Consume
+Symbol: 'symbol_spiral' -&gt; Concept: Pulse
+Symbol: 'symbol_pentagon' -&gt; Concept: Veil
+Symbol: 'symbol_hand' -&gt; Concept: Chain
+Symbol: 'symbol_triangle' -&gt; Concept: Echo
+Symbol: 'symbol_sun' -&gt; Concept: Fracture
+Symbol: 'symbol_river' -&gt; Concept: Shape
+Symbol: 'symbol_dot' -&gt; Concept: Project
+Symbol: 'symbol_wave' -&gt; Concept: Bind
+------------------------------
+</code></pre>
+<p>The specific mappings will vary if you change <code>currentWorldSeed</code>. This demonstrates the procedural generation of glyph meanings for each world.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the foundational <strong>Glyph Database</strong> for Sigilborne, clearly separating <code>GlyphConcept</code> (mechanical archetypes) from <code>GlyphSymbol</code> (visual hand signs). By designing <code>WorldGlyphMap</code> to procedurally generate a unique <code>Symbol</code> to <code>Concept</code> mapping for each world seed, you've established the core mechanism for dynamic magic, strictly adhering to TDD 15.2's specifications. This crucial step enables infinite replayability and ensures every playthrough feels like a coherent, yet unique, magical language.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on the <strong>Glyph Discovery System</strong>, implementing how players learn these randomized glyph meanings through experimentation, observation, and reading scrolls, and how their <code>KnowledgeState</code> progresses over time.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

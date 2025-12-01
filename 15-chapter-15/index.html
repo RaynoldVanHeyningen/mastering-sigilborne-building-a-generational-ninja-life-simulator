@@ -1,0 +1,2649 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../14-chapter-14/">
+      
+      
+        <link rel="next" href="../16-chapter-16/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 1.15: Main Loop Execution Order - Tick vs. Frame - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-115-main-loop-execution-order-tick-vs-frame" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-115-main-loop-execution-order-tick-vs-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1.15: Main Loop Execution Order - Tick vs. Frame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-tick-vs-frame-distinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "Tick" vs. "Frame" Distinction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-main-loop-execution-order-tdd-016" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Main Loop Execution Order (TDD 01.6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-the-input-buffer-body-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing the Input Buffer (Body -&gt; Brain)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Implementing the Input Buffer (Body -&gt; Brain)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-c-playerinputframe-and-inputbuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. C# PlayerInputFrame and InputBuffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-integrate-inputsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Integrate InputSystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-gdscript-inputmanager-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. GDScript InputManager (Body)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-update-maintscn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Update Main.tscn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-map-movement-input-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. Map Movement Input Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-visual-interpolation-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Visual Interpolation (Body)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-the-main-loop-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing the Main Loop Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-115-main-loop-execution-order-tick-vs-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1.15: Main Loop Execution Order - Tick vs. Frame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-tick-vs-frame-distinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "Tick" vs. "Frame" Distinction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-main-loop-execution-order-tdd-016" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Main Loop Execution Order (TDD 01.6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-the-input-buffer-body-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing the Input Buffer (Body -&gt; Brain)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Implementing the Input Buffer (Body -&gt; Brain)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-c-playerinputframe-and-inputbuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. C# PlayerInputFrame and InputBuffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-integrate-inputsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Integrate InputSystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-gdscript-inputmanager-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. GDScript InputManager (Body)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-update-maintscn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Update Main.tscn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-map-movement-input-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. Map Movement Input Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-visual-interpolation-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Visual Interpolation (Body)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-the-main-loop-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing the Main Loop Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 1.15: Main Loop Execution Order - Tick vs. Frame</h1>
+
+<h2 id="chapter-115-main-loop-execution-order-tick-vs-frame">Chapter 1.15: Main Loop Execution Order - Tick vs. Frame</h2>
+<p>Understanding the main loop is fundamental to developing a high-performance, deterministic game like Sigilborne, especially with our hybrid C# Brain / GDScript Body architecture. This chapter details the precise execution order of Godot's <code>_Process</code> and <code>_PhysicsProcess</code> methods, and how we leverage them to synchronize input, advance the simulation tick, and perform visual interpolation, as specified in TDD 01.6.</p>
+<h3 id="1-the-tick-vs-frame-distinction">1. The "Tick" vs. "Frame" Distinction</h3>
+<ul>
+<li><strong>Simulation Tick (Brain)</strong>:<ul>
+<li><strong>Fixed Timestep</strong>: Occurs at a consistent rate (e.g., 20Hz, or every 0.05 seconds), regardless of frame rate.</li>
+<li><strong>Deterministic</strong>: Ideal for all game logic, physics calculations, and AI decisions. Ensures consistent results across different machines.</li>
+<li><strong>Owner</strong>: C# Brain (<code>GameManager._PhysicsProcess</code>).</li>
+</ul>
+</li>
+<li><strong>Render Frame (Body)</strong>:<ul>
+<li><strong>Variable Timestep</strong>: Occurs as fast as the hardware can render (e.g., 60Hz, 144Hz, or more), tied to the monitor's refresh rate.</li>
+<li><strong>Non-Deterministic</strong>: Used for visual updates, animations, and smooth interpolation.</li>
+<li><strong>Owner</strong>: GDScript Body (<code>_Process</code> method in visual scripts).</li>
+</ul>
+</li>
+</ul>
+<p>The challenge is to connect these two distinct loops seamlessly.</p>
+<h3 id="2-main-loop-execution-order-tdd-016">2. Main Loop Execution Order (TDD 01.6)</h3>
+<p>Godot's engine processes its main loop in a specific order. We're fitting our Brain and Body logic into this.</p>
+<ol>
+<li>
+<p><strong><code>_Process(delta)</code> (GDScript Body)</strong>:</p>
+<ul>
+<li><strong>Input Capture</strong>: Captures raw player input (keyboard, mouse, gamepad).</li>
+<li><strong>Input Buffering</strong>: Sends a snapshot of this input to the C# Brain's input buffer.</li>
+<li><strong>Visual Interpolation</strong>: Smoothly moves visual elements (like <code>EntityView</code> sprites) between known simulation states.</li>
+<li><strong>UI Updates</strong>: Updates UI elements based on the current visual state.</li>
+<li><strong>Audio/VFX</strong>: Triggers non-gameplay-critical visual/audio effects.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>_PhysicsProcess(delta)</code> (C# Brain)</strong>:</p>
+<ul>
+<li><strong>Phase 1: Process Input Buffer</strong>: Reads the latest input snapshots from the buffer.</li>
+<li><strong>Phase 2: Run Simulation Systems</strong>: This is the "Tick" where all core game logic runs (AI, Biology, Combat, Magic, WorldSimulation).</li>
+<li><strong>Phase 3: Resolve Collisions/Events</strong>: Handles collision responses and processes any pending commands from the Job System's buffer.</li>
+<li><strong>Phase 4: Emit State Update Signals</strong>: Broadcasts the new authoritative game state to the GDScript Body via the <code>EventBus</code>.</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-implementing-the-input-buffer-body-brain">3. Implementing the Input Buffer (Body -&gt; Brain)</h3>
+<p>To pass input from GDScript (<code>_Process</code>) to C# (<code>_PhysicsProcess</code>), we need an input buffer. TDD 02.1 specifies <code>InputBuffer</code> in C#, and TDD 12.2 defines <code>PlayerInputFrame</code>.</p>
+<h4 id="31-c-playerinputframe-and-inputbuffer">3.1. C# <code>PlayerInputFrame</code> and <code>InputBuffer</code></h4>
+<ol>
+<li>Create a new folder <code>res://_Brain/Systems/Input/</code>.</li>
+<li>Create <code>res://_Brain/Systems/Input/PlayerInputFrame.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Input/PlayerInputFrame.cs
+using Godot;
+using System;
+
+namespace Sigilborne.Systems.Input
+{
+    /// &lt;summary&gt;
+    /// Represents a snapshot of player input at a specific moment.
+    /// This is sent from the GDScript Body to the C# Brain.
+    /// &lt;/summary&gt;
+    public struct PlayerInputFrame
+    {
+        public Vector2 MoveVector;      // X,Y (-1 to 1)
+        public Vector2 LookVector;      // Mouse position or Stick (e.g., normalized direction or screen coords)
+        public bool IsSprintHeld;
+        public bool IsShiftHeld;        // For &quot;Sliding&quot; mechanic
+        public bool[] HotbarKeys;       // 1-0 (array of 10 booleans)
+        public bool InteractPressed;
+        public double Timestamp;        // When this input was captured (real time)
+
+        public PlayerInputFrame(Vector2 moveVector, Vector2 lookVector, bool isSprintHeld, bool isShiftHeld, bool[] hotbarKeys, bool interactPressed, double timestamp)
+        {
+            MoveVector = moveVector;
+            LookVector = lookVector;
+            IsSprintHeld = isSprintHeld;
+            IsShiftHeld = isShiftHeld;
+            HotbarKeys = hotbarKeys ?? new bool[10]; // Ensure it's not null
+            InteractPressed = interactPressed;
+            Timestamp = timestamp;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Move: {MoveVector}, Sprint: {IsSprintHeld}, Shift: {IsShiftHeld}, Interact: {InteractPressed}, T: {Timestamp:F3}&quot;;
+        }
+    }
+}
+</code></pre>
+<ol>
+<li>Create <code>res://_Brain/Systems/Input/InputSystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Input/InputSystem.cs
+using Godot;
+using System;
+using System.Collections.Concurrent; // For ConcurrentQueue
+using Sigilborne.Core;
+
+namespace Sigilborne.Systems.Input
+{
+    /// &lt;summary&gt;
+    /// Manages player input, receiving frames from the GDScript Body and providing
+    /// the latest input to other Brain systems.
+    /// &lt;/summary&gt;
+    public class InputSystem
+    {
+        // TDD 02.1: InputBuffer - A ConcurrentQueue to safely receive input frames from GDScript.
+        private ConcurrentQueue&lt;PlayerInputFrame&gt; _inputQueue = new ConcurrentQueue&lt;PlayerInputFrame&gt;();
+        private PlayerInputFrame _latestInput; // The input frame processed in the current tick
+
+        public InputSystem()
+        {
+            // Initialize with a default (empty) input frame
+            _latestInput = new PlayerInputFrame(Vector2.Zero, Vector2.Zero, false, false, new bool[10], false, 0);
+            GD.Print(&quot;InputSystem: Initialized.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Receives an input frame from the GDScript Body and adds it to the queue.
+        /// This method is called from GDScript on the main thread.
+        /// &lt;/summary&gt;
+        public void EnqueueInput(PlayerInputFrame inputFrame)
+        {
+            _inputQueue.Enqueue(inputFrame);
+        }
+
+        /// &lt;summary&gt;
+        /// Processes the input queue, updating the latest input for the current simulation tick.
+        /// Called during GameManager._PhysicsProcess (Phase 1).
+        /// &lt;/summary&gt;
+        public void ProcessInputBuffer()
+        {
+            // Always take the latest input available in the queue for the current tick.
+            // If multiple inputs arrived since the last tick, we only care about the most recent one.
+            PlayerInputFrame newLatest = _latestInput;
+            bool updated = false;
+            while (_inputQueue.TryDequeue(out PlayerInputFrame inputFrame))
+            {
+                newLatest = inputFrame;
+                updated = true;
+            }
+
+            if (updated)
+            {
+                _latestInput = newLatest;
+                // GD.Print($&quot;InputSystem: Processed latest input: {_latestInput}&quot;);
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Returns the latest processed input frame for other systems to read.
+        /// &lt;/summary&gt;
+        public PlayerInputFrame GetLatestInput()
+        {
+            return _latestInput;
+        }
+    }
+}
+</code></pre>
+<h4 id="32-integrate-inputsystem-into-gamemanager">3.2. Integrate <code>InputSystem</code> into <code>GameManager</code></h4>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Input;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add an <code>InputSystem</code> property.</li>
+<li>Initialize <code>InputSystem</code> in <code>InitializeSystems()</code>.</li>
+<li>Call <code>InputSystem.ProcessInputBuffer()</code> in <code>_PhysicsProcess</code> (Phase 1).</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input; // Add this using directive
+using Sigilborne.Utils;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    public TimeSystem Time { get; private set; }
+    public EventBus Events { get; private set; }
+    public WorldSimulation World { get; private set; }
+    public EntityManager Entities { get; private set; }
+    public TransformSystem Transforms { get; private set; }
+    public JobSystem Jobs { get; private set; }
+    public PlayerStatSystem PlayerStats { get; private set; }
+    public DebugCommandSystem DebugCommands { get; private set; }
+    public InputSystem Input { get; private set; } // Add InputSystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        // TDD 01.6: Phase 1: Process Input Buffer.
+        Input.ProcessInputBuffer(); 
+
+        // TDD 01.6: Phase 2: Run Simulation Systems.
+        Time.Tick(delta);
+        World.Tick(delta); // WorldSimulation might contain AI, Biology, Combat, Magic updates
+        Transforms.Tick(delta); // Transforms are updated by simulation logic (e.g., movement system)
+
+        // TDD 01.6: Phase 3: Resolve Collisions/Events.
+        Events.FlushCommands(); // Process any batched events from background jobs and deferred commands.
+
+        // TDD 01.6: Phase 4: Emit State Update Signals.
+        // These are implicitly handled by systems calling Events.Publish within their Tick methods.
+    }
+
+    private void InitializeSystems()
+    {
+        Events = new EventBus();
+        GD.Print(&quot;  - EventBus initialized.&quot;);
+
+        Time = new TimeSystem();
+        GD.Print(&quot;  - TimeSystem initialized.&quot;);
+
+        Entities = new EntityManager(Events);
+        GD.Print(&quot;  - EntityManager initialized.&quot;);
+
+        Transforms = new TransformSystem(Entities, Events);
+        GD.Print(&quot;  - TransformSystem initialized.&quot;);
+
+        Jobs = new JobSystem(Events);
+        GD.Print(&quot;  - JobSystem initialized.&quot;);
+
+        PlayerStats = new PlayerStatSystem(Events, Entities);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        DebugCommands = new DebugCommandSystem(this);
+        GD.Print(&quot;  - DebugCommandSystem initialized.&quot;);
+
+        Input = new InputSystem(); // Initialize InputSystem here
+        GD.Print(&quot;  - InputSystem initialized.&quot;);
+
+        World = new WorldSimulation();
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<h4 id="33-gdscript-inputmanager-body">3.3. GDScript <code>InputManager</code> (Body)</h4>
+<p>This script will capture input in <code>_Process</code> and send it to the C# <code>InputSystem</code>.</p>
+<ol>
+<li>Create <code>res://_Body/Scripts/Core/InputManager.gd</code>:</li>
+</ol>
+<pre><code class="language-gdscript"># _Body/Scripts/Core/InputManager.gd
+class_name InputManager extends Node
+
+# --- Singleton Instance ---
+static var instance: InputManager
+
+# --- Hotbar Key Mapping ---
+const HOTBAR_KEYS: Array[int] = [
+    KEY_1, KEY_2, KEY_3, KEY_4, KEY_5,
+    KEY_6, KEY_7, KEY_8, KEY_9, KEY_0
+]
+
+func _init():
+    if instance != null:
+        push_error(&quot;InputManager: More than one instance detected!&quot;)
+        queue_free()
+        return
+    instance = self
+
+func _ready():
+    GD.print(&quot;InputManager: Initialized. Capturing input for C# Brain.&quot;)
+    pass # No connections needed here, we poll input in _process
+
+## Captures raw input events and sends a snapshot to the C# InputSystem.
+## (TDD 01.6: _Process (GDScript) - Capture Input -&gt; Send to C# Buffer)
+func _process(delta: float) -&gt; void:
+    # Only send input if GameManager and InputSystem are ready
+    if GameManager.Instance == null or GameManager.Instance.Input == null:
+        return
+
+    # Check if console is open; if so, consume input
+    if DebugConsoleController.instance != null and DebugConsoleController.instance.is_open:
+        # Input is handled by the console, don't send to game
+        return
+
+    var move_vector: Vector2 = Input.get_vector(&quot;move_left&quot;, &quot;move_right&quot;, &quot;move_up&quot;, &quot;move_down&quot;)
+    var look_vector: Vector2 = Vector2.ZERO # Placeholder for mouse/stick look
+    var is_sprint_held: bool = Input.is_action_pressed(&quot;sprint&quot;)
+    var is_shift_held: bool = Input.is_action_pressed(&quot;shift&quot;) # Placeholder for shift-slide
+    var interact_pressed: bool = Input.is_action_just_pressed(&quot;interact&quot;)
+
+    var hotbar_keys_pressed: Array[bool] = []
+    for i in range(HOTBAR_KEYS.size()):
+        hotbar_keys_pressed.append(Input.is_key_pressed(HOTBAR_KEYS[i]))
+
+    var input_frame = PlayerInputFrame.new() # Create a new C# struct instance via Godot's binding
+    input_frame.MoveVector = move_vector
+    input_frame.LookVector = look_vector
+    input_frame.IsSprintHeld = is_sprint_held
+    input_frame.IsShiftHeld = is_shift_held
+    input_frame.HotbarKeys = hotbar_keys_pressed.to_array() # Convert GDScript Array to C# Array
+    input_frame.InteractPressed = interact_pressed
+    input_frame.Timestamp = Time.get_ticks_msec() / 1000.0 # Real-time timestamp
+
+    GameManager.Instance.Input.EnqueueInput(input_frame)
+    # GD.print(&quot;InputManager: Sent input frame: %s&quot; % input_frame.to_string()) # Excessive printing, use for debug
+</code></pre>
+<h4 id="34-update-maintscn">3.4. Update <code>Main.tscn</code></h4>
+<ol>
+<li>Open <code>res://Main.tscn</code>.</li>
+<li>Add an instance of <code>res://_Body/Scripts/Core/InputManager.gd</code> as a child of the <code>Main</code> root node.</li>
+<li>Save <code>Main.tscn</code>.</li>
+</ol>
+<h4 id="35-map-movement-input-actions">3.5. Map Movement Input Actions</h4>
+<ol>
+<li>Go to <code>Project &gt; Project Settings... &gt; Input Map</code> tab.</li>
+<li>Add the following actions and map keys:<ul>
+<li><code>move_up</code>: <code>W</code></li>
+<li><code>move_down</code>: <code>S</code></li>
+<li><code>move_left</code>: <code>A</code></li>
+<li><code>move_right</code>: <code>D</code></li>
+<li><code>sprint</code>: <code>Shift</code> (Left)</li>
+<li><code>shift</code>: <code>Alt</code> (Left) (for our shift-slide mechanic, distinct from sprint)</li>
+<li><code>interact</code>: <code>E</code></li>
+</ul>
+</li>
+<li>Close Project Settings.</li>
+</ol>
+<h3 id="4-visual-interpolation-body">4. Visual Interpolation (Body)</h3>
+<p>Our <code>EntityView.gd</code> already handles this (Chapter 1.9). The <code>_physics_process</code> method in <code>EntityView.gd</code> <code>lerps</code> the visual position towards <code>brain_target_position</code>, which is updated by C# <code>OnEntityMoved</code> events. This ensures smooth movement regardless of the Brain's fixed tick rate.</p>
+<h3 id="5-testing-the-main-loop-integration">5. Testing the Main Loop Integration</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>You should see the NPC moving and rotating as before.</li>
+<li>Now, the console output will be flooded with <code>InputManager: Sent input frame...</code> if you uncommented the print statement.</li>
+<li>Press WASD. You won't see any immediate movement from the player yet, because we haven't implemented a <code>MovementSystem</code> in C# that <em>uses</em> the input. However, the input frames are correctly being sent to the C# Brain.</li>
+</ol>
+<p>To confirm the input is reaching the C# Brain, you can temporarily add a print statement to <code>InputSystem.ProcessInputBuffer()</code>:</p>
+<pre><code class="language-csharp">// _Brain/Systems/Input/InputSystem.cs (inside ProcessInputBuffer)
+// ...
+            if (updated)
+            {
+                _latestInput = newLatest;
+                GD.Print($&quot;InputSystem: Processed latest input: {_latestInput}&quot;); // Temp debug print
+            }
+// ...
+</code></pre>
+<p>Run again, and you'll see the input frames being processed by the C# Brain.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully established the <strong>Main Loop Execution Order</strong> for Sigilborne, clearly distinguishing between the fixed-timestep simulation tick (C# Brain in <code>_PhysicsProcess</code>) and the variable-timestep render frame (GDScript Body in <code>_Process</code>). By implementing a C# <code>InputSystem</code> to receive <code>PlayerInputFrame</code> snapshots from the GDScript <code>InputManager</code>, and confirming <code>EntityView.gd</code>'s role in visual interpolation, you've created a robust pipeline for handling input, advancing simulation, and maintaining smooth visuals, strictly adhering to TDD 01.6's specifications.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>This concludes <strong>Module 1: Core Architecture - The Brain &amp; Body Paradigm</strong>. You now have a fully functional architectural backbone for Sigilborne. We will now move on to <strong>Module 2: Player Input &amp; Core Movement</strong>, where we will implement the actual movement logic in the C# Brain, using the input frames we just set up.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2446 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../17-chapter-17/">
+      
+      
+        <link rel="next" href="../19-chapter-19/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-23-shift-sliding-mechanic-direction-lock-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-23-shift-sliding-mechanic-direction-lock-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-understanding-the-shift-sliding-mechanic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Understanding the Shift-Sliding Mechanic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-enhancing-movementsystemcs-for-shift-sliding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enhancing MovementSystem.cs for Shift-Sliding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Enhancing MovementSystem.cs for Shift-Sliding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-update-entitymanagercs-to-get-player-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Update EntityManager.cs to Get Player ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-testing-the-shift-sliding-mechanic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Testing the Shift-Sliding Mechanic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-23-shift-sliding-mechanic-direction-lock-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-understanding-the-shift-sliding-mechanic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Understanding the Shift-Sliding Mechanic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-enhancing-movementsystemcs-for-shift-sliding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Enhancing MovementSystem.cs for Shift-Sliding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Enhancing MovementSystem.cs for Shift-Sliding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-update-entitymanagercs-to-get-player-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Update EntityManager.cs to Get Player ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-testing-the-shift-sliding-mechanic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Testing the Shift-Sliding Mechanic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)</h1>
+
+<h2 id="chapter-23-shift-sliding-mechanic-direction-lock-c">Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)</h2>
+<p>Building on our standard movement, this chapter introduces Sigilborne's unique "Shift-Sliding" mechanic. This mechanic allows the player to "lock" their last movement direction by holding a specific key (e.g., <code>Alt</code>), causing the character to continue moving in that direction even if the directional input is released. This adds a tactical layer to movement, allowing for precise positioning while maintaining focus on other actions. This feature is directly specified in TDD 12.3.</p>
+<h3 id="1-understanding-the-shift-sliding-mechanic">1. Understanding the Shift-Sliding Mechanic</h3>
+<ul>
+<li><strong>Core Idea</strong>: When the "Shift" key (our <code>IsShiftHeld</code> input) is pressed, the player's movement direction becomes "locked" to the last non-zero <code>MoveVector</code>.</li>
+<li><strong>Behavior</strong>:<ul>
+<li>If <code>Shift</code> is held and directional input is active, the player moves normally, and the locked direction updates.</li>
+<li>If <code>Shift</code> is held and directional input is <em>released</em>, the player continues moving in the <em>last locked direction</em> at their current speed, rather than stopping or decelerating due to friction.</li>
+<li>If <code>Shift</code> is released, movement reverts to normal (friction applies, player stops if no directional input).</li>
+</ul>
+</li>
+<li><strong>Benefit</strong>: Allows players to maintain momentum or precise positioning while freeing up their directional input for other complex actions (e.g., casting glyphs without needing to hold WASD).</li>
+</ul>
+<h3 id="2-enhancing-movementsystemcs-for-shift-sliding">2. Enhancing <code>MovementSystem.cs</code> for Shift-Sliding</h3>
+<p>We will modify our <code>MovementSystem</code> to incorporate this new logic. We'll need a way to store the <code>LastMoveVector</code> when the <code>IsShiftHeld</code> flag is active.</p>
+<p>Open <code>res://_Brain/Systems/Movement/MovementSystem.cs</code>:</p>
+<pre><code class="language-csharp">// _Brain/Systems/Movement/MovementSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Input;
+
+namespace Sigilborne.Systems.Movement
+{
+    // ... (VelocityComponent and MovementParametersComponent structs) ...
+
+    /// &lt;summary&gt;
+    /// Component to store specific player movement states like the last locked direction for shift-sliding.
+    /// &lt;/summary&gt;
+    public struct PlayerMovementStateComponent
+    {
+        public Vector2 LastLockedMoveVector; // Stores the last non-zero move vector when shift is held
+        public bool IsShiftSliding; // True if currently in shift-sliding mode (shift is held and moving)
+
+        public PlayerMovementStateComponent(Vector2 lastLockedMoveVector = default, bool isShiftSliding = false)
+        {
+            LastLockedMoveVector = lastLockedMoveVector;
+            IsShiftSliding = isShiftSliding;
+        }
+    }
+
+
+    /// &lt;summary&gt;
+    /// Manages the movement logic for entities.
+    /// Reads input, calculates velocity, and updates TransformComponents.
+    /// &lt;/summary&gt;
+    public class MovementSystem
+    {
+        private EntityManager _entityManager;
+        private InputSystem _inputSystem;
+        private EventBus _eventBus;
+        private TransformSystem _transformSystem; 
+
+        private Dictionary&lt;EntityID, VelocityComponent&gt; _velocities = new Dictionary&lt;EntityID, VelocityComponent&gt;();
+        private Dictionary&lt;EntityID, MovementParametersComponent&gt; _movementParams = new Dictionary&lt;EntityID, MovementParametersComponent&gt;();
+        private Dictionary&lt;EntityID, PlayerMovementStateComponent&gt; _playerMovementStates = new Dictionary&lt;EntityID, PlayerMovementStateComponent&gt;(); // New: For player-specific movement states
+
+        public MovementSystem(EntityManager entityManager, InputSystem inputSystem, EventBus eventBus, TransformSystem transformSystem)
+        {
+            _entityManager = entityManager;
+            _inputSystem = inputSystem;
+            _eventBus = eventBus;
+            _transformSystem = transformSystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+
+            GD.Print(&quot;MovementSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            if (type == EntityType.Player) // Only player gets movement for now
+            {
+                _velocities.Add(id, new VelocityComponent(Vector2.Zero));
+                _movementParams.Add(id, new MovementParametersComponent(150f, 1.5f, 0.8f, 10f));
+                _playerMovementStates.Add(id, new PlayerMovementStateComponent()); // Add player-specific state
+                GD.Print($&quot;MovementSystem: Added movement components for Player {id}&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityID id)
+        {
+            _velocities.Remove(id);
+            _movementParams.Remove(id);
+            _playerMovementStates.Remove(id); // Remove player-specific state
+            GD.Print($&quot;MovementSystem: Removed movement components for {id}&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Main update loop for the MovementSystem.
+        /// Called during GameManager._PhysicsProcess (Phase 2).
+        /// &lt;/summary&gt;
+        public void Tick(double delta)
+        {
+            PlayerInputFrame currentInput = _inputSystem.GetLatestInput();
+
+            foreach (var kvp in _velocities)
+            {
+                EntityID id = kvp.Key;
+
+                if (!_entityManager.IsValid(id) || !_movementParams.TryGetValue(id, out MovementParametersComponent moveParams))
+                {
+                    continue;
+                }
+
+                ref VelocityComponent currentVelocity = ref _velocities.GetValueRef(id);
+                Vector2 targetMoveVector = currentInput.MoveVector;
+                float currentSpeed = moveParams.BaseSpeed;
+
+                // --- Player-specific Movement Logic (Shift-Sliding) ---
+                if (id == _entityManager.GetPlayerEntityID()) // Assuming we have a way to get player's ID
+                {
+                    ref PlayerMovementStateComponent playerMoveState = ref _playerMovementStates.GetValueRef(id);
+
+                    // TDD 12.3: Shift-Sliding Logic
+                    if (currentInput.IsShiftHeld)
+                    {
+                        if (targetMoveVector.LengthSquared() &gt; 0.1f)
+                        {
+                            // If shift is held AND directional input is active, update the locked vector
+                            playerMoveState.LastLockedMoveVector = targetMoveVector;
+                            playerMoveState.IsShiftSliding = true;
+                        }
+                        // If shift is held but directional input is released, continue with LastLockedMoveVector
+                        targetMoveVector = playerMoveState.LastLockedMoveVector;
+                        playerMoveState.IsShiftSliding = (targetMoveVector.LengthSquared() &gt; 0.1f); // Only sliding if there's a locked direction
+                    }
+                    else
+                    {
+                        // Shift is not held, reset sliding state
+                        playerMoveState.IsShiftSliding = false;
+                        playerMoveState.LastLockedMoveVector = Vector2.Zero; // Clear locked vector
+                    }
+                }
+                // --- End Player-specific Movement Logic ---
+
+
+                if (currentInput.IsSprintHeld &amp;&amp; !(_playerMovementStates.TryGetValue(id, out var state) &amp;&amp; state.IsShiftSliding)) // Cannot sprint while shift-sliding
+                {
+                    currentSpeed *= moveParams.SprintMultiplier;
+                }
+
+                Vector2 desiredVelocity = targetMoveVector * currentSpeed;
+
+                currentVelocity.Velocity = currentVelocity.Velocity.Lerp(desiredVelocity, moveParams.Acceleration * (float)delta);
+
+                // Apply friction only if not shift-sliding and no input
+                if (!(_playerMovementStates.TryGetValue(id, out var state2) &amp;&amp; state2.IsShiftSliding) &amp;&amp; targetMoveVector == Vector2.Zero &amp;&amp; currentVelocity.Velocity.LengthSquared() &gt; 0.1f)
+                {
+                    currentVelocity.Velocity = currentVelocity.Velocity.Lerp(Vector2.Zero, moveParams.Friction * (float)delta);
+                }
+                else if (!(_playerMovementStates.TryGetValue(id, out var state3) &amp;&amp; state3.IsShiftSliding) &amp;&amp; targetMoveVector == Vector2.Zero &amp;&amp; currentVelocity.Velocity.LengthSquared() &lt;= 0.1f)
+                {
+                    currentVelocity.Velocity = Vector2.Zero;
+                }
+
+                // --- Update TransformComponent ---
+                if (_transformSystem.TryGetTransform(id, out TransformComponent transform))
+                {
+                    transform.Position += currentVelocity.Velocity * (float)delta;
+                    // Rotation follows MoveVector or LastLockedMoveVector if sliding
+                    if (targetMoveVector.LengthSquared() &gt; 0.1f)
+                    {
+                        transform.RotationDegrees = targetMoveVector.Angle() * (180f / Mathf.Pi);
+                    }
+                    _transformSystem.TrySetTransform(id, transform);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Key Changes in <code>MovementSystem.cs</code>:</strong></p>
+<ul>
+<li><strong><code>PlayerMovementStateComponent</code></strong>: A new struct to store <code>LastLockedMoveVector</code> and <code>IsShiftSliding</code> specifically for the player.</li>
+<li><strong><code>_playerMovementStates</code></strong>: A dictionary to hold <code>PlayerMovementStateComponent</code> instances.</li>
+<li><strong><code>OnEntitySpawned</code> / <code>OnEntityDespawned</code></strong>: Updated to add/remove <code>PlayerMovementStateComponent</code> for the player entity.</li>
+<li><strong>Shift-Sliding Logic</strong>:<ul>
+<li>If <code>currentInput.IsShiftHeld</code> is true:<ul>
+<li>If <code>MoveVector</code> is active, <code>LastLockedMoveVector</code> is updated.</li>
+<li><code>targetMoveVector</code> is then set to <code>LastLockedMoveVector</code>, effectively continuing movement in the locked direction even if <code>currentInput.MoveVector</code> is zero.</li>
+<li><code>IsShiftSliding</code> is set.</li>
+</ul>
+</li>
+<li>If <code>IsShiftHeld</code> is false, <code>IsShiftSliding</code> is reset, and <code>LastLockedMoveVector</code> is cleared.</li>
+</ul>
+</li>
+<li><strong>Friction and Sprinting Conditional</strong>: Friction is only applied if the player is <em>not</em> currently shift-sliding. Sprinting is also conditionally applied, preventing sprinting while shift-sliding for a balanced mechanic.</li>
+</ul>
+<h4 id="21-update-entitymanagercs-to-get-player-id">2.1. Update <code>EntityManager.cs</code> to Get Player ID</h4>
+<p>The <code>MovementSystem</code> needs to know which <code>EntityID</code> belongs to the player. We can add a simple property to <code>EntityManager</code> for this.</p>
+<p>Open <code>_Brain/Entities/EntityManager.cs</code> and add this property:</p>
+<pre><code class="language-csharp">// _Brain/Entities/EntityManager.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+
+namespace Sigilborne.Entities
+{
+    // ... (EntityID, EntityMeta, EntityType structs/enums) ...
+
+    public class EntityManager
+    {
+        // ... (MAX_ENTITIES, _entityMetas, _freeIndices, _eventBus) ...
+        private EntityID _playerEntityID = EntityID.Invalid; // New: Store player's EntityID
+
+        public EntityManager(EventBus eventBus) { /* ... */ }
+
+        public EntityID CreateEntity(EntityType type, string definitionID, Vector2 initialPosition = default, float initialRotation = 0f)
+        {
+            // ... (slot allocation, generation increment, EntityMeta setup) ...
+
+            EntityID newId = new EntityID(index, _entityMetas[index].Generation);
+            GD.Print($&quot;EntityManager: Created {type} entity {newId} (Def: {definitionID})&quot;);
+
+            if (type == EntityType.Player) // Store player's ID when created
+            {
+                _playerEntityID = newId;
+            }
+
+            _eventBus.Publish(new EntitySpawnedEvent { ID = newId, Type = type, DefinitionID = definitionID, InitialPosition = initialPosition, InitialRotation = initialRotation });
+
+            return newId;
+        }
+
+        public void DestroyEntity(EntityID id)
+        {
+            // ... (existing destruction logic) ...
+            if (id == _playerEntityID) // Clear player's ID if destroyed
+            {
+                _playerEntityID = EntityID.Invalid;
+            }
+        }
+
+        public bool IsValid(EntityID id) { /* ... */ }
+        public ref EntityMeta GetEntityMeta(EntityID id) { /* ... */ }
+
+        /// &lt;summary&gt;
+        /// Returns the EntityID of the player character.
+        /// &lt;/summary&gt;
+        public EntityID GetPlayerEntityID()
+        {
+            return _playerEntityID;
+        }
+
+        // ... (Helper Events for Body Sync) ...
+    }
+}
+</code></pre>
+<h3 id="3-testing-the-shift-sliding-mechanic">3. Testing the Shift-Sliding Mechanic</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li><strong>Test 1 (Normal Movement)</strong>: Press WASD. The player moves. Release WASD. The player stops due to friction.</li>
+<li><strong>Test 2 (Shift-Sliding)</strong>:<ul>
+<li>Hold <code>Alt</code> (our <code>shift</code> key).</li>
+<li>Press <code>W</code> (move up). The player moves up.</li>
+<li>While still holding <code>Alt</code>, release <code>W</code>. The player should <em>continue moving up</em> without friction applying.</li>
+<li>Press <code>A</code> (move left) while holding <code>Alt</code>. The player's direction should change to left, and they continue moving left when <code>A</code> is released (as long as <code>Alt</code> is held).</li>
+<li>Release <code>Alt</code>. The player should stop if no directional input is held, or revert to normal movement if directional input is held.</li>
+</ul>
+</li>
+<li><strong>Test 3 (Sprint vs. Shift-Slide)</strong>:<ul>
+<li>Hold <code>Alt</code> and move (shift-sliding).</li>
+<li>Try to press <code>Shift</code> (sprint). The player should <em>not</em> sprint faster, as we've added a condition to prevent sprinting while shift-sliding.</li>
+</ul>
+</li>
+</ol>
+<p>This confirms the Shift-Sliding mechanic is working as intended, providing the player with a directional lock based on input.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the <strong>Shift-Sliding Mechanic</strong> in the C# Brain, allowing the player to lock their last movement direction for tactical precision. By introducing the <code>PlayerMovementStateComponent</code> and integrating its logic into the <code>MovementSystem</code>, you've created a unique traversal ability that dynamically responds to player input, strictly adhering to TDD 12.3's specifications. This enhances player agency and adds depth to movement, which is crucial for Sigilborne's systemic gameplay.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on the <strong>Physics Layer</strong>, detailing how our hybrid physics architecture leverages Godot's <code>CharacterBody2D</code> for collision detection and resolution while the C# Brain maintains authoritative control over velocity and position.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

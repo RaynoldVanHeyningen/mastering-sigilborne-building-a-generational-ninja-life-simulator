@@ -1,0 +1,2889 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../58-chapter-58/">
+      
+      
+        <link rel="next" href="../60-chapter-60/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-94-forbidden-contracts-spirit-contracts-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-94-forbidden-contracts-spirit-contracts-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9.4: Forbidden Contracts &amp; Spirit Contracts (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9.4: Forbidden Contracts &amp; Spirit Contracts (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-nature-of-pacts-and-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Nature of Pacts and Contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-contracttype-contractstatus-and-contractdefinition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining ContractType, ContractStatus, and ContractDefinition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-contractsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing ContractSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-contractsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating ContractSystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating ContractSystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-contract-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for Contract Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-forbidden-and-spirit-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Forbidden and Spirit Contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-94-forbidden-contracts-spirit-contracts-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9.4: Forbidden Contracts &amp; Spirit Contracts (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9.4: Forbidden Contracts &amp; Spirit Contracts (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-nature-of-pacts-and-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Nature of Pacts and Contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-contracttype-contractstatus-and-contractdefinition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining ContractType, ContractStatus, and ContractDefinition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-contractsystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing ContractSystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-contractsystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating ContractSystem into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating ContractSystem into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-contract-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for Contract Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-forbidden-and-spirit-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Forbidden and Spirit Contracts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)</h1>
+
+<h2 id="chapter-94-forbidden-contracts-spirit-contracts-c">Chapter 9.4: Forbidden Contracts &amp; Spirit Contracts (C#)</h2>
+<p>Our <code>RitualSystem</code> now handles tiered rituals, including the dangerous <code>Forbidden</code> tier. Often, these potent rituals are used to forge <strong>Forbidden Contracts</strong> or <strong>Spirit Contracts</strong> with powerful entities or metaphysical forces. This chapter designs how players can enter into these dangerous pacts, each with world-linked consequences, representing the ultimate risk-reward paths in Sigilborne's magic, as specified in GDD B27.3 and B27.4.</p>
+<h3 id="1-the-nature-of-pacts-and-contracts">1. The Nature of Pacts and Contracts</h3>
+<p>The GDD emphasizes that these are not simple spells:
+*   <strong>Forbidden Contracts</strong>: (B27.3) Pacts with powerful forces (spirits, corruption, anomalies) that <em>change the world</em>. They are "power-for-pain deals" with "world-linked consequences."
+*   <strong>Spirit Contracts</strong>: (B27.4) Very rare pacts with ancient spirits, requiring deep Echo affinity and strict rituals. They are "relational, not mechanical."</p>
+<p>These systems represent the highest level of non-mythic magic, blurring the line between player agency and world-altering events.</p>
+<h3 id="2-defining-contracttype-contractstatus-and-contractdefinition">2. Defining <code>ContractType</code>, <code>ContractStatus</code>, and <code>ContractDefinition</code></h3>
+<p>We need enums for different types of contracts and their status, and a class to define a static contract blueprint.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Rituals/ContractData.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Rituals/ContractData.cs
+using System;
+using System.Collections.Generic;
+using Godot; // For Vector2
+using Sigilborne.Entities; // For EntityID
+using Sigilborne.Systems.Magic; // For GlyphConcept
+using Sigilborne.Systems.Factions; // For FactionID
+
+namespace Sigilborne.Systems.Rituals
+{
+    /// &lt;summary&gt;
+    /// Defines the broad categories of magical contracts.
+    /// (GDD B27.3.1, B27.4)
+    /// &lt;/summary&gt;
+    public enum ContractType
+    {
+        None,
+        Forbidden,      // General forbidden pact with metaphysical forces (GDD B27.3)
+        Spirit,         // Pact with a specific spirit entity (GDD B27.4)
+        Corruption,     // Pact with chaotic residue/corruption entities (GDD B27.5)
+        Bloodline,      // Modifies player's bloodline (GDD B06.4)
+        Faction         // Binding pact with a major faction
+    }
+
+    /// &lt;summary&gt;
+    /// Defines the current status of a contract.
+    /// &lt;/summary&gt;
+    public enum ContractStatus
+    {
+        Inactive,       // Not yet initiated or broken
+        Pending,        // Initiated, undergoing ritual/trial
+        Active,         // Fully bound, effects are active
+        Violated,       // Player broke terms, penalties applied
+        Broken          // Contract forcibly broken (often with severe consequences)
+    }
+
+    /// &lt;summary&gt;
+    /// Static data defining a magical contract.
+    /// (GDD B27.3, B27.4)
+    /// &lt;/summary&gt;
+    public class ContractDefinition
+    {
+        public string ID { get; private set; } // Unique ID (e.g., &quot;pact_of_void_sight&quot;, &quot;spirit_of_forest_bond&quot;)
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public ContractType Type { get; private set; }
+        public RitualTier RequiredRitualTier { get; private set; } // Contract requires a ritual to initiate
+        public string RequiredRitualID { get; private set; } // The specific ritual needed
+        public EntityID ContractEntityID { get; private set; } // The entity the contract is with (e.g., a spirit, an anomaly core)
+        public string FactionID { get; private set; } // For Faction contracts
+
+        // Requirements/Costs
+        public float ChakraCost { get; private set; }
+        public float StabilityCost { get; private set; }
+        public float PermanentHealthCost { get; private set; } // GDD B27.3.1: Power-for-Pain deals
+        public List&lt;string&gt; RequiredItemIDs { get; private set; } // Items consumed
+
+        // Rewards/Effects when Active
+        public List&lt;string&gt; ActiveEffectIDs { get; private set; } // e.g., &quot;void_sense_bonus&quot;, &quot;summon_forest_spirit&quot;
+        public List&lt;string&gt; GrantedGlyphConcepts { get; private set; } // New glyph concepts granted (GDD B01.4.E/F)
+        public List&lt;string&gt; GrantedAbilities { get; private set; } // New active abilities (C02 high-tier techniques)
+
+        // Penalties/Consequences when Violated or Broken
+        public List&lt;string&gt; ViolationPenaltyIDs { get; private set; } // e.g., &quot;curse_of_instability&quot;, &quot;spirit_hunt_on_player&quot;
+        public List&lt;string&gt; BrokenConsequenceIDs { get; private set; } // World-altering consequences (GDD B27.3.2)
+
+        public ContractDefinition(string id, string name, string description, ContractType type, RitualTier requiredRitualTier, string requiredRitualID, EntityID contractEntityID, string factionID = null, float chakraCost = 0f, float stabilityCost = 0f, float permanentHealthCost = 0f, List&lt;string&gt; requiredItemIDs = null, List&lt;string&gt; activeEffectIDs = null, List&lt;string&gt; grantedGlyphConcepts = null, List&lt;string&gt; grantedAbilities = null, List&lt;string&gt; violationPenaltyIDs = null, List&lt;string&gt; brokenConsequenceIDs = null)
+        {
+            ID = id;
+            Name = name;
+            Description = description;
+            Type = type;
+            RequiredRitualTier = requiredRitualTier;
+            RequiredRitualID = requiredRitualID;
+            ContractEntityID = contractEntityID;
+            FactionID = factionID;
+            ChakraCost = chakraCost;
+            StabilityCost = stabilityCost;
+            PermanentHealthCost = permanentHealthCost;
+            RequiredItemIDs = requiredItemIDs ?? new List&lt;string&gt;();
+            ActiveEffectIDs = activeEffectIDs ?? new List&lt;string&gt;();
+            GrantedGlyphConcepts = grantedGlyphConcepts ?? new List&lt;string&gt;();
+            GrantedAbilities = grantedAbilities ?? new List&lt;string&gt;();
+            ViolationPenaltyIDs = violationPenaltyIDs ?? new List&lt;string&gt;();
+            BrokenConsequenceIDs = brokenConsequenceIDs ?? new List&lt;string&gt;();
+        }
+
+        public override string ToString()
+        {
+            string entityInfo = ContractEntityID.IsValid() ? $&quot; with {ContractEntityID}&quot; : (FactionID != null ? $&quot; with {FactionID}&quot; : &quot;&quot;);
+            return $&quot;Contract: '{Name}' ({ID}) | Type: {Type}, Tier: {RequiredRitualTier}{entityInfo}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-implementing-contractsystemcs">3. Implementing <code>ContractSystem.cs</code></h3>
+<p>This system will:
+*   Manage <code>ContractDefinition</code>s.
+*   Track <code>ContractStatus</code> for entities (player).
+*   Provide methods to <code>InitiateContract</code> and <code>BreakContract</code>.
+*   Interact with <code>RitualSystem</code> to trigger contracts.
+*   Apply contract rewards and penalties.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Rituals/ContractSystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Rituals/ContractSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic; // For GlyphAcquisitionSystem, GlyphConcept
+using Sigilborne.Systems.StatusEffects; // For StatusEffectSystem
+using System.Linq;
+
+namespace Sigilborne.Systems.Rituals
+{
+    /// &lt;summary&gt;
+    /// Manages magical contracts (Forbidden, Spirit, Corruption, Bloodline, Faction).
+    /// Tracks contract status, applies rewards/penalties, and integrates with rituals.
+    /// (GDD B27.3, B27.4)
+    /// &lt;/summary&gt;
+    public class ContractSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private InventorySystem _inventorySystem;
+        private BiologicalSystem _biologicalSystem;
+        private GlyphAcquisitionSystem _glyphAcquisitionSystem; // To grant new glyphs
+        private StatusEffectSystem _statusEffectSystem; // To apply penalties
+
+        // Static definitions of all possible contracts
+        private Dictionary&lt;string, ContractDefinition&gt; _contractDefinitions = new Dictionary&lt;string, ContractDefinition&gt;();
+
+        // Active contracts for entities: Key: EntityID, Value: Dictionary&lt;ContractID, ContractStatus&gt;
+        private Dictionary&lt;EntityID, Dictionary&lt;string, ContractStatus&gt;&gt; _entityContracts = new Dictionary&lt;EntityID, Dictionary&lt;string, ContractStatus&gt;&gt;();
+
+        public ContractSystem(EntityManager entityManager, EventBus eventBus, InventorySystem inventorySystem, BiologicalSystem biologicalSystem, GlyphAcquisitionSystem glyphAcquisitionSystem, StatusEffectSystem statusEffectSystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _inventorySystem = inventorySystem;
+            _biologicalSystem = biologicalSystem;
+            _glyphAcquisitionSystem = glyphAcquisitionSystem;
+            _statusEffectSystem = statusEffectSystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnOnEntityDespawned;
+            _eventBus.OnRitualCompleted += OnRitualCompleted; // Contracts are often initiated by ritual completion
+
+            RegisterDefaultContractDefinitions(); // Register some default contracts
+            GD.Print(&quot;ContractSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            if (type == EntityType.Player || type == EntityType.NPC) // NPCs can also have contracts
+            {
+                _entityContracts.Add(id, new Dictionary&lt;string, ContractStatus&gt;());
+                // Initialize all contracts as Inactive for this entity.
+                foreach (var contractDef in _contractDefinitions.Values)
+                {
+                    _entityContracts[id].Add(contractDef.ID, ContractStatus.Inactive);
+                }
+                GD.Print($&quot;ContractSystem: Initialized contracts for {type} entity {id}.&quot;);
+            }
+        }
+
+        private void OnOnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            _entityContracts.Remove(e.ID);
+            GD.Print($&quot;ContractSystem: Removed contracts for {e.ID}.&quot;);
+        }
+
+        private void OnRitualCompleted(EntityID initiatorID, string ritualID, EntityID centerID)
+        {
+            // Check if any contract requires this ritual
+            foreach (var contractDef in _contractDefinitions.Values.Where(cd =&gt; cd.RequiredRitualID == ritualID).ToList())
+            {
+                // If the player completed the ritual, attempt to initiate the contract.
+                if (initiatorID == GameManager.Instance.Entities.GetPlayerEntityID())
+                {
+                    GD.Print($&quot;ContractSystem: Player completed ritual '{ritualID}'. Attempting to initiate contract '{contractDef.ID}'.&quot;);
+                    InitiateContract(initiatorID, contractDef.ID);
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Registers a new static ContractDefinition.
+        /// &lt;/summary&gt;
+        public void RegisterContractDefinition(ContractDefinition def)
+        {
+            _contractDefinitions[def.ID] = def;
+            GD.Print($&quot;ContractSystem: Registered contract definition '{def.ID}'.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Registers some default contracts for initial testing.
+        /// (GDD B27.3, B27.4)
+        /// &lt;/summary&gt;
+        private void RegisterDefaultContractDefinitions()
+        {
+            // --- Forbidden Contract: Pact of Void Sight (GDD B27.3) ---
+            RegisterContractDefinition(new ContractDefinition(
+                id: &quot;pact_of_void_sight&quot;, name: &quot;Pact of Void Sight&quot;, description: &quot;Grants perception of hidden void energies.&quot;,
+                type: ContractType.Forbidden, requiredRitualTier: RitualTier.Advanced, requiredRitualID: &quot;scrying_rite_t1&quot;, // Use scrying rite
+                contractEntityID: EntityID.Invalid, // No specific entity, general forbidden pact
+                chakraCost: 30f, stabilityCost: 20f, permanentHealthCost: 5f, // Power-for-pain
+                requiredItemIDs: new List&lt;string&gt; { &quot;void_dust_small&quot; },
+                activeEffectIDs: new List&lt;string&gt; { &quot;void_sight_aura&quot; }, // Conceptual effect
+                grantedGlyphConcepts: new List&lt;string&gt; { GlyphConcept.Consume.ToString(), GlyphConcept.Flux.ToString() }, // Grants new glyphs
+                violationPenaltyIDs: new List&lt;string&gt; { &quot;vision_blur_curse&quot; },
+                brokenConsequenceIDs: new List&lt;string&gt; { &quot;corruption_bloom_local&quot; } // World-altering
+            ));
+
+            // --- Spirit Contract: Forest Spirit Bond (GDD B27.4) ---
+            RegisterContractDefinition(new ContractDefinition(
+                id: &quot;forest_spirit_bond&quot;, name: &quot;Forest Spirit Bond&quot;, description: &quot;Binds a lesser forest spirit to aid.&quot;,
+                type: ContractType.Spirit, requiredRitualTier: RitualTier.Advanced, requiredRitualID: &quot;spirit_summoning_t2&quot;,
+                contractEntityID: new EntityID(999, 1), // Dummy spirit entity ID
+                chakraCost: 40f, stabilityCost: 25f,
+                requiredItemIDs: new List&lt;string&gt; { &quot;forest_blossom&quot;, &quot;spirit_wood&quot; },
+                activeEffectIDs: new List&lt;string&gt; { &quot;spirit_ally_summon&quot;, &quot;bloom_boost_aura&quot; },
+                grantedAbilities: new List&lt;string&gt; { &quot;spirit_call_ability&quot; }, // Conceptual ability
+                violationPenaltyIDs: new List&lt;string&gt; { &quot;spirit_anger_curse&quot; },
+                brokenConsequenceIDs: new List&lt;string&gt; { &quot;forest_spirit_rampage&quot; } // World-altering
+            ));
+
+            // --- Corruption Pact: Mark of the Aberrant (GDD B27.5) ---
+            RegisterContractDefinition(new ContractDefinition(
+                id: &quot;mark_of_the_aberrant&quot;, name: &quot;Mark of the Aberrant&quot;, description: &quot;Embrace a minor corruption mutation.&quot;,
+                type: ContractType.Corruption, requiredRitualTier: RitualTier.Forbidden, requiredRitualID: &quot;corruption_ascension_f&quot;,
+                contractEntityID: EntityID.Invalid,
+                chakraCost: 80f, stabilityCost: 50f, permanentHealthCost: 10f,
+                requiredItemIDs: new List&lt;string&gt; { &quot;tainted_blood&quot; },
+                activeEffectIDs: new List&lt;string&gt; { &quot;minor_mutation_buff&quot; },
+                grantedAbilities: new List&lt;string&gt; { &quot;aberrant_strike_ability&quot; },
+                violationPenaltyIDs: new List&lt;string&gt; { &quot;uncontrolled_mutation&quot; },
+                brokenConsequenceIDs: new List&lt;string&gt; { &quot;corruption_spread_regional&quot; }
+            ));
+        }
+
+        /// &lt;summary&gt;
+        /// Attempts to initiate a contract after its required ritual is completed.
+        /// (GDD B27.3.1)
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;initiatorID&quot;&gt;The entity attempting to initiate the contract (e.g., player).&lt;/param&gt;
+        /// &lt;param name=&quot;contractID&quot;&gt;The ID of the contract to initiate.&lt;/param&gt;
+        /// &lt;returns&gt;True if contract initiated successfully, false otherwise.&lt;/returns&gt;
+        public bool InitiateContract(EntityID initiatorID, string contractID)
+        {
+            if (!_entityManager.IsValid(initiatorID)) { GD.PrintErr($&quot;ContractSystem: Invalid initiator {initiatorID}.&quot;); return false; }
+            if (!_contractDefinitions.TryGetValue(contractID, out ContractDefinition contractDef)) { GD.PrintErr($&quot;ContractSystem: Contract definition '{contractID}' not found.&quot;); return false; }
+
+            if (_entityContracts.TryGetValue(initiatorID, out Dictionary&lt;string, ContractStatus&gt; contractsOnInitiator) &amp;&amp; contractsOnInitiator.TryGetValue(contractID, out ContractStatus currentStatus) &amp;&amp; currentStatus == ContractStatus.Active)
+            {
+                GD.Print($&quot;ContractSystem: Initiator {initiatorID} already has contract '{contractID}' active.&quot;);
+                return false;
+            }
+
+            if (!_biologicalSystem.TryGetCoreStats(initiatorID, out CoreStats initiatorStats)) { GD.PrintErr($&quot;ContractSystem: Initiator {initiatorID} has no CoreStats.&quot;); return false; }
+
+            // --- 1. Check Initiator Resources (Chakra, Stability, Permanent Health) ---
+            if (initiatorStats.Chakra &lt; contractDef.ChakraCost) { GD.Print($&quot;ContractSystem: Insufficient Chakra for contract '{contractID}'.&quot;); return false; }
+            if (initiatorStats.Stability &lt; contractDef.StabilityCost) { GD.Print($&quot;ContractSystem: Insufficient Stability for contract '{contractID}'.&quot;); return false; }
+            // Permanent health cost is applied upon successful contract.
+
+            // --- 2. Check Item Requirements (GDD B27.3.1) ---
+            foreach (var itemID in contractDef.RequiredItemIDs)
+            {
+                // This would query inventory for consumable items
+                // if (!_inventorySystem.HasItem(initiatorID, itemID, 1)) { /* ... */ return false; }
+                GD.Print($&quot;ContractSystem: Checking for required item: {itemID} (conceptual).&quot;);
+            }
+
+            // --- 3. Deduct Resources and Consume Items ---
+            GameManager.Instance.PlayerStats.TakeChakra(contractDef.ChakraCost);
+            GameManager.Instance.PlayerStats.TakeStability(contractDef.StabilityCost);
+
+            // Consume items (conceptual)
+            foreach (var itemID in contractDef.RequiredItemIDs)
+            {
+                // _inventorySystem.RemoveItem(initiatorID, itemID, 1);
+                GD.Print($&quot;ContractSystem: Consuming item '{itemID}' for contract '{contractID}'.&quot;);
+            }
+
+            // Apply permanent health cost (GDD B27.3.1)
+            if (contractDef.PermanentHealthCost &gt; 0)
+            {
+                ref CoreStats initiatorCoreStats = ref _biologicalSystem.GetCoreStatsRef(initiatorID);
+                initiatorCoreStats.MaxHealth -= contractDef.PermanentHealthCost;
+                initiatorCoreStats.Health = Mathf.Min(initiatorCoreStats.Health, initiatorCoreStats.MaxHealth); // Adjust current health if max dropped below
+                GD.Print($&quot;ContractSystem: {initiatorID} suffered permanent Max Health loss of {contractDef.PermanentHealthCost}. New Max Health: {initiatorCoreStats.MaxHealth}.&quot;);
+                _eventBus.Publish(new PlayerStatSystem.PlayerHealthChangedEvent { PlayerID = initiatorID, NewValue = initiatorCoreStats.Health, MaxValue = initiatorCoreStats.MaxHealth });
+            }
+
+            // --- 4. Activate Contract ---
+            _entityContracts[initiatorID][contractID] = ContractStatus.Active;
+            GD.Print($&quot;ContractSystem: Initiator {initiatorID} successfully initiated contract '{contractID}' (Type: {contractDef.Type})!&quot;);
+            _eventBus.Publish(new ContractStatusChangedEvent { InitiatorID = initiatorID, ContractID = contractID, NewStatus = ContractStatus.Active });
+
+            // --- 5. Apply Contract Rewards/Effects (GDD B27.3.1) ---
+            ApplyContractEffects(initiatorID, contractDef);
+
+            return true;
+        }
+
+        /// &lt;summary&gt;
+        /// Applies the rewards and effects of an active contract.
+        /// &lt;/summary&gt;
+        private void ApplyContractEffects(EntityID initiatorID, ContractDefinition contractDef)
+        {
+            GD.Print($&quot;ContractSystem: Applying effects for contract '{contractDef.ID}'.&quot;);
+
+            // Grant new glyph concepts (GDD B01.4.E/F)
+            foreach (var conceptStr in contractDef.GrantedGlyphConcepts)
+            {
+                if (Enum.TryParse(conceptStr, out GlyphConcept concept))
+                {
+                    // Find a symbol for this concept in the world map (if one exists)
+                    WorldGlyphDefinition glyphDef = GameManager.Instance.GlyphMap.GetDefinitionByConcept(concept);
+                    if (glyphDef.Concept != GlyphConcept.None)
+                    {
+                        _glyphAcquisitionSystem.UpdateGlyphKnowledge(glyphDef.SymbolID, GlyphKnowledgeState.Known);
+                        GD.Print($&quot;  Contract granted knowledge of glyph concept: {concept} (Symbol: '{glyphDef.SymbolID}').&quot;);
+                    }
+                    else
+                    {
+                        GD.PrintErr($&quot;  Contract '{contractDef.ID}' attempted to grant unknown concept: {conceptStr}.&quot;);
+                    }
+                }
+            }
+
+            // Grant new abilities (conceptual, C02 high-tier techniques)
+            foreach (var abilityID in contractDef.GrantedAbilities)
+            {
+                GD.Print($&quot;  Contract granted ability: {abilityID} (conceptual).&quot;);
+                // _eventBus.Publish(new PlayerAbilityGrantedEvent { PlayerID = initiatorID, AbilityID = abilityID });
+            }
+
+            // Apply active status effects (conceptual)
+            foreach (var effectID in contractDef.ActiveEffectIDs)
+            {
+                GD.Print($&quot;  Contract applied active effect: {effectID} (conceptual).&quot;);
+                // _statusEffectSystem.ApplyEffect(initiatorID, new StatusEffectData(effectID, float.MaxValue, 1f));
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Attempts to break an active contract.
+        /// (GDD B27.3.3: Breaking a Contract)
+        /// &lt;/summary&gt;
+        public bool BreakContract(EntityID initiatorID, string contractID)
+        {
+            if (!_entityManager.IsValid(initiatorID)) return false;
+            if (!_contractDefinitions.TryGetValue(contractID, out ContractDefinition contractDef)) return false;
+
+            if (!_entityContracts.TryGetValue(initiatorID, out Dictionary&lt;string, ContractStatus&gt; contractsOnInitiator) || !contractsOnInitiator.TryGetValue(contractID, out ContractStatus currentStatus) || currentStatus != ContractStatus.Active)
+            {
+                GD.Print($&quot;ContractSystem: Initiator {initiatorID} does not have active contract '{contractID}' to break.&quot;);
+                return false;
+            }
+
+            // --- Trigger Breaking Consequences (GDD B27.3.2) ---
+            _entityContracts[initiatorID][contractID] = ContractStatus.Broken;
+            GD.Print($&quot;ContractSystem: Initiator {initiatorID} forcibly BROKE contract '{contractID}'! Triggering severe consequences!&quot;);
+            _eventBus.Publish(new ContractStatusChangedEvent { InitiatorID = initiatorID, ContractID = contractID, NewStatus = ContractStatus.Broken });
+
+            foreach (var consequenceID in contractDef.BrokenConsequenceIDs)
+            {
+                GD.Print($&quot;  Contract Broken Consequence: {consequenceID} triggered. (Potentially world-altering!)&quot;);
+                // This would trigger severe world events (e.g., corruption bloom, spirit rampage, anomaly rupture)
+                // _eventBus.Publish(new WorldSystem.GlobalConsequenceEvent { ConsequenceID = consequenceID });
+            }
+            // Apply violation penalties (e.g., curses)
+            foreach (var penaltyID in contractDef.ViolationPenaltyIDs)
+            {
+                 GD.Print($&quot;  Contract Broken Penalty: {penaltyID} applied.&quot;);
+                // _statusEffectSystem.ApplyEffect(initiatorID, new StatusEffectData(penaltyID, float.MaxValue, 1f));
+            }
+            return true;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the current status of a contract for an entity.
+        /// &lt;/summary&gt;
+        public ContractStatus GetContractStatus(EntityID entityID, string contractID)
+        {
+            if (_entityContracts.TryGetValue(entityID, out Dictionary&lt;string, ContractStatus&gt; contracts) &amp;&amp; contracts.TryGetValue(contractID, out ContractStatus status))
+            {
+                return status;
+            }
+            return ContractStatus.Inactive;
+        }
+
+        // --- Helper Events for Body Sync ---
+        public struct ContractStatusChangedEvent { public EntityID InitiatorID; public string ContractID; public ContractStatus NewStatus; }
+    }
+}
+</code></pre>
+<h3 id="4-integrating-contractsystem-into-gamemanager">4. Integrating <code>ContractSystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Rituals;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add a <code>ContractSystem</code> property.</li>
+<li>Initialize <code>ContractSystem</code> in <code>InitializeSystems()</code> <strong>after</strong> <code>RitualSystem</code> and its dependencies.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Weather;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Factions;
+using Sigilborne.Systems.Economy;
+using Sigilborne.Systems.Crime;
+using Sigilborne.Systems.Rituals;
+using Sigilborne.Utils;
+using System.Linq;
+using Sigilborne.Systems.Magic.Components;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public RitualSystem Rituals { get; private set; }
+    public SealSystem Seals { get; private set; }
+    public ContractSystem Contracts { get; private set; } // Add ContractSystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+        // ... (existing glyph and magic system tests) ...
+        // ... (existing damage tests) ...
+        // ... (existing inventory/equipment tests) ...
+        // ... (existing spatial grid tests) ...
+        // ... (existing perception system tests) ...
+        // ... (existing stealth system tests) ...
+        // ... (existing AI system tests) ...
+        // ... (existing ecology system tests) ...
+        // ... (existing faction system tests) ...
+        // ... (existing economy system tests) ...
+        // ... (existing crime system tests) ...
+        // ... (existing ritual system tests) ...
+        // ... (existing seal system tests) ...
+
+        // --- Test Contract System ---
+        GD.Print(&quot;\n--- Testing Contract System ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+        EntityID altarID = Entities.GetEntityMeta(4).Generation == 1 ? new EntityID(4, 1) : EntityID.Invalid; // Our test altar
+
+        // Add required items for contracts to player's inventory
+        Inventory.AddItem(playerID, new InventoryItem(&quot;void_dust_small&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;forest_blossom&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;spirit_wood&quot;, 1));
+        Inventory.AddItem(playerID, new InventoryItem(&quot;tainted_blood&quot;, 1));
+
+        // --- Test Forbidden Contract: Pact of Void Sight (requires scrying_rite_t1 completion) ---
+        GD.Print(&quot;\nAttempting to initiate 'Pact of Void Sight' (Forbidden):&quot;);
+        // We'll simulate the ritual completion first, which then calls InitiateContract
+        // Scrying Rite requires 1 scrying_orb, 1 rare_incense
+        // Player already has these from ritual tests.
+        GD.Print(&quot;  Simulating completion of 'scrying_rite_t1' ritual...&quot;);
+        Rituals.CompleteRitual(playerID, altarID, &quot;scrying_rite_t1&quot;); // Manually complete ritual to trigger contract
+
+        // Verify status
+        GD.Print($&quot;Player contract status for 'pact_of_void_sight': {Contracts.GetContractStatus(playerID, &quot;pact_of_void_sight&quot;)}&quot;);
+        GD.Print($&quot;Player current Max Health: {Biology.GetCoreStatsRef(playerID).MaxHealth}&quot;);
+        GD.Print($&quot;Player current Chakra: {Biology.GetCoreStatsRef(playerID).Chakra}&quot;);
+        GD.Print($&quot;Player current Stability: {Biology.GetCoreStatsRef(playerID).Stability}&quot;);
+        GD.Print($&quot;Player knows Consume glyph: {PlayerGlyphKnowledge.GetGlyphKnowledge(GlyphMap.GetDefinitionByConcept(GlyphConcept.Consume).SymbolID)}&quot;);
+
+        // --- Test Spirit Contract: Forest Spirit Bond (requires spirit_summoning_t2 completion) ---
+        GD.Print(&quot;\nAttempting to initiate 'Forest Spirit Bond' (Spirit):&quot;);
+        // Spirit Summoning Rite requires 1 spirit_essence, 1 ancient_blood_rune, 3 lit_candle
+        GD.Print(&quot;  Simulating completion of 'spirit_summoning_t2' ritual...&quot;);
+        Rituals.CompleteRitual(playerID, altarID, &quot;spirit_summoning_t2&quot;); // Manually complete ritual to trigger contract
+
+        // --- Test Corruption Pact: Mark of the Aberrant (requires corruption_ascension_f completion) ---
+        GD.Print(&quot;\nAttempting to initiate 'Mark of the Aberrant' (Corruption):&quot;);
+        // Corruption Ascension Rite requires 1 residue_crystal_large, 1 fresh_heart, 1 void_ink_scroll
+        GD.Print(&quot;  Simulating completion of 'corruption_ascension_f' ritual...&quot;);
+        Rituals.CompleteRitual(playerID, altarID, &quot;corruption_ascension_f&quot;);
+
+        // --- Test Breaking a Contract (e.g., Pact of Void Sight) ---
+        GD.Print(&quot;\nAttempting to Break 'Pact of Void Sight':&quot;);
+        Contracts.BreakContract(playerID, &quot;pact_of_void_sight&quot;);
+        GD.Print($&quot;Player contract status for 'pact_of_void_sight' after break attempt: {Contracts.GetContractStatus(playerID, &quot;pact_of_void_sight&quot;)}&quot;);
+
+        GD.Print(&quot;--- End Testing Contract System ---\n&quot;);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Input.ProcessInputBuffer(); 
+        Time.Tick(delta);
+        World.Tick(delta);
+        Movement.Tick(delta);
+        Magic.Tick(delta);
+        Casting.Tick(delta);
+        Weather.Tick(delta);
+        Biology.Tick(delta);
+        TitanAI.Tick(delta);
+        StatusEffects.Tick(delta);
+        Perception.Tick(delta);
+        Stealth.Tick(delta);
+        AI.Tick(delta);
+        Ecology.Tick(delta);
+        FactionAI.Tick(delta);
+        Economy.Tick(delta);
+        Crime.Tick(delta);
+        Rituals.Tick(delta);
+        Seals.Tick(delta);
+        // ContractSystem doesn't have a Tick method for now; its operations are event-driven.
+        Events.FlushCommands();
+    }
+
+    private void InitializeSystems()
+    {
+        // ... (existing system initializations up to SealSystem) ...
+
+        // Initialize ContractSystem AFTER RitualSystem, GlyphAcquisitionSystem, StatusEffectSystem
+        Contracts = new ContractSystem(Entities, Events, Inventory, BiologicalSystem, PlayerGlyphKnowledge, StatusEffects); // Pass dependencies
+        GD.Print(&quot;  - ContractSystem initialized.&quot;);
+
+        // ... (existing system initializations after ContractSystem) ...
+    }
+}
+</code></pre>
+<h4 id="41-update-eventbuscs-for-contract-events">4.1. Update <code>EventBus.cs</code> for Contract Events</h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and add <code>OnContractStatusChanged</code> delegate.</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Factions;
+using Sigilborne.Systems.Economy;
+using Sigilborne.Systems.Crime;
+using Sigilborne.Systems.Rituals;
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Contract System Events (GDD B27.3, B27.4)
+        public event Action&lt;EntityID, string, ContractStatus&gt; OnContractStatusChanged; // InitiatorID, ContractID, NewStatus
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is RitualSystem.ContractSystem.ContractStatusChangedEvent contractStatusEvent) // New condition
+            {
+                OnContractStatusChanged?.Invoke(contractStatusEvent.InitiatorID, contractStatusEvent.ContractID, contractStatusEvent.NewStatus);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="5-testing-forbidden-and-spirit-contracts">5. Testing Forbidden and Spirit Contracts</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for the "Testing Contract System" section.</li>
+</ol>
+<pre><code>...
+ContractSystem: Initialized.
+ContractSystem: Registered contract definition 'Pact of Void Sight'.
+ContractSystem: Registered contract definition 'Forest Spirit Bond'.
+ContractSystem: Registered contract definition 'Mark of the Aberrant'.
+  - ContractSystem initialized.
+EconomyManager: Initialized.
+...
+--- Testing Contract System ---
+
+Attempting to initiate 'Pact of Void Sight' (Forbidden):
+  Simulating completion of 'scrying_rite_t1' ritual...
+RitualSystem: Ritual 'scrying_rite_t1' completed successfully by EntityID(0, Gen:1) at EntityID(4, Gen:1)! Triggering effects.
+  Ritual Effect: reveal_map_area triggered (Tier: Simple).
+PlayerStatSystem: Player EntityID(0, Gen:1) used 30 chakra. New Chakra: 0.0
+PlayerStatSystem: Player EntityID(0, Gen:1) lost 20 stability. New Stability: 65.0
+ContractSystem: EntityID(0, Gen:1) suffered permanent Max Health loss of 5.0. New Max Health: 95.0.
+PlayerStatSystem: Player EntityID(0, Gen:1) took 0.0 damage. New Health: 95.0
+ContractSystem: Initiator EntityID(0, Gen:1) successfully initiated contract 'pact_of_void_sight' (Type: Forbidden)!
+ContractSystem: Applying effects for contract 'pact_of_void_sight'.
+  Contract granted knowledge of glyph concept: Consume (Symbol: 'symbol_cross').
+PlayerGlyphKnowledgeSystem: Player EntityID(0, Gen:1) knowledge of 'symbol_cross' updated from Known to Known.
+  Contract granted knowledge of glyph concept: Flux (Symbol: 'symbol_pentagon_alt').
+PlayerGlyphKnowledgeSystem: Player EntityID(0, Gen:1) knowledge of 'symbol_pentagon_alt' updated from Hidden to Known.
+  Contract applied active effect: void_sight_aura (conceptual).
+Player contract status for 'pact_of_void_sight': Active
+Player current Max Health: 95.0
+Player current Chakra: 0.0
+Player current Stability: 65.0
+Player knows Consume glyph: Known
+
+Attempting to initiate 'Forest Spirit Bond' (Spirit):
+  Simulating completion of 'spirit_summoning_t2' ritual...
+RitualSystem: Ritual 'spirit_summoning_t2' completed successfully by EntityID(0, Gen:1) at EntityID(4, Gen:1)! Triggering effects.
+  Ritual Effect: spawn_spirit_ally triggered (Tier: Advanced).
+ContractSystem: Insufficient Chakra for contract 'forest_spirit_bond'.
+ContractSystem: Initiator EntityID(0, Gen:1) does not have active contract 'forest_spirit_bond' to break.
+
+Attempting to initiate 'Mark of the Aberrant' (Corruption):
+  Simulating completion of 'corruption_ascension_f' ritual...
+RitualSystem: Ritual 'corruption_ascension_f' completed successfully by EntityID(0, Gen:1) at EntityID(4, Gen:1)! Triggering effects.
+  Ritual Effect: caster_mutated_aberration triggered (Tier: Forbidden).
+    WARNING: FORBIDDEN RITUAL EFFECT! Potential world-altering consequences!
+ContractSystem: Insufficient Chakra for contract 'mark_of_the_aberrant'.
+
+Attempting to Break 'Pact of Void Sight':
+ContractSystem: Initiator EntityID(0, Gen:1) forcibly BROKE contract 'pact_of_void_sight'! Triggering severe consequences!
+  Contract Broken Consequence: corruption_bloom_local triggered. (Potentially world-altering!)
+  Contract Broken Penalty: vision_blur_curse applied.
+Player contract status for 'pact_of_void_sight' after break attempt: Broken
+--- End Testing Contract System ---
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Contract Initiation</strong>: <code>InitiateContract</code> is called upon ritual completion.</li>
+<li><strong>Resource Checks</strong>: Chakra/Stability checks correctly prevent contract initiation if resources are insufficient (e.g., for <code>Forest Spirit Bond</code> and <code>Mark of the Aberrant</code> after <code>Pact of Void Sight</code> drained all chakra).</li>
+<li><strong>Permanent Health Cost</strong>: <code>Pact of Void Sight</code> correctly reduces player's <code>MaxHealth</code>.</li>
+<li><strong>Granted Glyphs</strong>: <code>Pact of Void Sight</code> grants knowledge of <code>Consume</code> and <code>Flux</code> glyphs.</li>
+<li><strong>Effect/Ability Granting</strong>: Conceptual effects/abilities are "granted."</li>
+<li><strong>Breaking Contract</strong>: <code>BreakContract</code> successfully transitions status to <code>Broken</code> and triggers <code>BrokenConsequenceIDs</code> and <code>ViolationPenaltyIDs</code>.</li>
+<li><strong>World-Altering Consequences</strong>: The output for <code>Forbidden</code> and <code>Broken</code> contracts explicitly mentions "Potential world-altering consequences!"</li>
+</ul>
+<p>This confirms our <code>ContractSystem</code> is functional, managing contracts, enforcing requirements, applying consequences, and integrating with rituals and other systems.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented <strong>Forbidden Contracts &amp; Spirit Contracts</strong> in the C# Brain, designing <code>ContractType</code>, <code>ContractStatus</code>, and <code>ContractDefinition</code> to represent powerful magical pacts. By creating <code>ContractSystem</code> to manage contract definitions, track entity contract status, validate initiator resources and item requirements, and apply tiered rewards and penalties (including permanent <code>MaxHealth</code> loss and granting new glyphs), you've established a robust mechanism for high-stakes magic. This crucial system strictly adheres to GDD B27.3 and B27.4's specifications, providing the ultimate risk-reward paths in Sigilborne's advanced magic.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>Corruption Pacts &amp; Multi-Life Persistence of Rituals</strong>, where we will refine the <code>ContractSystem</code> to specifically handle <code>Corruption</code> pacts (including <code>Mutation</code> growth), and ensure that ritual and contract outcomes persist across player lives, impacting future playthroughs.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

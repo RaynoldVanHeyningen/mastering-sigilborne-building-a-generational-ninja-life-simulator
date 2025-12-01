@@ -1,0 +1,2585 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../24-chapter-24/">
+      
+      
+        <link rel="next" href="../26-chapter-26/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-41-input-buffer-storing-glyph-sequences-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-41-input-buffer-storing-glyph-sequences-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-need-for-a-dedicated-glyph-input-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Need for a Dedicated Glyph Input Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-refining-glyphinputframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Refining GlyphInputFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-the-glyphinputbuffer-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing the GlyphInputBuffer Class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-glyphinputbuffer-into-magicsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating GlyphInputBuffer into MagicSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-update-gamemanager-to-pass-gamemanager-to-magicsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Update GameManager to Pass GameManager to MagicSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-the-input-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing the Input Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-41-input-buffer-storing-glyph-sequences-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-need-for-a-dedicated-glyph-input-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Need for a Dedicated Glyph Input Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-refining-glyphinputframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Refining GlyphInputFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-the-glyphinputbuffer-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing the GlyphInputBuffer Class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-glyphinputbuffer-into-magicsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating GlyphInputBuffer into MagicSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-update-gamemanager-to-pass-gamemanager-to-magicsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Update GameManager to Pass GameManager to MagicSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-the-input-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing the Input Buffer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)</h1>
+
+<h2 id="chapter-41-input-buffer-storing-glyph-sequences-c">Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)</h2>
+<p>Welcome to <strong>Module 4: Combos &amp; Casting - The Art of Ninjutsu</strong>! This module focuses on how glyphs combine into powerful techniques. The foundation of any combo system is a robust way to store and retrieve a sequence of player inputs. This chapter refines our <code>MagicSystem</code> by implementing a dedicated <strong>Input Buffer</strong> to store <code>GlyphInputFrame</code> structs, allowing for efficient detection of glyph sequences within a time window, as specified in TDD 02.1.</p>
+<h3 id="1-the-need-for-a-dedicated-glyph-input-buffer">1. The Need for a Dedicated Glyph Input Buffer</h3>
+<p>Our <code>MagicSystem</code> currently uses a <code>List&lt;GlyphInputFrame&gt;</code> to store recent glyph inputs. While functional, we need to formalize this into a proper circular buffer (or a <code>List</code> managed like one) for clarity and to adhere to TDD 02.1's specification.</p>
+<p><strong>Key Requirements for the Input Buffer:</strong></p>
+<ul>
+<li><strong>Order Preservation</strong>: Inputs must be stored in the order they occurred.</li>
+<li><strong>Timestamping</strong>: Each input needs a precise timestamp to determine if it's within a combo window.</li>
+<li><strong>Fixed Size / Max Count</strong>: We only care about the most recent inputs relevant for combos.</li>
+<li><strong>Efficient Retrieval</strong>: Quickly get a <code>ReadOnlySpan&lt;GlyphInputFrame&gt;</code> of recent inputs.</li>
+</ul>
+<h3 id="2-refining-glyphinputframe">2. Refining <code>GlyphInputFrame</code></h3>
+<p>We already defined <code>GlyphInputFrame</code> in <code>MagicSystem.cs</code> in Chapter 3.3. Let's move it to its own file (<code>GlyphInputFrame.cs</code>) for better modularity and ensure it includes the <code>Consumed</code> flag as per TDD 02.1.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/GlyphInputFrame.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/GlyphInputFrame.cs
+using System;
+using Godot; // For Vector2 if needed, though not directly in this struct
+
+namespace Sigilborne.Systems.Magic
+{
+    /// &lt;summary&gt;
+    /// Represents a single glyph input by the player as part of a sequence.
+    /// This struct is stored in the MagicSystem's input buffer.
+    /// (TDD 02.1)
+    /// &lt;/summary&gt;
+    public struct GlyphInputFrame : IEquatable&lt;GlyphInputFrame&gt;
+    {
+        public string SymbolID;     // The visual symbol ID (e.g., &quot;symbol_triangle&quot;)
+        public GlyphConcept Concept; // The resolved mechanical concept (e.g., GlyphConcept.Fire)
+        public double Timestamp;    // When this input occurred (real time)
+        public bool Consumed;       // Whether this input has been part of a successfully resolved combo (TDD 02.1)
+
+        public GlyphInputFrame(string symbolID, GlyphConcept concept, double timestamp, bool consumed = false)
+        {
+            SymbolID = symbolID;
+            Concept = concept;
+            Timestamp = timestamp;
+            Consumed = consumed;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;'{SymbolID}' ({Concept}) @ {Timestamp:F3} (Consumed: {Consumed})&quot;;
+        }
+
+        // --- IEquatable Implementation ---
+        public bool Equals(GlyphInputFrame other)
+        {
+            // For equality, we typically check all fields, or just the unique identifier if one exists.
+            // For the purpose of tracking inputs, all fields should match for true equality.
+            return SymbolID == other.SymbolID &amp;&amp;
+                   Concept == other.Concept &amp;&amp;
+                   Timestamp == other.Timestamp &amp;&amp;
+                   Consumed == other.Consumed;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is GlyphInputFrame other &amp;&amp; Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(SymbolID, Concept, Timestamp, Consumed);
+        }
+    }
+}
+</code></pre>
+<ol>
+<li>Now, open <code>res://_Brain/Systems/Magic/MagicSystem.cs</code> and remove the <code>GlyphInputFrame</code> struct definition from it. Add <code>using Sigilborne.Systems.Magic;</code> at the top if it's not already there.</li>
+</ol>
+<h3 id="3-implementing-the-glyphinputbuffer-class">3. Implementing the <code>GlyphInputBuffer</code> Class</h3>
+<p>TDD 02.1 suggests a circular buffer. While a <code>List</code> with <code>RemoveAt(0)</code> can simulate this, a dedicated <code>GlyphInputBuffer</code> class (or even a <code>Queue</code> or <code>LinkedList</code>) provides clearer semantics and better control. For efficiency with <code>ReadOnlySpan&lt;T&gt;</code>, a raw array or a <code>List</code> managed carefully is often preferred. We'll stick with a <code>List</code> and manage its size, as it's flexible for <code>ReadOnlySpan&lt;T&gt;</code> conversion.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Magic/GlyphInputBuffer.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/GlyphInputBuffer.cs
+using System;
+using System.Collections.Generic;
+using System.Linq; // For debugging output
+
+namespace Sigilborne.Systems.Magic
+{
+    /// &lt;summary&gt;
+    /// A circular buffer that stores recent GlyphInputFrames with precise timestamps.
+    /// (TDD 02.1)
+    /// &lt;/summary&gt;
+    public class GlyphInputBuffer
+    {
+        private List&lt;GlyphInputFrame&gt; _buffer;
+        private int _maxSize;
+
+        public GlyphInputBuffer(int maxSize)
+        {
+            _maxSize = maxSize;
+            _buffer = new List&lt;GlyphInputFrame&gt;(maxSize);
+        }
+
+        /// &lt;summary&gt;
+        /// Pushes a new GlyphInputFrame into the buffer.
+        /// If the buffer is full, the oldest unconsumed input is removed.
+        /// &lt;/summary&gt;
+        public void Push(GlyphInputFrame frame)
+        {
+            _buffer.Add(frame);
+            if (_buffer.Count &gt; _maxSize)
+            {
+                // Remove the oldest unconsumed input, or just the oldest if all are consumed/no unconsumed
+                // This logic might need refinement based on exact combo rules (e.g., if consumed inputs are needed for historical context)
+                int oldestUnconsumedIndex = _buffer.FindIndex(f =&gt; !f.Consumed);
+                if (oldestUnconsumedIndex != -1 &amp;&amp; _buffer.Count &gt; _maxSize)
+                {
+                    _buffer.RemoveAt(oldestUnconsumedIndex);
+                }
+                else if (_buffer.Count &gt; _maxSize) // If all are consumed or no unconsumed, just remove the oldest
+                {
+                    _buffer.RemoveAt(0);
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves a ReadOnlySpan of recent, unconsumed glyph inputs within a specified time window.
+        /// (TDD 02.1)
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;windowStartTime&quot;&gt;The minimum timestamp for inputs to be considered.&lt;/param&gt;
+        public ReadOnlySpan&lt;GlyphInputFrame&gt; GetRecentUnconsumed(double windowStartTime)
+        {
+            // Filter and order inputs from the current buffer
+            // For performance, avoid Linq in hot paths. This is a simple example.
+            var recent = _buffer.Where(f =&gt; !f.Consumed &amp;&amp; f.Timestamp &gt;= windowStartTime).OrderBy(f =&gt; f.Timestamp).ToList();
+
+            // To return a ReadOnlySpan, we need to ensure the underlying data is contiguous.
+            // Converting to an array is the safest way for a List&lt;T&gt;.
+            return new ReadOnlySpan&lt;GlyphInputFrame&gt;(recent.ToArray());
+        }
+
+        /// &lt;summary&gt;
+        /// Marks a set of inputs as consumed.
+        /// &lt;/summary&gt;
+        public void MarkConsumed(IEnumerable&lt;GlyphInputFrame&gt; inputsToConsume)
+        {
+            foreach (var inputToConsume in inputsToConsume)
+            {
+                for (int i = 0; i &lt; _buffer.Count; i++)
+                {
+                    if (_buffer[i].Equals(inputToConsume)) // Use struct equality
+                    {
+                        _buffer[i] = new GlyphInputFrame(inputToConsume.SymbolID, inputToConsume.Concept, inputToConsume.Timestamp, true);
+                        break; // Found and updated
+                    }
+                }
+            }
+            // After marking, optionally remove consumed inputs to keep buffer clean
+            _buffer.RemoveAll(f =&gt; f.Consumed);
+        }
+
+        /// &lt;summary&gt;
+        /// Clears all inputs from the buffer.
+        /// &lt;/summary&gt;
+        public void Clear()
+        {
+            _buffer.Clear();
+        }
+
+        public int Count =&gt; _buffer.Count;
+
+        public override string ToString()
+        {
+            return $&quot;Buffer ({_buffer.Count}/{_maxSize}): [{string.Join(&quot;, &quot;, _buffer.Select(f =&gt; f.ToString()))}]&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="4-integrating-glyphinputbuffer-into-magicsystem">4. Integrating <code>GlyphInputBuffer</code> into <code>MagicSystem</code></h3>
+<p>Now, <code>MagicSystem</code> will use this dedicated <code>GlyphInputBuffer</code> class.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Magic/MagicSystem.cs</code>.</li>
+<li>Replace <code>private List&lt;GlyphInputFrame&gt; _glyphInputBuffer = new List&lt;GlyphInputFrame&gt;();</code> with:
+    <code>private GlyphInputBuffer _glyphInputBuffer;</code></li>
+<li>Modify the <code>MagicSystem</code> constructor to initialize <code>_glyphInputBuffer</code>.</li>
+<li>Update <code>ProcessGlyphInput</code> and <code>ResolveCombo</code> to use the <code>GlyphInputBuffer</code>'s <code>Push</code>, <code>GetRecentUnconsumed</code>, <code>MarkConsumed</code>, and <code>Clear</code> methods.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Magic/MagicSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Input;
+
+namespace Sigilborne.Systems.Magic
+{
+    // ... (removed GlyphInputFrame struct definition) ...
+
+    /// &lt;summary&gt;
+    /// Manages the core magic system: processing glyph input sequences,
+    /// resolving combos, and triggering spell effects.
+    /// (TDD 02.1: InputBuffer, TDD 02.2: Combo Resolver)
+    /// &lt;/summary&gt;
+    public class MagicSystem
+    {
+        private EntityManager _entityManager;
+        private InputSystem _inputSystem;
+        private EventBus _eventBus;
+        private PlayerHotbarSystem _playerHotbar;
+        private PlayerGlyphKnowledgeSystem _playerGlyphKnowledge;
+        private WorldGlyphMap _worldGlyphMap;
+        private GameManager _gameManager; // Reference to GameManager for CurrentGameTime
+
+        private EntityID _playerEntityID;
+
+        // TDD 02.1: InputBuffer - Now using our dedicated GlyphInputBuffer class.
+        private GlyphInputBuffer _glyphInputBuffer;
+        private const int MAX_GLYPH_BUFFER_SIZE = 10; // Max glyphs in a sequence (GDD B02.3)
+        private const float MAX_COMBO_DELAY = 1.5f; // Max time between glyph inputs for a combo (GDD B05.6)
+        private const float GLYPH_DEBOUNCE_TIME = 0.1f; // Prevents multiple inputs from a single key press
+
+        public MagicSystem(EntityManager entityManager, InputSystem inputSystem, EventBus eventBus,
+                           PlayerHotbarSystem playerHotbar, PlayerGlyphKnowledgeSystem playerGlyphKnowledge,
+                           WorldGlyphMap worldGlyphMap, GameManager gameManager) // Add GameManager
+        {
+            _entityManager = entityManager;
+            _inputSystem = inputSystem;
+            _eventBus = eventBus;
+            _playerHotbar = playerHotbar;
+            _playerGlyphKnowledge = playerGlyphKnowledge;
+            _worldGlyphMap = worldGlyphMap;
+            _gameManager = gameManager; // Store GameManager reference
+
+            _playerEntityID = _entityManager.GetPlayerEntityID();
+
+            _glyphInputBuffer = new GlyphInputBuffer(MAX_GLYPH_BUFFER_SIZE); // Initialize the new buffer
+            GD.Print(&quot;MagicSystem: Initialized.&quot;);
+        }
+
+        public void Tick(double delta)
+        {
+            PlayerInputFrame currentInput = _inputSystem.GetLatestInput();
+            double currentTime = _gameManager.Time.CurrentGameTime;
+
+            // Process hotbar inputs for glyphs
+            for (int i = 0; i &lt; currentInput.HotbarKeys.Length; i++)
+            {
+                if (currentInput.HotbarKeys[i]) // If hotbar key is pressed
+                {
+                    string symbolID = _playerHotbar.GetGlyphSymbolInSlot(i);
+                    if (symbolID != null)
+                    {
+                        ProcessGlyphInput(symbolID, currentTime);
+                    }
+                }
+            }
+
+            // No longer need to manually remove old inputs here, GlyphInputBuffer manages its size
+            // However, we might still want to trigger a fizzle if the oldest input is too old and no combo has resolved.
+            // This is part of the combo timing window logic.
+            if (_glyphInputBuffer.Count &gt; 0 &amp;&amp; (currentTime - _glyphInputBuffer.GetRecentUnconsumed(0).ToArray().First().Timestamp) &gt; MAX_COMBO_DELAY)
+            {
+                // Oldest input expired, and no combo resolved. Fizzle.
+                GD.Print($&quot;MagicSystem: Combo fizzled (inputs too slow). Buffer cleared.&quot;);
+                _eventBus.Publish(new ComboResolvedEvent { PlayerID = _playerEntityID, IsSuccess = false, IsDiscovery = false, ResultText = &quot;Fizzle!&quot;, ConceptSequence = new List&lt;GlyphConcept&gt;() });
+                _glyphInputBuffer.Clear();
+            }
+        }
+
+        private void ProcessGlyphInput(string symbolID, double timestamp)
+        {
+            // Debounce (GDD B05.6) - Check if this glyph was already input very recently
+            if (_glyphInputBuffer.GetRecentUnconsumed(timestamp - GLYPH_DEBOUNCE_TIME).Any(f =&gt; f.SymbolID == symbolID))
+            {
+                return;
+            }
+
+            GlyphKnowledgeState knowledge = _playerGlyphKnowledge.GetGlyphKnowledge(symbolID);
+            if (knowledge == GlyphKnowledgeState.Hidden)
+            {
+                _playerGlyphKnowledge.UpdateGlyphKnowledge(symbolID, GlyphKnowledgeState.Seen);
+                GD.Print($&quot;MagicSystem: Player saw symbol '{symbolID}'.&quot;);
+                _eventBus.Publish(new GlyphInputEvent { PlayerID = _playerEntityID, SymbolID = symbolID, Concept = GlyphConcept.None, KnowledgeState = knowledge, IsKnown = false, IsValid = false });
+                return;
+            }
+
+            WorldGlyphDefinition glyphDef = _worldGlyphMap.GetDefinitionBySymbol(symbolID);
+            if (!glyphDef.Concept.IsValidConcept())
+            {
+                GD.PrintErr($&quot;MagicSystem: Glyph symbol '{symbolID}' has no valid concept in this world. Cannot process.&quot;);
+                _eventBus.Publish(new GlyphInputEvent { PlayerID = _playerEntityID, SymbolID = symbolID, Concept = GlyphConcept.None, KnowledgeState = knowledge, IsKnown = true, IsValid = false });
+                return;
+            }
+
+            // Add to input buffer (TDD 02.1)
+            _glyphInputBuffer.Push(new GlyphInputFrame(symbolID, glyphDef.Concept, timestamp));
+
+            GD.Print($&quot;MagicSystem: Player input glyph: {glyphDef}. Buffer size: {_glyphInputBuffer.Count}&quot;);
+            _eventBus.Publish(new GlyphInputEvent { PlayerID = _playerEntityID, SymbolID = symbolID, Concept = glyphDef.Concept, KnowledgeState = knowledge, IsKnown = true, IsValid = true });
+
+            // Attempt to resolve combo (TDD 02.2)
+            ResolveCombo();
+        }
+
+        private void ResolveCombo()
+        {
+            // TDD 02.1: Get recent inputs within the combo delay window.
+            // ReadOnlySpan&lt;GlyphInputFrame&gt; recentInputsSpan = _glyphInputBuffer.GetRecentUnconsumed(GameManager.Instance.Time.CurrentGameTime - MAX_COMBO_DELAY);
+            // Convert to List for easier manipulation in this simple combo resolver.
+            List&lt;GlyphInputFrame&gt; recentInputs = _glyphInputBuffer.GetRecentUnconsumed(_gameManager.Time.CurrentGameTime - MAX_COMBO_DELAY).ToList();
+
+            if (recentInputs.Count == 0) return;
+
+            GD.Print($&quot;MagicSystem: Attempting to resolve combo with {recentInputs.Count} recent inputs.&quot;);
+
+            // --- Combo Resolution Logic (Placeholder for now) ---
+            // Simplified logic from previous chapter.
+            // TDD 15.3: Feedback - If player inputs a single known glyph, mark it as known.
+            if (recentInputs.Count == 1 &amp;&amp; recentInputs[0].KnowledgeState &lt; GlyphKnowledgeState.Known)
+            {
+                _playerGlyphKnowledge.UpdateGlyphKnowledge(recentInputs[0].SymbolID, GlyphKnowledgeState.Known);
+                GD.Print($&quot;MagicSystem: Player successfully experimented with '{recentInputs[0].SymbolID}' and now KNOWS its concept: {recentInputs[0].Concept}.&quot;);
+                _eventBus.Publish(new ComboResolvedEvent { PlayerID = _playerEntityID, IsSuccess = true, IsDiscovery = true, ResultText = $&quot;Discovered {recentInputs[0].Concept}!&quot;, ConceptSequence = new List&lt;GlyphConcept&gt; { recentInputs[0].Concept } });
+                _glyphInputBuffer.MarkConsumed(recentInputs);
+                return;
+            }
+
+            // Simple check: if two known glyphs are pressed, it's a plausible experiment (GDD B05.7)
+            if (recentInputs.Count &gt;= 2 &amp;&amp; recentInputs.All(f =&gt; f.KnowledgeState &gt;= GlyphKnowledgeState.Known))
+            {
+                List&lt;GlyphConcept&gt; conceptSequence = recentInputs.Select(f =&gt; f.Concept).ToList();
+                GD.Print($&quot;MagicSystem: Player experimented with a plausible sequence: {string.Join(&quot; -&gt; &quot;, conceptSequence)}.&quot;);
+                _eventBus.Publish(new ComboResolvedEvent { PlayerID = _playerEntityID, IsSuccess = true, IsDiscovery = true, ResultText = $&quot;Plausible experiment! {string.Join(&quot; &quot;, conceptSequence)}&quot;, ConceptSequence = conceptSequence });
+                _glyphInputBuffer.MarkConsumed(recentInputs);
+                return;
+            }
+
+            // Fizzle logic is now primarily handled in Tick() if inputs expire, or if explicit invalid combo.
+            // This placeholder resolver does not handle complex invalid combos yet.
+        }
+
+        // Removed MarkInputsConsumed, it's now part of GlyphInputBuffer.MarkConsumed
+        // Removed Clear, it's now part of GlyphInputBuffer.Clear
+    }
+}
+</code></pre>
+<p><strong>Key Changes in <code>MagicSystem.cs</code>:</strong></p>
+<ul>
+<li>Now uses <code>GlyphInputBuffer _glyphInputBuffer</code> instead of a raw <code>List</code>.</li>
+<li>Constructor now takes <code>GameManager</code> to access <code>Time.CurrentGameTime</code>.</li>
+<li><code>Push</code> and <code>MarkConsumed</code> are delegated to the <code>_glyphInputBuffer</code> instance.</li>
+<li>The <code>Tick</code> method now includes logic to fizzle combos if the oldest input expires due to <code>MAX_COMBO_DELAY</code>.</li>
+<li><code>ProcessGlyphInput</code> includes <code>GLYPH_DEBOUNCE_TIME</code> to prevent accidental double-inputs.</li>
+</ul>
+<h3 id="5-update-gamemanager-to-pass-gamemanager-to-magicsystem">5. Update <code>GameManager</code> to Pass <code>GameManager</code> to <code>MagicSystem</code></h3>
+<ol>
+<li>Open <code>res://_Brain/Core/GameManager.cs</code>.</li>
+<li>Modify the <code>MagicSystem</code> initialization in <code>InitializeSystems()</code> to pass <code>this</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside InitializeSystems)
+// ...
+        PlayerHotbar = new PlayerHotbarSystem(Entities.GetPlayerEntityID(), Events, PlayerGlyphKnowledge, GlyphMap);
+        GD.Print(&quot;  - PlayerHotbarSystem initialized.&quot;);
+
+        // Initialize MagicSystem, passing GameManager itself for CurrentGameTime access
+        Magic = new MagicSystem(Entities, Input, Events, PlayerHotbar, PlayerGlyphKnowledge, GlyphMap, this); // Pass 'this'
+        GD.Print(&quot;  - MagicSystem initialized.&quot;);
+// ...
+</code></pre>
+<h3 id="6-testing-the-input-buffer">6. Testing the Input Buffer</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Perform the same tests as in Chapter 3.3:<ul>
+<li><strong>Test 1 (Single Unknown Glyph)</strong>: Press <code>1</code> (hotbar slot 0). This is our <code>testSymbol</code> (initially <code>Hidden</code>). You should see it become <code>Seen</code>, then <code>Known</code>, and a "Discovered Concept!" message.</li>
+<li><strong>Test 2 (Two Known Glyphs - Plausible Experiment)</strong>: Quickly press <code>0</code> then <code>1</code>. You should see a "Plausible experiment!" message.</li>
+<li><strong>Test 3 (Fizzle)</strong>: Press <code>0</code>. Wait for more than <code>MAX_COMBO_DELAY</code> (1.5 seconds). Press <code>0</code> again. You should see a <code>MagicSystem: Combo fizzled (inputs too slow)...</code> message.</li>
+</ul>
+</li>
+</ol>
+<p>The output and behavior should be consistent with the previous chapter, but now the underlying <code>GlyphInputBuffer</code> is handling the sequence storage more robustly. The explicit <code>_glyphInputBuffer.ToString()</code> can be used in debug to see the buffer's state.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented a dedicated <strong>Input Buffer</strong> for storing <code>GlyphInputFrame</code> sequences, enhancing the <code>MagicSystem</code>'s ability to process player input for combos. By creating the <code>GlyphInputBuffer</code> class and integrating it into <code>MagicSystem</code>, you've established a robust mechanism for managing glyph input order, timestamps, and consumption, strictly adhering to TDD 02.1's specifications. This refined input pipeline is crucial for the efficient and accurate detection of complex glyph combos.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will implement the <strong>Combo Resolver</strong> using a Trie structure (TDD 02.2) to efficiently detect known spell sequences from the glyph input buffer, moving us closer to a fully functional magic system.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

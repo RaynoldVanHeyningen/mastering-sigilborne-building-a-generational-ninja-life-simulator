@@ -1,0 +1,3108 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="01-chapter-1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mastering-sigilborne-building-a-generational-ninja-life-simulator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table of Contents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-1-core-architecture-the-brain-body-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 1: Core Architecture - The Brain &amp; Body Paradigm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-2-player-input-core-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 2: Player Input &amp; Core Movement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-3-the-glyph-system-language-of-ninjutsu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 3: The Glyph System - Language of Ninjutsu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-4-combos-casting-the-art-of-ninjutsu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 4: Combos &amp; Casting - The Art of Ninjutsu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-5-chakra-life-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 5: Chakra &amp; Life Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-6-combat-tactical-engagement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 6: Combat &amp; Tactical Engagement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-7-the-living-world-ecology-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 7: The Living World - Ecology &amp; AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-8-society-politics-economy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 8: Society, Politics &amp; Economy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-9-advanced-world-mechanics-player-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 9: Advanced World Mechanics &amp; Player Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-10-the-mythic-meta-game-legacy-collapse-multiverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 10: The Mythic &amp; Meta Game - Legacy, Collapse &amp; Multiverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table of Contents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-1-core-architecture-the-brain-body-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 1: Core Architecture - The Brain &amp; Body Paradigm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-2-player-input-core-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 2: Player Input &amp; Core Movement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-3-the-glyph-system-language-of-ninjutsu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 3: The Glyph System - Language of Ninjutsu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-4-combos-casting-the-art-of-ninjutsu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 4: Combos &amp; Casting - The Art of Ninjutsu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-5-chakra-life-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 5: Chakra &amp; Life Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-6-combat-tactical-engagement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 6: Combat &amp; Tactical Engagement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-7-the-living-world-ecology-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 7: The Living World - Ecology &amp; AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-8-society-politics-economy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 8: Society, Politics &amp; Economy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-9-advanced-world-mechanics-player-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 9: Advanced World Mechanics &amp; Player Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-10-the-mythic-meta-game-legacy-collapse-multiverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module 10: The Mythic &amp; Meta Game - Legacy, Collapse &amp; Multiverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mastering-sigilborne-building-a-generational-ninja-life-simulator">Mastering Sigilborne: Building a Generational Ninja Life Simulator</h1>
+<p>This course guides you through the technical and design journey of creating "Sigilborne," a unique ninja-life simulator where player characters are ephemeral, but the world and its history are persistent across generations. We will build a deeply simulated, procedurally generated magical world, focusing on systemic gameplay, emergent narratives, and a composition-first, production-grade architecture using Godot 4.5 and C#.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<h3 id="module-1-core-architecture-the-brain-body-paradigm">Module 1: Core Architecture - The Brain &amp; Body Paradigm</h3>
+<p>This module lays the foundational architectural principles, establishing the strict separation of simulation logic (C# Brain) from visual presentation (GDScript Body). You'll learn how to set up this hybrid environment for optimal performance and maintainability.</p>
+<ul>
+<li><strong>Chapter 1.1: Project Setup for Godot 4.5 with C#</strong><ul>
+<li>Initialize a new Godot 4.5 project with C# support.</li>
+<li>Configure the C# solution and build pipeline.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.2: The Brain (C#) - Headless Simulation Layer</strong><ul>
+<li>Understand the role of C# for heavy simulation, data, and AI.</li>
+<li>Implement the <code>GameManager</code> as the C# entry point and system bootstrapper.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer</strong><ul>
+<li>Understand the role of GDScript for rendering, UI, and animation.</li>
+<li>Implement <code>SceneLoader</code> for managing high-level game state transitions.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.4: Directory Structure - Enforcing Separation of Concerns</strong><ul>
+<li>Establish the <code>_Brain/</code>, <code>_Body/</code>, and <code>_Shared/</code> directory structure.</li>
+<li>Detail naming conventions for C# and GDScript files and assets.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.5: Entity Model - Lightweight ECS-lite in C#</strong><ul>
+<li>Define the <code>EntityID</code> struct for unique entity identification.</li>
+<li>Implement the <code>EntityManager</code> for entity creation, destruction, and validation.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.6: Component Architecture - Composition over Inheritance</strong><ul>
+<li>Design <code>TransformComponent</code>, <code>TypeComponent</code>, and <code>StateComponent</code> as core data structs.</li>
+<li>Understand component storage patterns (SoA vs. Dictionary).</li>
+</ul>
+</li>
+<li><strong>Chapter 1.7: Job System &amp; Concurrency - Multithreaded Processing</strong><ul>
+<li>Implement the <code>JobManager</code> with worker thread pools and priority queues.</li>
+<li>Design <code>IJob</code> interface and <code>EcologyUpdateJob</code> example.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.8: Thread Safety - Command Buffers &amp; Double Buffering</strong><ul>
+<li>Enforce the "No-Node" rule for jobs.</li>
+<li>Implement <code>CommandBuffer</code> for main thread synchronization.</li>
+<li>Understand double buffering for concurrent read/write operations.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.9: Scene Composition - Standardizing Godot Scenes</strong><ul>
+<li>Define the <code>EntityRoot</code> hierarchy for all active entity scenes.</li>
+<li>Establish <code>EntityView.gd</code> as the sole script communicating with the Brain.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.10: Naming Conventions &amp; Scene Interfaces</strong><ul>
+<li>Standardize naming for scenes, scripts, and nodes.</li>
+<li>Implement <code>setup(id: int)</code> function for scene initialization.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.11: Animation Event Protocol - Syncing Brain &amp; Body</strong><ul>
+<li>Define the <code>anim_event(type: String, payload: Dictionary)</code> signal standard.</li>
+<li>Implement standard event types like "hit_frame" and "cast_release".</li>
+</ul>
+</li>
+<li><strong>Chapter 1.12: Interop Layer - C# to GDScript Communication</strong><ul>
+<li>Implement the EventBus using C# <code>Action&lt;T&gt;</code> delegates for Brain-to-Body signals.</li>
+<li>Detail thread-safe event batching and error handling.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.13: Global State Management - Data Ownership</strong><ul>
+<li>Establish the Brain as the sole owner of authoritative game state.</li>
+<li>Detail how the Body only displays interpolated visual states.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.14: Debugging Tools - Console &amp; State Inspector</strong><ul>
+<li>Implement a Quake-style debug console for runtime command execution.</li>
+<li>Develop a runtime state inspector for entity data visualization.</li>
+</ul>
+</li>
+<li><strong>Chapter 1.15: Main Loop Execution Order - Tick vs. Frame</strong><ul>
+<li>Detail the <code>_Process</code> (GDScript) and <code>_PhysicsProcess</code> (C#) execution flow.</li>
+<li>Explain the roles of Input Processing, Simulation Tick, and Visual Interpolation.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-2-player-input-core-movement">Module 2: Player Input &amp; Core Movement</h3>
+<p>This module focuses on how player input is captured and translated into character actions, including standard movement, unique "Shift-Sliding," and the hybrid physics system that ensures smooth, responsive control.</p>
+<ul>
+<li><strong>Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)</strong><ul>
+<li>Implement <code>InputManager.gd</code> to capture hardware events.</li>
+<li>Normalize input (e.g., WASD to <code>Vector2</code>).</li>
+</ul>
+</li>
+<li><strong>Chapter 2.2: Input Frame - Snapshot for the Brain (C#)</strong><ul>
+<li>Define the <code>PlayerInputFrame</code> struct for sending input snapshots to C#.</li>
+<li>Buffer input for processing in the Brain's tick.</li>
+</ul>
+</li>
+<li><strong>Chapter 2.3: Standard Movement Logic - Velocity &amp; Friction (C#)</strong><ul>
+<li>Implement basic <code>MoveVector</code> to <code>Velocity</code> calculations.</li>
+<li>Apply friction for snappy movement stops.</li>
+</ul>
+</li>
+<li><strong>Chapter 2.4: Shift-Sliding Mechanic - Direction Lock (C#)</strong><ul>
+<li>Implement the "Shift-Sliding" logic to maintain movement direction.</li>
+<li>Manage <code>LastMoveVector</code> for persistent directional input.</li>
+</ul>
+</li>
+<li><strong>Chapter 2.5: Physics Layer - Hybrid Movement Pipeline</strong><ul>
+<li>Understand the Brain's role in calculating <code>TargetVelocity</code> and <code>ProposedPosition</code>.</li>
+<li>Understand the Body's role in <code>move_and_slide()</code> for collision resolution.</li>
+</ul>
+</li>
+<li><strong>Chapter 2.6: Physics Reconciliation - Syncing Brain &amp; Body Positions</strong><ul>
+<li>Implement the reconciliation step where the Brain overwrites its position with the Body's <code>FinalPosition</code>.</li>
+<li>Explain why Godot handles collision resolution locally.</li>
+</ul>
+</li>
+<li><strong>Chapter 2.7: Interactions &amp; Pushes - Knockback &amp; Entity-vs-Entity</strong><ul>
+<li>Implement knockback by modifying the Brain's <code>Velocity</code>.</li>
+<li>Leverage <code>CharacterBody2D</code> for automatic soft collision pushes.</li>
+</ul>
+</li>
+<li><strong>Chapter 2.8: Physics Layers - Standardizing Collision Interactions</strong><ul>
+<li>Define physics layers for World, Player, Enemy, Projectile, Interaction, and Hitbox.</li>
+<li>Configure collision masks for proper interaction.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-3-the-glyph-system-language-of-ninjutsu">Module 3: The Glyph System - Language of Ninjutsu</h3>
+<p>Dive deep into Sigilborne's unique glyph-based magic system. This module covers the procedural generation of glyph meanings, player discovery mechanics, and the underlying logic that makes every world's magic feel unique.</p>
+<ul>
+<li><strong>Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)</strong><ul>
+<li>Separate abstract <code>Concepts</code> (Fire, Water) from <code>Symbols</code> (Triangle, Circle).</li>
+<li>Store procedural mappings in <code>WorldData.GlyphMap</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.2: Glyph Generation Logic - World Seed Mapping (C#)</strong><ul>
+<li>Implement the world-seed-based shuffling and assignment of Symbols to Concepts.</li>
+<li>Ensure unique glyph meanings per playthrough.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.3: Glyph Discovery System - Player Knowledge State (C#)</strong><ul>
+<li>Track player <code>KnowledgeState</code> for each glyph (Hidden, Seen, Known).</li>
+<li>Implement the feedback loop for revealing glyph meanings upon successful cast.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.4: Glyph Experimentation - Trial &amp; Error Casting (C#)</strong><ul>
+<li>Process player input to attempt combos with unknown glyphs.</li>
+<li>Provide feedback for successful discovery or fizzle/stability damage.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.5: Subtypes &amp; Modifiers - Procedural Nuance for Glyphs (C#)</strong><ul>
+<li>Implement procedural generation of <code>Subtypes</code> for each glyph variant.</li>
+<li>Assign float modifiers to define unique behaviors (e.g., Blue Flame vs. Red Flame).</li>
+</ul>
+</li>
+<li><strong>Chapter 3.6: Glyph Acquisition - Teachers &amp; Scrolls (C#)</strong><ul>
+<li>Design <code>Scroll</code> items to grant <code>Known</code> status for glyphs.</li>
+<li>Implement <code>Teacher</code> NPCs that demonstrate combos, enabling player learning.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.7: Glyph Stability &amp; Category Resonance (GDD B01)</strong><ul>
+<li>Define per-glyph <code>Stability Rating</code> and its effects on casting.</li>
+<li>Implement <code>Category Resonance</code> logic for environmental interactions (e.g., Bloom in forests).</li>
+</ul>
+</li>
+<li><strong>Chapter 3.8: World Mapping Logic - Glyph to Subtype Table (C#)</strong><ul>
+<li>Generate the global <code>glyph -&gt; category -&gt; subtype</code> table per world.</li>
+<li>Implement environmental modulation of subtype behavior.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.9: Glyph Interaction Rules - High-Level Principles (GDD B01)</strong><ul>
+<li>Implement glyph interactions based on category relationships, subtypes, and sequence order.</li>
+<li>Ensure world-specific variations via subtypes.</li>
+</ul>
+</li>
+<li><strong>Chapter 3.10: Forbidden Glyphs &amp; Glyph Loss (GDD B01)</strong><ul>
+<li>Define <code>Forbidden Glyphs</code> with inherent instability and danger.</li>
+<li>Implement mechanics for glyph loss or corruption due to residue, miscasts, or bloodline mutations.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-4-combos-casting-the-art-of-ninjutsu">Module 4: Combos &amp; Casting - The Art of Ninjutsu</h3>
+<p>This module focuses on the dynamic combo system, where glyph sequences transform into powerful techniques. You'll build the input pipeline, spell resolution, and the mastery system that allows players to discover and evolve their unique ninjutsu.</p>
+<ul>
+<li><strong>Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)</strong><ul>
+<li>Implement a circular <code>InputBuffer</code> to store <code>InputFrame</code> structs with timestamps.</li>
+<li>Efficiently retrieve recent inputs for combo detection.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)</strong><ul>
+<li>Implement a Prefix Tree (Trie) to efficiently detect glyph sequences.</li>
+<li>Optimize Trie storage for cache locality.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)</strong><ul>
+<li>Define <code>SpellDefinition</code> as a data resource, including sequence, costs, and component data.</li>
+<li>Support <code>Mythic Evolution</code> through data mutation or swapping.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.4: Casting State Machine - Player Casting Flow (C#)</strong><ul>
+<li>Implement a <code>CastState</code> enum (Idle, Channeling, Casting, Recovery).</li>
+<li>Manage state transitions and timers for spell execution.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.5: Visual Feedback - Particles &amp; Animations (GDScript)</strong><ul>
+<li>Implement a <code>ParticleManager</code> and <code>AnimationController</code> to react to casting signals.</li>
+<li>Use <code>GPUParticles2D</code> pools for optimized visual effects.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.6: Hotbar Input &amp; Casting - Recursive Mastery Deck (GDD B05)</strong><ul>
+<li>Implement the 10-slot hotbar system for glyphs and shortcuts.</li>
+<li>Design the "Recursive Chaining" macro system for complex combos.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.7: Combo Input Rhythm &amp; Dynamic Timing Windows (GDD B05)</strong><ul>
+<li>Implement rhythmic input processing for glyph sequences.</li>
+<li>Dynamically adjust <code>Combo Timing Windows</code> based on player mastery.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.8: Combo Resolution Model - Outcomes &amp; Experimentation (GDD B05)</strong><ul>
+<li>Implement the H1 Combo Resolution Model (Full, Partial, Experimental, Solo-Cast, Fizzle).</li>
+<li>Support player experimentation and accidental technique discovery.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.9: Interruptibility &amp; Mobility While Casting (GDD B05)</strong><ul>
+<li>Implement dynamic interruptibility based on mastery and combo length.</li>
+<li>Enable fully mobile casting with mastery-dependent penalties.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.10: Combo System Overview &amp; Interpreter (GDD B02)</strong><ul>
+<li>Implement the <code>Combo Interpreter</code> to evaluate sequences based on order, categories, subtypes, and external factors.</li>
+<li>Define outcomes like Full Technique, Partial, Fizzle, Miscast, Forbidden Surge.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.11: Combo Formation Rules &amp; Repetition (GDD B02)</strong><ul>
+<li>Enforce rules that any sequence can be attempted, order matters, and repetition matters.</li>
+<li>Implement how categories define structure and subtypes define nuance.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.12: Combo Length Tiers &amp; Discovery Through Repetition (GDD B02)</strong><ul>
+<li>Define <code>Combo Length Tiers</code> (Single-Glyph to 7+ Glyphs).</li>
+<li>Implement <code>Discovery Through Repetition</code> for natural combo improvement.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.13: Player-Invented Techniques &amp; The Combo Journal (GDD B02)</strong><ul>
+<li>Allow players to name and record unique, discovered techniques.</li>
+<li>Implement the <code>Combo Journal</code> for tracking attempted sequences and annotations.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.14: Mastery Structure &amp; Glyph Mastery (GDD B04)</strong><ul>
+<li>Implement <code>Internal</code> (continuous) and <code>External</code> (tiered) mastery.</li>
+<li>Track <code>Glyph Mastery</code> and its effects on strain, stability, and visuals.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.15: Combo Mastery &amp; Unlocking Shortcut Glyphs (GDD B04)</strong><ul>
+<li>Implement <code>Combo Mastery</code> and its benefits (rhythm, flow, reliability).</li>
+<li>Design the system for unlocking <code>Shortcut Glyphs</code> through combined mastery and bloodline resonance.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.16: Shortcut Glyph Behavior &amp; Evolution Paths (GDD B04)</strong><ul>
+<li>Define <code>Shortcut Glyph</code> properties (visuals, hotbar integration, benefits).</li>
+<li>Implement <code>Shortcut Evolution Paths</code> influenced by residue, bloodline, and world events.</li>
+</ul>
+</li>
+<li><strong>Chapter 4.17: Legendary Techniques &amp; NPC Combo Literacy (GDD B02/B04)</strong><ul>
+<li>Define conditions for <code>Legendary Techniques</code> (long sequence, high stability, bloodline).</li>
+<li>Implement <code>NPC Combo Literacy</code> with tiers and evolving knowledge.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-5-chakra-life-systems">Module 5: Chakra &amp; Life Systems</h3>
+<p>Explore the intricate biological and environmental simulation that governs character well-being, chakra flow, and the dangerous accumulation of chaos residue.</p>
+<ul>
+<li><strong>Chapter 5.1: Biological Simulation - The Bio-Tick (C#)</strong><ul>
+<li>Implement a <code>BiologicalSim</code> with a slower <code>Bio-Tick</code> rate (e.g., 1Hz).</li>
+<li>Define <code>BioState</code> struct for core stats (Health, Stamina, Chakra, Hunger, Thirst, BodyTemp).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.2: Metabolism System - Dynamic Decay Rates (C#)</strong><ul>
+<li>Implement <code>Hunger</code> and <code>Thirst</code> decay based on <code>ActivityLevel</code> and <code>WeatherMultiplier</code>.</li>
+<li>Integrate Chakra consumption with Hunger spikes.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.3: Weather System - Global Environmental State (C#)</strong><ul>
+<li>Implement <code>WeatherSystem</code> as a global singleton with <code>WeatherType</code>, <code>WindDirection</code>, <code>Temperature</code>, <code>Humidity</code>.</li>
+<li>Define <code>Environmental Pressure</code> effects on <code>BioState</code> (e.g., Cold increases Hunger).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.4: Damage &amp; Recovery Pipeline - Wounds &amp; Status Effects (C#)</strong><ul>
+<li>Implement the <code>Damage Pipeline</code> (Raw, Mitigation, Application, Wound Generation).</li>
+<li>Define <code>Recovery Logic</code> for healing and status effect management.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.5: Status Effect Data - Definition vs. Instance (C#)</strong><ul>
+<li>Define <code>EffectDefinition</code> for static effect data (ID, Type, Stacks, Duration).</li>
+<li>Manage <code>ActiveEffect</code> instances on entities with <code>TimeRemaining</code> and <code>Stacks</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.6: Status Effect Lifecycle - Application &amp; Tick Loop (C#)</strong><ul>
+<li>Implement <code>ApplyEffect()</code> logic (refresh, stack).</li>
+<li>Design the <code>StatusEffectSystem</code> tick loop for DoT and StatMod effects.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.7: Void Sickness &amp; Bleed Mechanics (C#)</strong><ul>
+<li>Implement <code>Void Sickness</code> (C04) with permanent effects and escalating consequences.</li>
+<li>Implement <code>Bleed</code> (B12) as a movement-based DoT.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.8: Chakra Strain System - Accumulation &amp; Consequences (GDD B03)</strong><ul>
+<li>Implement <code>Per-Glyph Strain</code> and <code>Per-Technique Final Spike</code> accumulation.</li>
+<li>Define <code>High Strain Consequences</code> (Fatigue, Distortion, Unreliability, Burnout).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.9: Chakra Regeneration &amp; Pool Growth (GDD B03)</strong><ul>
+<li>Implement <code>Strain Reset Mechanisms</code> (Natural, Meditation, Food/Rest, Sacred Locations).</li>
+<li>Design <code>Chakra Pool Growth</code> over lifespan (Age, Training, Bloodline).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.10: Chaos Residue System - Accumulation &amp; Distribution (GDD B03)</strong><ul>
+<li>Implement <code>Residue Accumulation</code> from miscasts, forbidden sequences, etc.</li>
+<li>Distribute <code>Residue</code> to <code>Player Residue</code> and <code>World Residue</code> (by chunk).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.11: Effects of Residue on the World &amp; Player (GDD B03)</strong><ul>
+<li>Implement <code>World Residue</code> effects (Biome Distortion, Anomaly Formation, Wildlife Corruption).</li>
+<li>Implement <code>Player Residue</code> effects (Miscast Chance, Subtype Mutations, Power Increases).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.12: Chakra Biology - Aging, Training &amp; Bloodline Influence (GDD B08)</strong><ul>
+<li>Implement <code>Natural Aging Curve</code> for chakra capacity.</li>
+<li>Define <code>Training</code> as the primary growth driver and <code>Bloodline Influence</code> on quirks.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.13: Chakra Network Injuries &amp; Recovery (GDD B08/B12)</strong><ul>
+<li>Implement <code>Chakra Network Injuries</code> (micro-tears, residue burns) and their effects.</li>
+<li>Design <code>Injury Repair</code> mechanisms (discipline, healing, rituals).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.14: Pain System &amp; Pain Suppression (GDD B12)</strong><ul>
+<li>Implement <code>Pain</code> as a mechanical factor affecting movement, casting, and focus.</li>
+<li>Design <code>Pain Suppression</code> with its associated strain and instability costs.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.15: Medical Ninjutsu &amp; Bloodline Healing (GDD B12)</strong><ul>
+<li>Implement <code>Medical Ninjutsu</code> as a skill-based discipline with chakra costs and miscast risks.</li>
+<li>Define <code>Bloodline Healing Influence</code> (regenerative, cursed lines).</li>
+</ul>
+</li>
+<li><strong>Chapter 5.16: Survival &amp; Environmental Discipline - Fatigue, Sleep &amp; Weather (GDD B14)</strong><ul>
+<li>Implement <code>Sleep &amp; Fatigue</code> as core survival mechanics (no hunger/thirst).</li>
+<li>Integrate <code>Weather Effects</code> on visibility, stealth, and chakra stability.</li>
+</ul>
+</li>
+<li><strong>Chapter 5.17: Sickness, Poison &amp; Disease - Dynamic Threats (GDD B14)</strong><ul>
+<li>Implement <code>Sickness, Poison &amp; Disease</code> mechanics (sources, effects, recovery).</li>
+<li>Integrate <code>Mental Fatigue</code> from trauma and chakra overuse.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-6-combat-tactical-engagement">Module 6: Combat &amp; Tactical Engagement</h3>
+<p>Master the fast-paced, systemic combat of Sigilborne. This module covers physics-based detection, detailed damage calculation, stealth and sensing mechanics, and the strategic use of weapons and tools.</p>
+<ul>
+<li><strong>Chapter 6.1: Physics Layer - Hitbox &amp; Hurtbox Detection (GDScript)</strong><ul>
+<li>Implement <code>Area2D</code> nodes for <code>Hitbox</code> and <code>Hurtbox</code> detection.</li>
+<li>Define <code>BodyPart</code> and <code>DamageProfileID</code> for hit data.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.2: Detection Logic - HitEvent Pipeline (Brain &amp; Body)</strong><ul>
+<li>Implement <code>area_entered</code> signal to send <code>HitEvent</code> to the Brain.</li>
+<li>Design <code>CombatSystem</code> to calculate damage and emit <code>OnDamageTaken</code> signals.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.3: Damage Calculator - Complex Math Layer (C#)</strong><ul>
+<li>Implement <code>DamageResult</code> struct for final damage, crit, block, and type.</li>
+<li>Develop <code>Calculate()</code> function for base damage, mitigation, and multipliers.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.4: Combat Fundamentals - Pace, Lethality &amp; Reading Opponents (GDD B09)</strong><ul>
+<li>Implement fast, high-pressure, reactive combat mechanics.</li>
+<li>Design <code>Lethality &amp; Danger Gradient</code> based on enemy type and context.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.5: Ninja Movement &amp; Chakra-Enhanced Mobility (GDD B09)</strong><ul>
+<li>Implement <code>Movement</code> as a core skill with dodges, slides, and aerial control.</li>
+<li>Design <code>Chakra-Enhanced Mobility</code> (Surge dash, Veil slide) with mastery reduction.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.6: Interruptibility &amp; Casting Mobility (GDD B09)</strong><ul>
+<li>Implement universal <code>Interruptibility</code> for non-instant techniques.</li>
+<li>Design <code>Casting Mobility</code> allowing movement while weaving signs, with mastery reducing penalties.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.7: Taijutsu Integration &amp; Priority Rules (GDD B09)</strong><ul>
+<li>Implement <code>Taijutsu</code> as a non-chakra-based martial art.</li>
+<li>Design <code>Chakra-Enhanced Taijutsu</code> variants and <code>Casting vs. Taijutsu Priority Rules</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.8: Combat Symmetry &amp; Enemy Intelligence (GDD B09)</strong><ul>
+<li>Implement <code>Enemy Intelligence Spectrum</code> from low-tier to legendary.</li>
+<li>Ensure <code>Combat Symmetry</code> where enemies follow player rules (signs, strain, miscast).</li>
+</ul>
+</li>
+<li><strong>Chapter 6.9: Stealth Progression &amp; Types (GDD B10)</strong><ul>
+<li>Implement <code>Stealth Progression Curve</code> (weak early, powerful late).</li>
+<li>Design <code>Physical Stealth</code>, <code>Chakra Stealth</code>, and <code>Corrupted Stealth</code> modes.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.10: Detection Systems &amp; Enemy Learning (GDD B10)</strong><ul>
+<li>Implement <code>Detection Types</code> (Sight, Sound, Chakra Sensing, Resonance, Bloodline).</li>
+<li>Design <code>Enemy Learning Behavior</code> for intelligent adaptation and coordination.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.11: Glyph-Based Stealth Techniques (GDD B10)</strong><ul>
+<li>Implement <code>Veil</code>, <code>Echo</code>, <code>Flux</code>, <code>Bloom</code>, and <code>Consume</code> techniques for stealth.</li>
+<li>Integrate <code>Chakra Usage</code> and <code>Residue Interaction</code> with stealth.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.12: Stealth Failure &amp; Environmental Influence (GDD B10)</strong><ul>
+<li>Implement a <code>Multi-State Detection Model</code> for stealth failure.</li>
+<li>Design <code>Environmental Influence</code> on stealth (buffs/penalties from terrain, weather, resonance).</li>
+</ul>
+</li>
+<li><strong>Chapter 6.13: Chakra Sensing Fundamentals &amp; Trainable Skill (GDD B11)</strong><ul>
+<li>Implement <code>Chakra Sensing</code> as a trainable skill with tiers.</li>
+<li>Define <code>Who Can Sense Chakra</code> and how sensing ability improves.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.14: Sensing Range, Clarity &amp; Combat Intuition (GDD B11)</strong><ul>
+<li>Implement <code>Sensing Range Tiers</code> and <code>What Can Be Sensed</code> (Chakra Quantity, Residue, Bloodline Signatures).</li>
+<li>Design <code>Combat Intuition</code> to provide subtle anticipatory feedback.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.15: Specialized Sensing Schools &amp; Residue Interaction (GDD B11)</strong><ul>
+<li>Implement <code>Echo Sensing</code>, <code>Veil Sensing</code>, <code>Flux Sensing</code>, <code>Consume Sensing</code>, <code>Bloom Sensing</code>.</li>
+<li>Integrate <code>Residue Corruption</code> effects on sensing.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.16: Weapon Philosophy &amp; Mastery (GDD B13)</strong><ul>
+<li>Define <code>Weapon Philosophy</code> as supplemental, not central to power.</li>
+<li>Implement <code>Weapon Mastery</code> for movement style, rhythm, and chakra infusion.</li>
+</ul>
+</li>
+<li><strong>Chapter 6.17: Chakra Interaction with Weapons &amp; Types (GDD B13)</strong><ul>
+<li>Implement <code>Chakra Infusion System</code> for weapon enhancement (Bloom, Veil, Echo, Surge).</li>
+<li>Categorize <code>Weapon Types</code> (Traditional, Clan, Chakra-Forged, Residue-Corrupted).</li>
+</ul>
+</li>
+<li><strong>Chapter 6.18: Ninja Tools &amp; The Tool Belt (GDD B13)</strong><ul>
+<li>Implement <code>Ninja Tools</code> (smoke bombs, tags, traps, sensors).</li>
+<li>Design the <code>Tool Belt</code> with dedicated slots separate from glyphs.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-7-the-living-world-ecology-ai">Module 7: The Living World - Ecology &amp; AI</h3>
+<p>Build the dynamic, simulated ecosystem where NPCs, animals, and spirits coexist and evolve. This module covers perception, decision-making, and the background simulation that makes the world feel alive even when the player isn't directly observing it.</p>
+<ul>
+<li><strong>Chapter 7.1: Perception System - Spatial Hashing (C#)</strong><ul>
+<li>Implement a <code>Spatial Hash Grid</code> for efficient entity detection.</li>
+<li>Optimize queries for entities within range.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.2: The Senses - Vision, Hearing &amp; Chakra Sense (C#)</strong><ul>
+<li>Implement <code>PerceptionComponent</code> with <code>Vision</code> (cone check), <code>Hearing</code> (circle check).</li>
+<li>Design <code>Chakra Sense</code> (B11) for detecting active spells through walls.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.3: Stealth Mechanics - Visibility &amp; Detection Meter (C#)</strong><ul>
+<li>Implement <code>Visibility</code> as a float value (light, movement, camouflage).</li>
+<li>Design <code>Detection Meter</code> to trigger NPC alert states.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.4: Decision Making - Utility AI (C#)</strong><ul>
+<li>Implement <code>Utility AI</code> (Scoring) for NPC action selection.</li>
+<li>Design <code>Scorer</code> functions for actions like EatFood, AttackEnemy, Sleep.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.5: The Scheduler - Daily Routines &amp; Overrides (C#)</strong><ul>
+<li>Implement <code>Daily Routines</code> for NPCs (Work, Socialize, Sleep).</li>
+<li>Design <code>Override</code> logic for threats or major events.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.6: Ecology Simulation - Virtual Agents (C#)</strong><ul>
+<li>Implement <code>Virtual Agents</code> for entities in unloaded chunks.</li>
+<li>Design <code>Background Simulation</code> for updating virtual agents at a slow tick rate.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.7: Spawning &amp; Despawning - Hydration/Dehydration (Brain &amp; Body)</strong><ul>
+<li>Implement <code>Hydration</code> (Virtual to Active) when player approaches chunks.</li>
+<li>Design <code>Dehydration</code> (Active to Virtual) when player leaves chunks.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.8: Natural Animals &amp; Ecosystem Interaction (GDD B15)</strong><ul>
+<li>Implement <code>Full Wildlife Ecosystems</code> with realistic behavior.</li>
+<li>Design <code>Animal Interaction</code> with stealth and combat (flee, warn, attack).</li>
+</ul>
+</li>
+<li><strong>Chapter 7.9: Spirit Creatures - Taxonomy &amp; Visibility Tiers (GDD B15)</strong><ul>
+<li>Implement <code>Spirit Creatures</code> as a layered ecosystem (Forest, Shadow, Echo, Guardians).</li>
+<li>Design <code>Spirit Visibility Tiers</code> (resonance zones, trained sensors, rituals).</li>
+</ul>
+</li>
+<li><strong>Chapter 7.10: Spirit Intelligence &amp; Resonance Interaction (GDD B15)</strong><ul>
+<li>Implement <code>Spirit Intelligence</code> (negotiate, form pacts, teach, threaten).</li>
+<li>Design <code>Resonance Interaction</code> for spirits based on their nature.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.11: Corrupted &amp; Mythical Creatures (GDD B15)</strong><ul>
+<li>Implement <code>Corrupted Creatures</code> (mutated animals/spirits) from residue.</li>
+<li>Design <code>Mythical Creatures</code> (titanic guardians, sky serpents) as rare, late-game entities.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.12: Procedural Species Variability &amp; Territory Behavior (GDD B15)</strong><ul>
+<li>Implement <code>Procedural Species</code> generation for unique fauna per world.</li>
+<li>Design <code>Territory Behavior</code> for creatures (dens, nests, patrol routes).</li>
+</ul>
+</li>
+<li><strong>Chapter 7.13: NPC Identity Architecture - Personality &amp; Social Bonds (GDD B18)</strong><ul>
+<li>Define <code>Core Personality</code> (courage, curiosity, discipline) for NPCs.</li>
+<li>Implement <code>Social Bonds</code> (friends, rivals, mentors) affecting behavior.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.14: NPC Profession Roles &amp; Clan Alignment (GDD B18)</strong><ul>
+<li>Define <code>Profession Roles</code> (farmer, guard, monk) for daily life.</li>
+<li>Implement <code>Clan Alignment</code> (loyal, clanless, defect) affecting literacy and training.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.15: Autonomy &amp; Decision-Making - Personality &amp; Social Drivers (GDD B18)</strong><ul>
+<li>Implement <code>NPC Decision-Making</code> driven by personality weighting and social bonds.</li>
+<li>Design <code>Anomaly Influence</code> and <code>Faction Politics</code> on NPC choices.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.16: Emergent NPC Learning - Observation &amp; Social Transmission (GDD B18)</strong><ul>
+<li>Implement <code>Observation Learning</code> (watching player/NPC casts, anomalies).</li>
+<li>Design <code>Social Transmission</code> (rumors, training tips) for knowledge spread.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.17: NPC Reaction Model - Instant, Gradual &amp; Slow (GDD B18)</strong><ul>
+<li>Implement <code>NPC Reactions</code> at three speeds: instant (danger), gradual (politics), slow (culture).</li>
+<li>Ensure NPCs adapt schedules dynamically.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.18: NPC Mastery Speed &amp; Glyph Progression (GDD B19)</strong><ul>
+<li>Implement <code>NPC Mastery Speed</code> with personality, clan, and environmental modifiers.</li>
+<li>Define <code>Five Stages of NPC Glyph Mastery</code> (Unstable to Shortcut).</li>
+</ul>
+</li>
+<li><strong>Chapter 7.19: NPC Glyph Learning - Clan Training &amp; Anomaly-Based (GDD B19)</strong><ul>
+<li>Implement <code>Observation Learning</code>, <code>Social Transmission</code>, <code>Clan Training Programs</code>.</li>
+<li>Design <code>Anomaly-Based Learning</code> and <code>Trauma-Based Learning</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 7.20: NPC Combo Development &amp; Mutation-Driven Growth (GDD B19)</strong><ul>
+<li>Implement <code>NPC Combo Development</code> from clan standards to personal experiments.</li>
+<li>Design <code>Mutation-Driven Skill Growth</code> from residue and forbidden events.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-8-society-politics-economy">Module 8: Society, Politics &amp; Economy</h3>
+<p>Construct the complex social and economic fabric of Sigilborne. This module covers faction dynamics, settlement structures, a knowledge-centric economy, and how crime and justice operate in a morally ambiguous world.</p>
+<ul>
+<li><strong>Chapter 8.1: Faction System - The Relationship Graph (C#)</strong><ul>
+<li>Implement <code>FactionRelation</code> struct for tracking inter-faction relationships.</li>
+<li>Design <code>Faction AI</code> with goals and actions (DeclareWar, SendCaravan).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.2: The Simulation Clock - Game Time &amp; Load Balancing (C#)</strong><ul>
+<li>Implement a "Game Time" system with a slower tick rate (e.g., 1 min = 1 real sec).</li>
+<li>Stagger heavy system updates across the daily cycle (<code>FactionAI</code>, <code>MarketSim</code>).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.3: Market Simulation - Supply &amp; Demand (C#)</strong><ul>
+<li>Implement <code>MarketSim</code> where prices are local and dynamic.</li>
+<li>Design <code>Price</code> calculation based on <code>Demand / Supply</code> and event modifiers (War, Famine).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.4: Trade Routes - Caravans as Arteries (C#)</strong><ul>
+<li>Implement <code>CaravanSystem</code> for NPC caravans moving between settlements.</li>
+<li>Design <code>Trade Interruption</code> logic (player/bandit destruction affecting prices).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.5: Crime &amp; Justice - The Heat System (C#)</strong><ul>
+<li>Implement <code>Heat System</code> to track crime per faction.</li>
+<li>Design <code>Witness</code> mechanics for crime recording.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.6: Bounty &amp; Punishment - Escalation &amp; Consequences (C#)</strong><ul>
+<li>Implement <code>Bounty</code> system with escalating hunter squad responses.</li>
+<li>Define <code>Consequences</code> for crimes (refusal to talk, attack on sight).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.7: Settlement Formation Logic - Templates &amp; Inputs (GDD B16)</strong><ul>
+<li>Implement procedural <code>Settlement Formation</code> based on biome, faction ancestry, anomalies.</li>
+<li>Design <code>Settlement Templates</code> (Village, Clan District, Monastic, Trade Hub).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.8: District System - Modular Subdivisions (GDD B16)</strong><ul>
+<li>Implement <code>District Types</code> (Common, Clan, Monastic, Marketplace, Spirit, Corrupted).</li>
+<li>Assign unique rules, hierarchies, and literacy patterns per district.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.9: NPC Population Model - Individuated Agents (GDD B16)</strong><ul>
+<li>Implement NPCs as individual agents with literacy, relationships, political alignment.</li>
+<li>Ensure <code>Dynamic Village Story</code> through NPC actions and memories.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.10: Internal Social Structure - Multi-Hierarchy Stack (GDD B16)</strong><ul>
+<li>Implement <code>Civic</code>, <code>Clan</code>, <code>Monastic</code>, <code>Spirit</code>, and <code>Corruption</code> hierarchies.</li>
+<li>Design interactions where hierarchies can support, compete, or undermine each other.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.11: Faction Presence in Settlements - Dynamic Tension (GDD B16)</strong><ul>
+<li>Implement <code>Multiple Factions</code> competing over knowledge, anomaly management, and succession within settlements.</li>
+<li>Ensure <code>Constant Dynamic Tension</code> through their interactions.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.12: Economic System - Knowledge-Centric Economy (GDD B16/B23)</strong><ul>
+<li>Implement an economy built around <code>Magical Scarcity</code> and <code>Knowledge Exchange</code>.</li>
+<li>Define <code>Cores of the Economy</code> (Scroll fragments, Glyph diagrams, Anomaly reagents).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.13: Settlement Borders &amp; Influence Zones (GDD B16)</strong><ul>
+<li>Implement <code>Settlement Influence Zones</code> with patrols, wards, and resonance markers.</li>
+<li>Design <code>Magical Gradients</code> for borders that affect glyph behavior.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.14: Dynamic Settlement Events &amp; Multigenerational Evolution (GDD B16)</strong><ul>
+<li>Implement <code>Procedural Story Engine</code> for settlement events (corruption outbreak, ward collapse).</li>
+<li>Design <code>Multigenerational Evolution</code> for knowledge drift, leadership cycles, and legacy interactions.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.15: Clans, Factions &amp; Political Actors (GDD B17)</strong><ul>
+<li>Define <code>Clans</code> as micro-factions, <code>Major Factions</code> as macro powers, and <code>Supra-Faction Forces</code>.</li>
+<li>Implement <code>Faction AI</code> for strategic moves, alliances, and conflicts.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.16: Clan Architecture - Ideology &amp; Leadership (GDD B17)</strong><ul>
+<li>Implement <code>Clan Identity</code> across <code>Category Ideology</code> (Bloom+Bind) and <code>Leadership Structure</code>.</li>
+<li>Design dynamic leadership changes via trials, corruption, or anomaly events.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.17: Clan Lifecycle - Formation, Growth, Merging &amp; Dissolution (GDD B17)</strong><ul>
+<li>Implement <code>Clan Formation</code> (schism, charismatic founder, player influence).</li>
+<li>Design <code>Clan Growth</code>, <code>Merging</code>, and <code>Dissolution</code> mechanics.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.18: Diplomacy &amp; Relationships - Cross-Faction Web (GDD B17)</strong><ul>
+<li>Implement <code>Diplomatic State</code> (Ally, Neutral, Hostile) with internal numeric meters.</li>
+<li>Design <code>Diplomacy Drivers</code> (ideological conflict, territory disputes, player involvement).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.19: Political Heat &amp; Volatility (GDD B17)</strong><ul>
+<li>Implement <code>Political Heat</code> system from corruption, forbidden arts, NPC deaths.</li>
+<li>Design <code>Heat Triggers</code> for diplomatic shifts, clan splits, and revolts.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.20: Economy Core Principles &amp; Currency (GDD B23)</strong><ul>
+<li>Implement a <code>Local, Systemic Economy</code> where knowledge, materials, and relationships outweigh gold.</li>
+<li>Define <code>Gold Usage</code> (bribery, travel) vs. non-gold transactions (glyphs, rituals).</li>
+</ul>
+</li>
+<li><strong>Chapter 8.21: Categories of Goods - Basic to Illicit (GDD B23)</strong><ul>
+<li>Categorize <code>Goods</code> into Basic, Crafting, Magical Reagents, Anomaly-Derived, Corrupted, Spiritual, Illicit.</li>
+<li>Implement their usage and value within the economy.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.22: Trade Systems - Ideological Markets &amp; Caravans (GDD B23)</strong><ul>
+<li>Implement <code>Settlement Economies</code> as ideological, with preferred/banned goods.</li>
+<li>Design <code>Caravans</code> as arteries with dynamic routes, risks, and consequences.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.23: Black Markets &amp; Goods Flow Simulation (GDD B23)</strong><ul>
+<li>Implement <code>Black Markets</code> for outlaw networks (corruption, assassins-for-hire).</li>
+<li>Design <code>Goods Flow Simulation</code> for resource movement, shortages, and NPC reactions.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.24: Player Housing Types &amp; Availability (GDD B24)</strong><ul>
+<li>Implement <code>Dynamic Housing</code> (Purchasable, Clan-Granted, Outlaw, Spirit, Claimed).</li>
+<li>Design <code>Realistic Availability</code> based on population, disasters, and politics.</li>
+</ul>
+</li>
+<li><strong>Chapter 8.25: Housing Functions &amp; Upgrades (GDD B24)</strong><ul>
+<li>Implement <code>Functional Perks</code> (meditation, training, crafting, rituals, storage).</li>
+<li>Design <code>Medium-Depth Upgrades</code> (Meditation Alcove, Ritual Circle, Corruption Chamber).</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-9-advanced-world-mechanics-player-impact">Module 9: Advanced World Mechanics &amp; Player Impact</h3>
+<p>This module delves into the complex systems of seals, rituals, contracts, and how player actions drive emergent missions, crime, and justice in the world.</p>
+<ul>
+<li><strong>Chapter 9.1: Ritual System - Pattern Matching &amp; Execution (C#)</strong><ul>
+<li>Implement <code>RitualManager</code> to detect spatial arrangement of items for rituals.</li>
+<li>Design <code>Execution</code> logic for consuming components and triggering effects.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.2: Seals &amp; Locks - Logical Locks (C#)</strong><ul>
+<li>Implement <code>Seal</code> as a logical lock component on objects (Physical, Magical, Blood, Time).</li>
+<li>Design <code>Global Seals</code> that affect the entire world state.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.3: Ritual System - Simple, Advanced &amp; Forbidden (GDD B27)</strong><ul>
+<li>Implement <code>Simple/Medium Rituals</code> (healing, cleansing, ward maintenance).</li>
+<li>Design <code>Advanced Rituals</code> (anomaly stabilization, spirit summoning) with complex requirements.</li>
+<li>Implement <code>Forbidden Rituals</code> (resurrection, corruption ascension) with irreversible consequences.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.4: Forbidden Contracts &amp; Spirit Contracts (GDD B27)</strong><ul>
+<li>Implement <code>Forbidden Contracts</code> as pacts with powerful forces (spirits, corruption, anomalies).</li>
+<li>Design <code>Spirit Contracts</code> (C3) with deep relational bonds and high risk.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.5: Corruption Pacts &amp; Multi-Life Persistence of Rituals (GDD B27)</strong><ul>
+<li>Implement <code>Corruption Pacts</code> (C4) for mutation growth and corrupted abilities.</li>
+<li>Ensure <code>Multi-Life Persistence</code> for seals, rituals, and contracts across generations.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.6: Mission Categories - Morally Ambiguous Tasks (GDD B20)</strong><ul>
+<li>Implement <code>Mission Categories</code> (Settlement, Clan, NPC, Anomaly, Corruption, Political, Forbidden).</li>
+<li>Ensure tasks emerge from <code>Systemic World State</code> and are morally ambiguous.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.7: Mission Delivery Methods &amp; Tracking (GDD B20)</strong><ul>
+<li>Implement <code>Diegetic Delivery</code> via NPC dialogue, overheard conversations, environmental clues.</li>
+<li>Design <code>Mission Tracking</code> solely through a <code>Diegetic Journal</code> (no UI markers).</li>
+</ul>
+</li>
+<li><strong>Chapter 9.8: Mission Rewards &amp; Group Missions (GDD B20)</strong><ul>
+<li>Implement <code>Rewards</code> (Gold, Materials, Knowledge, Access, Political Favor, Reputation Echo).</li>
+<li>Design <code>Group Missions</code> where NPCs join based on trust, clan orders, or crisis.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.9: Crime &amp; Justice Legal Architecture (GDD B21)</strong><ul>
+<li>Implement <code>Regional Faction Codes</code> and <code>Clan-Level Variation</code> for laws.</li>
+<li>Define <code>Crime Categories</code> (Martial, Political, Magical, Economic, Spiritual, Corruption).</li>
+</ul>
+</li>
+<li><strong>Chapter 9.10: Detection, Suspicion &amp; Witnesses (GDD B21)</strong><ul>
+<li>Implement <code>Crime Detection</code> based on witnesses, evidence, rumors, and magical traces.</li>
+<li>Design <code>NPC Personality</code> and ideology to affect reporting behavior.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.11: Bounty System &amp; Prison Simulation (GDD B21)</strong><ul>
+<li>Implement a <code>Dynamic Multi-Faction Bounty Network</code> (kill, capture, humiliate).</li>
+<li>Design a <code>Full Prison World-Simulation</code> with prison factions, dynamics, and gameplay loops.</li>
+</ul>
+</li>
+<li><strong>Chapter 9.12: Outlaw Path &amp; Intergenerational Crime Memory (GDD B21)</strong><ul>
+<li>Implement <code>Fully Viable Outlaw Gameplay Loop</code> (black markets, rogue clans, assassination).</li>
+<li>Ensure <code>Intergenerational Crime Memory</code> where past crimes shape future NPC reactions.</li>
+</ul>
+</li>
+</ul>
+<h3 id="module-10-the-mythic-meta-game-legacy-collapse-multiverse">Module 10: The Mythic &amp; Meta Game - Legacy, Collapse &amp; Multiverse</h3>
+<p>This final module integrates all systems into the grand vision of Sigilborne. You'll explore how player actions lead to world-shaping events, mythic transformations, and the generational persistence that defines the game's unique meta-narrative.</p>
+<ul>
+<li><strong>Chapter 10.1: World Generation &amp; Streaming - Chunk Architecture (C#)</strong><ul>
+<li>Implement <code>Chunk Architecture</code> (64x64 tiles) with <code>Active Radius</code> loading.</li>
+<li>Design <code>Threaded Loading</code> for efficient chunk generation and mesh application.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.2: World Persistence - The "Diff" Strategy (C#)</strong><ul>
+<li>Implement <code>Delta Compression</code> for saving only chunk modifications.</li>
+<li>Design <code>Serialization Format</code> (binary Protobuf) and <code>Save Versioning</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.3: Virtual Agent Sync - Handover &amp; Restoration (C#)</strong><ul>
+<li>Implement <code>Handover</code> (Active to Virtual) and <code>Restoration</code> (Virtual to Active) for NPCs.</li>
+<li>Ensure persistence of NPC stats across loaded/unloaded states.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.4: World Instability Index (WII) &amp; Collapse Seeds (GDD B29)</strong><ul>
+<li>Implement <code>WorldStability</code> metric (Doom Clock) influenced by corruption, anomalies, clan wars.</li>
+<li>Design <code>Collapse Seeds</code> (Corruption, Anomaly, Spirit, Political) as early threats.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.5: Regional Threats &amp; Global Collapse States (GDD B29)</strong><ul>
+<li>Implement <code>Regional Threats</code> (Corruption Bloom, Anomaly Storm, Spirit Awakening).</li>
+<li>Design <code>Global Collapse States</code> (Corruption Surge, Anomaly Cascade, Spirit Cataclysm) triggered by converging crises.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.6: Player Influence &amp; Recovery Logic for Collapse (GDD B29)</strong><ul>
+<li>Implement <code>Player Influence</code> to prevent, delay, redirect, or accelerate collapse.</li>
+<li>Design <code>Manual, Slow, Multi-Generation Recovery</code> requiring deliberate effort.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.7: Mythic Evolution Philosophy &amp; The Evolution Engine (GDD C01)</strong><ul>
+<li>Define <code>Mythic Evolution</code> as emergent metamorphosis, not content to chase.</li>
+<li>Implement the <code>Evolution Engine</code> combining chakra signature, world resonance, and instability.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.8: Three Stages of Mythic Evolution - Distortion to Emergence (GDD C01)</strong><ul>
+<li>Implement <code>Resonant Distortion</code>, <code>Metaphysical Fracture</code>, and <code>Mythic Emergence</code>.</li>
+<li>Design <code>Catastrophic Instability</code> and <code>World Reaction</code> during evolution.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.9: High-Tier Techniques &amp; Emergent Evolution (GDD C02)</strong><ul>
+<li>Implement <code>10+ Sign Combo Complexity</code> for reality-adjacent power.</li>
+<li>Design <code>Technique Evolution</code> based on internal/external factors and world state.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.10: Spirit Contracts &amp; Ancestral Pacts - Tiered Relationships (GDD C03)</strong><ul>
+<li>Implement <code>Spirit Taxonomy</code> (Lesser, Domain, Greater, Forbidden Echo Entities).</li>
+<li>Design <code>Contract Arcs</code> with environmental alignment, ritual components, and dream/spirit trials.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.11: Forbidden Arts &amp; Aberration Metamorphosis (GDD C04)</strong><ul>
+<li>Define <code>Corrupted Chakra</code> as a volatile overclocking phenomenon.</li>
+<li>Implement <code>Aberration Forms</code> as dangerous, ninja-shaped metamorphosis.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.12: Residue Overgrowth &amp; Forbidden Glyph Sequences (GDD C04)</strong><ul>
+<li>Implement <code>Residue Overgrowth</code> as a world-affecting spread.</li>
+<li>Design <code>Forbidden Glyph Sequences</code> as unstable, painful, chaotic combos.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.13: World Bosses, Titans &amp; Primordial Entities (GDD C05)</strong><ul>
+<li>Define <code>Titans</code> as hybrid spirit-anomaly-corruption entities.</li>
+<li>Implement <code>Behavioral Identity</code> (ecological/political actors) and <code>Procedural Mutation</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.14: Titan Domains &amp; Reincarnation (GDD C05)</strong><ul>
+<li>Implement <code>Titan Domains</code> as living regions reshaping terrain and ecology.</li>
+<li>Design <code>Titan Reincarnation</code> (mutated return) for persistent challenges.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.15: Climax &amp; Catastrophe - Collapse Triggers &amp; Recovery (GDD C06)</strong><ul>
+<li>Implement <code>Collapse Types</code> (Corruption Cascade, Anomaly Surge, Spirit Uprising).</li>
+<li>Design <code>Political Response</code> and <code>Player Influence</code> during collapse.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.16: Meta-System: Reincarnation &amp; Legacy - World Memory (GDD B30/C07)</strong><ul>
+<li>Implement <code>Total World Persistence</code> (no mechanical inheritance for new characters).</li>
+<li>Design <code>Social, Mythic, and Corruption Memory</code> for past lives.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.17: Legacy Influence &amp; Past-Life Echoes (GDD B30/C07)</strong><ul>
+<li>Implement <code>Legacy Influence</code> across NPC dialogue, political shifts, spiritual reactions.</li>
+<li>Design <code>Past-Life Echoes</code> as common dream illusions and rare manifestations.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.18: Endless Mode &amp; The Multiverse (GDD C08)</strong><ul>
+<li>Implement <code>Hybrid Infinite Worlds</code> (unlimited seeds, parallel existing worlds, independent timelines).</li>
+<li>Design <code>Cross-World Influence</code> (Echo bleedthrough) and <code>Player Identity Across Worlds</code> (Echo awareness).</li>
+</ul>
+</li>
+<li><strong>Chapter 10.19: The Echo Layer &amp; Cosmology - Foundation of All Worlds (GDD C09)</strong><ul>
+<li>Define the <code>Echo Layer</code> as the metaphysical substrate for all reality.</li>
+<li>Explain its role in the <code>Origin of Chakra, Spirits, Corruption, Anomalies, Titans, Glyphs, Collapse, and Infinite Worlds</code>.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.20: Meaning of Sigilborne &amp; Final Canon (GDD C09)</strong><ul>
+<li>Define a <code>Sigilborne</code> as one attuned to Echo resonance.</li>
+<li>Establish <code>No Single Canon</code> but an infinite multiverse of player-created stories.</li>
+</ul>
+</li>
+<li><strong>Chapter 10.21: System Integration &amp; World Simulation (GDD B31)</strong><ul>
+<li>Implement <code>Staggered Global Tick Architecture</code> with cross-system influence.</li>
+<li>Design <code>Multi-Layer Simulation</code> (Political, Magical, Ecological, Corruption, Anomaly) with player agency.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>[[BLUEPRINT_GENERATED]]</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

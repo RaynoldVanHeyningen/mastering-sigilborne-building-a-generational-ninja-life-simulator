@@ -1,0 +1,2780 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../18-chapter-18/">
+      
+      
+        <link rel="next" href="../20-chapter-20/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 2.4: Physics Layer - Hybrid Movement Pipeline - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-24-physics-layer-hybrid-movement-pipeline" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-24-physics-layer-hybrid-movement-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2.4: Physics Layer - Hybrid Movement Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-hybrid-physics-architecture-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Hybrid Physics Architecture Philosophy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-movement-pipeline-tdd-172" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Movement Pipeline (TDD 17.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-the-c-physicssystem-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing the C# PhysicsSystem (Brain)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-physicssystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating PhysicsSystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-modifying-movementsystem-to-emit-entityphysicsupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Modifying MovementSystem to Emit EntityPhysicsUpdate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-modifying-entityviewgd-to-use-move_and_slide-and-report-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Modifying EntityView.gd to use move_and_slide() and Report Back
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-creating-a-collision-layer-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Creating a Collision Layer (Body)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-testing-the-hybrid-physics-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Testing the Hybrid Physics Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-24-physics-layer-hybrid-movement-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2.4: Physics Layer - Hybrid Movement Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-hybrid-physics-architecture-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Hybrid Physics Architecture Philosophy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-movement-pipeline-tdd-172" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Movement Pipeline (TDD 17.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implementing-the-c-physicssystem-brain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implementing the C# PhysicsSystem (Brain)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-physicssystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating PhysicsSystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-modifying-movementsystem-to-emit-entityphysicsupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Modifying MovementSystem to Emit EntityPhysicsUpdate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-modifying-entityviewgd-to-use-move_and_slide-and-report-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Modifying EntityView.gd to use move_and_slide() and Report Back
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-creating-a-collision-layer-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Creating a Collision Layer (Body)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-testing-the-hybrid-physics-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Testing the Hybrid Physics Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 2.4: Physics Layer - Hybrid Movement Pipeline</h1>
+
+<h2 id="chapter-24-physics-layer-hybrid-movement-pipeline">Chapter 2.4: Physics Layer - Hybrid Movement Pipeline</h2>
+<p>In Sigilborne, accurate and responsive physics are crucial for combat, environmental interaction, and satisfying movement. However, directly managing complex physics simulations in our C# Brain for thousands of entities would be an immense undertaking. This chapter details our <strong>Hybrid Physics Architecture</strong>, where Godot's <code>CharacterBody2D</code> (Body) is authoritative for collision detection and separation, while the C# Brain maintains authoritative control over velocity and position. This approach, outlined in TDD 17.1, balances performance with reliable collision resolution.</p>
+<h3 id="1-the-hybrid-physics-architecture-philosophy">1. The Hybrid Physics Architecture Philosophy</h3>
+<ul>
+<li><strong>C# Brain</strong>:<ul>
+<li><strong>Authoritative for Logic</strong>: Calculates <code>TargetVelocity</code>, <code>ProposedPosition</code>, and applies all game-specific forces (e.g., knockback, movement input).</li>
+<li><strong>"Wishes" a Position</strong>: It computes where an entity <em>should</em> be if there were no obstacles.</li>
+</ul>
+</li>
+<li><strong>GDScript Body</strong>:<ul>
+<li><strong>Authoritative for Collision Resolution</strong>: Takes the Brain's "wish" (velocity) and uses Godot's built-in physics engine (<code>move_and_slide()</code>) to resolve actual collisions with walls, terrain, and other entities.</li>
+<li><strong>"Reports" Actual Position</strong>: After <code>move_and_slide()</code> completes, it reports the <em>final, collision-resolved position</em> back to the Brain.</li>
+</ul>
+</li>
+<li><strong>Reconciliation</strong>: The Brain then reconciles its <code>CurrentPosition</code> with the Body's <code>FinalPosition</code>.</li>
+</ul>
+<p>This way, we get Godot's optimized and robust physics engine for collision handling, while keeping our core game logic and state deterministic in C#.</p>
+<h3 id="2-the-movement-pipeline-tdd-172">2. The Movement Pipeline (TDD 17.2)</h3>
+<p>Let's formalize the steps involved in each physics frame:</p>
+<ol>
+<li><strong>Brain Calculates Proposed Movement</strong>:<ul>
+<li><code>MovementSystem</code> (C#) calculates the <code>TargetVelocity</code> based on input, speed, friction, etc.</li>
+<li>It then calculates <code>ProposedPosition = CurrentPosition + (TargetVelocity * Delta)</code>.</li>
+<li><strong>Crucially</strong>: The Brain does <em>not</em> apply this <code>ProposedPosition</code> directly as the new <code>CurrentPosition</code> yet. It just generates the <code>TargetVelocity</code> and emits it.</li>
+</ul>
+</li>
+<li><strong>Brain Emits <code>EntityPhysicsUpdate</code></strong>: The <code>TransformSystem</code> (C#) will emit a specific event containing the <code>EntityID</code> and the <code>TargetVelocity</code> for the Body.</li>
+<li><strong>Body Receives and Resolves Collisions</strong>:<ul>
+<li><code>EntityView.gd</code> (Body) receives <code>EntityPhysicsUpdate</code>.</li>
+<li>It calls <code>CharacterBody2D.move_and_slide()</code> using the <code>TargetVelocity</code> received from the Brain.</li>
+<li>Godot's physics engine handles all collisions, sliding along walls, pushing other <code>CharacterBody2D</code>s, etc.</li>
+</ul>
+</li>
+<li><strong>Body Reports Actual Position Back to Brain</strong>:<ul>
+<li>After <code>move_and_slide()</code> completes, <code>EntityView.gd</code> gets its new <code>global_position</code>.</li>
+<li>It calls a C# method (e.g., <code>GameManager.Instance.Physics.ReportFinalPosition()</code>) to send this <code>FinalPosition</code> back.</li>
+</ul>
+</li>
+<li><strong>Brain Reconciles</strong>:<ul>
+<li>A <code>PhysicsSystem</code> (C#) receives <code>FinalPosition</code>.</li>
+<li>It <em>overwrites</em> the entity's <code>TransformComponent.Position</code> with this <code>FinalPosition</code>.</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-implementing-the-c-physicssystem-brain">3. Implementing the C# <code>PhysicsSystem</code> (Brain)</h3>
+<p>This system will handle the reconciliation step.</p>
+<ol>
+<li>Create a new folder <code>res://_Brain/Systems/Physics/</code>.</li>
+<li>Create <code>res://_Brain/Systems/Physics/PhysicsSystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Physics/PhysicsSystem.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Movement; // To get VelocityComponent
+
+namespace Sigilborne.Systems.Physics
+{
+    /// &lt;summary&gt;
+    /// Manages the reconciliation of physics positions between the Godot Body and C# Brain.
+    /// It receives the final, collision-resolved position from the Body and updates the Brain's authoritative TransformComponent.
+    /// &lt;/summary&gt;
+    public class PhysicsSystem
+    {
+        private EntityManager _entityManager;
+        private TransformSystem _transformSystem;
+        private EventBus _eventBus;
+
+        public PhysicsSystem(EntityManager entityManager, TransformSystem transformSystem, EventBus eventBus)
+        {
+            _entityManager = entityManager;
+            _transformSystem = transformSystem;
+            _eventBus = eventBus;
+            GD.Print(&quot;PhysicsSystem: Initialized.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Receives the final, collision-resolved position from the GDScript Body
+        /// and updates the Brain's authoritative TransformComponent.
+        /// (TDD 17.2.2: Body Reports Actual Position Back to Brain)
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;idIndex&quot;&gt;The index of the entity.&lt;/param&gt;
+        /// &lt;param name=&quot;generation&quot;&gt;The generation of the entity (for validation).&lt;/param&gt;
+        /// &lt;param name=&quot;finalPosition&quot;&gt;The actual position after Godot's physics resolution.&lt;/param&gt;
+        /// &lt;param name=&quot;finalRotation&quot;&gt;The actual rotation after Godot's physics resolution.&lt;/param&gt;
+        public void ReportFinalPosition(int idIndex, int generation, Vector2 finalPosition, float finalRotation)
+        {
+            EntityID id = new EntityID(idIndex, generation);
+
+            if (!_entityManager.IsValid(id))
+            {
+                // GD.PrintErr($&quot;PhysicsSystem: Received final position for invalid or stale entity {id}. Ignoring.&quot;);
+                return;
+            }
+
+            // TDD 17.2.3: Reconciliation - Overwrite Brain's internal CurrentPosition
+            if (_transformSystem.TryGetTransform(id, out TransformComponent transform))
+            {
+                transform.Position = finalPosition;
+                transform.RotationDegrees = finalRotation;
+                _transformSystem.TrySetTransform(id, transform);
+                // GD.Print($&quot;PhysicsSystem: Reconciled {id} to {finalPosition}&quot;);
+            }
+            else
+            {
+                GD.PrintErr($&quot;PhysicsSystem: Entity {id} has no TransformComponent to reconcile.&quot;);
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="4-integrating-physicssystem-into-gamemanager">4. Integrating <code>PhysicsSystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Physics;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add a <code>PhysicsSystem</code> property.</li>
+<li>Initialize <code>PhysicsSystem</code> in <code>InitializeSystems()</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics; // Add this using directive
+using Sigilborne.Utils;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public MovementSystem Movement { get; private set; }
+    public PhysicsSystem Physics { get; private set; } // Add PhysicsSystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        // TDD 01.6: Phase 1: Process Input Buffer.
+        Input.ProcessInputBuffer(); 
+
+        // TDD 01.6: Phase 2: Run Simulation Systems.
+        Time.Tick(delta);
+        World.Tick(delta);
+        Movement.Tick(delta); // Calculates target velocities and updates transforms (proposed positions)
+        // Transforms.Tick(delta); // This is no longer needed here. TransformSystem only manages data, doesn't 'tick' in this context.
+                                // Its data is updated by MovementSystem, and then reconciled by PhysicsSystem.
+
+        // TDD 01.6: Phase 3: Resolve Collisions/Events.
+        Events.FlushCommands();
+
+        // TDD 01.6: Phase 4: Emit State Update Signals. (Implicitly handled)
+    }
+
+    private void InitializeSystems()
+    {
+        Events = new EventBus();
+        GD.Print(&quot;  - EventBus initialized.&quot;);
+
+        Time = new TimeSystem();
+        GD.Print(&quot;  - TimeSystem initialized.&quot;);
+
+        Entities = new EntityManager(Events);
+        GD.Print(&quot;  - EntityManager initialized.&quot;);
+
+        Transforms = new TransformSystem(Entities, Events); // Keep TransformSystem initialized
+        GD.Print(&quot;  - TransformSystem initialized.&quot;);
+
+        Jobs = new JobSystem(Events);
+        GD.Print(&quot;  - JobSystem initialized.&quot;);
+
+        PlayerStats = new PlayerStatSystem(Events, Entities);
+        GD.Print(&quot;  - PlayerStatSystem initialized.&quot;);
+
+        DebugCommands = new DebugCommandSystem(this);
+        GD.Print(&quot;  - DebugCommandSystem initialized.&quot;);
+
+        Input = new InputSystem();
+        GD.Print(&quot;  - InputSystem initialized.&quot;);
+
+        Movement = new MovementSystem(Entities, Input, Events, Transforms);
+        GD.Print(&quot;  - MovementSystem initialized.&quot;);
+
+        // Initialize PhysicsSystem, passing dependencies
+        Physics = new PhysicsSystem(Entities, Transforms, Events); // Initialize PhysicsSystem here
+        GD.Print(&quot;  - PhysicsSystem initialized.&quot;);
+
+        World = new WorldSimulation();
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<p><strong>Important Correction</strong>: <code>TransformSystem.Tick(delta)</code> was previously updating transforms based on simulated velocity <em>and</em> emitting <code>EntityMovedEvent</code>. This is fine for testing simple movement, but for a full physics pipeline, <code>TransformSystem</code> should <em>not</em> be directly ticking movement after <code>MovementSystem</code> calculates the velocity. Instead, <code>MovementSystem</code> should calculate the velocity, and <code>EntityView.gd</code> should apply it via <code>move_and_slide()</code>, then report back. The <code>TransformSystem</code>'s <code>Tick</code> method can be removed or repurposed for other transform-related logic (e.g., updating children transforms if we had a hierarchy).</p>
+<p>Let's adjust <code>TransformSystem.cs</code> to remove its internal movement logic, as movement is now owned by <code>MovementSystem</code> and resolved by <code>EntityView</code>'s <code>move_and_slide</code>. <code>TransformSystem</code>'s <code>Tick</code> will be empty for now.</p>
+<pre><code class="language-csharp">// _Brain/Systems/TransformSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+
+namespace Sigilborne.Systems
+{
+    public class TransformSystem
+    {
+        private Dictionary&lt;EntityID, TransformComponent&gt; _transforms = new Dictionary&lt;EntityID, TransformComponent&gt;();
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+
+        public TransformSystem(EntityManager entityManager, EventBus eventBus)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            eventBus.OnEntitySpawned += OnEntitySpawned;
+            eventBus.OnEntityDespawned += OnEntityDespawned;
+            GD.Print(&quot;TransformSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityManager.EntitySpawnedEvent e)
+        {
+            _transforms.Add(e.ID, new TransformComponent(e.InitialPosition, e.InitialRotation));
+            GD.Print($&quot;TransformSystem: Added transform for {e.ID}&quot;);
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            if (_transforms.ContainsKey(e.ID))
+            {
+                _transforms.Remove(e.ID);
+                GD.Print($&quot;TransformSystem: Removed transform for {e.ID}&quot;);
+            }
+        }
+
+        // ... (TryGetTransform, TrySetTransform, GetTransformRef methods) ...
+
+        public void Tick(double delta)
+        {
+            // TDD 17.2: TransformSystem no longer directly updates positions or rotations based on its own tick.
+            // Movement is now handled by MovementSystem calculating velocity, and EntityView resolving collisions.
+            // TransformSystem's job is to store and provide the authoritative transform data,
+            // and emit events when that data is externally changed (e.g., by PhysicsSystem after collision).
+            // For now, this method will be empty.
+        }
+    }
+}
+</code></pre>
+<h3 id="5-modifying-movementsystem-to-emit-entityphysicsupdate">5. Modifying <code>MovementSystem</code> to Emit <code>EntityPhysicsUpdate</code></h3>
+<p>Instead of directly modifying <code>TransformComponent.Position</code>, <code>MovementSystem</code> should now calculate the <code>TargetVelocity</code> and emit it. The <code>TransformSystem</code> will then publish <code>EntityMovedEvent</code> when its data is <em>set</em> (e.g., by <code>PhysicsSystem</code>).</p>
+<p>Let's introduce a new event for the Body to receive the velocity.</p>
+<ol>
+<li>Add <code>EntityVelocityUpdateEvent</code> struct to <code>_Brain/Entities/EntityManager.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Entities/EntityManager.cs (inside Sigilborne.Entities namespace)
+// ...
+        // --- Helper Events for Body Sync (TDD 11.4) ---
+        // ... (existing events) ...
+        public struct EntityVelocityUpdateEvent { public EntityID ID; public Vector2 TargetVelocity; public float TargetRotationDegrees; } // New event
+    }
+}
+</code></pre>
+<ol>
+<li>Add <code>OnEntityVelocityUpdate</code> delegate to <code>_Brain/Core/EventBus.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+        public event Action&lt;EntityID, Vector2, float&gt; OnEntityVelocityUpdate; // New event
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is EntityManager.EntityVelocityUpdateEvent velUpdateEvent) // New condition
+            {
+                OnEntityVelocityUpdate?.Invoke(velUpdateEvent.ID, velUpdateEvent.TargetVelocity, velUpdateEvent.TargetRotationDegrees);
+            }
+            else if (eventData is EntityManager.EntityMovedEvent movedEvent) // Existing, but now published by PhysicsSystem
+            {
+                OnEntityMoved?.Invoke(movedEvent.ID, movedEvent.NewPosition, movedEvent.NewRotation);
+            }
+            // ... (rest of conditions) ...
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<ol>
+<li>Modify <code>_Brain/Systems/Movement/MovementSystem.cs</code>:<ul>
+<li>Remove the <code>transform.Position</code> and <code>transform.RotationDegrees</code> updates.</li>
+<li>Instead, publish <code>EntityVelocityUpdateEvent</code>.</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Movement/MovementSystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Input;
+
+namespace Sigilborne.Systems.Movement
+{
+    // ... (VelocityComponent, MovementParametersComponent, PlayerMovementStateComponent structs) ...
+
+    public class MovementSystem
+    {
+        private EntityManager _entityManager;
+        private InputSystem _inputSystem;
+        private EventBus _eventBus;
+        private TransformSystem _transformSystem; // Still needed for TryGetTransform etc.
+
+        // ... (dictionaries, constructor) ...
+
+        public void Tick(double delta)
+        {
+            PlayerInputFrame currentInput = _inputSystem.GetLatestInput();
+
+            foreach (var kvp in _velocities)
+            {
+                EntityID id = kvp.Key;
+
+                if (!_entityManager.IsValid(id) || !_movementParams.TryGetValue(id, out MovementParametersComponent moveParams))
+                {
+                    continue;
+                }
+
+                ref VelocityComponent currentVelocity = ref _velocities.GetValueRef(id);
+                Vector2 targetMoveVector = currentInput.MoveVector;
+                float currentSpeed = moveParams.BaseSpeed;
+                float targetRotationDegrees = _transformSystem.GetTransformRef(id).RotationDegrees; // Keep current rotation
+
+                // --- Player-specific Movement Logic (Shift-Sliding) ---
+                if (id == _entityManager.GetPlayerEntityID())
+                {
+                    ref PlayerMovementStateComponent playerMoveState = ref _playerMovementStates.GetValueRef(id);
+
+                    if (currentInput.IsShiftHeld)
+                    {
+                        if (targetMoveVector.LengthSquared() &gt; 0.1f)
+                        {
+                            playerMoveState.LastLockedMoveVector = targetMoveVector;
+                            playerMoveState.IsShiftSliding = true;
+                        }
+                        targetMoveVector = playerMoveState.LastLockedMoveVector;
+                        playerMoveState.IsShiftSliding = (targetMoveVector.LengthSquared() &gt; 0.1f);
+                    }
+                    else
+                    {
+                        playerMoveState.IsShiftSliding = false;
+                        playerMoveState.LastLockedMoveVector = Vector2.Zero;
+                    }
+                }
+                // --- End Player-specific Movement Logic ---
+
+                if (currentInput.IsSprintHeld &amp;&amp; !(_playerMovementStates.TryGetValue(id, out var state) &amp;&amp; state.IsShiftSliding))
+                {
+                    currentSpeed *= moveParams.SprintMultiplier;
+                }
+
+                Vector2 desiredVelocity = targetMoveVector * currentSpeed;
+
+                currentVelocity.Velocity = currentVelocity.Velocity.Lerp(desiredVelocity, moveParams.Acceleration * (float)delta);
+
+                if (!(_playerMovementStates.TryGetValue(id, out var state2) &amp;&amp; state2.IsShiftSliding) &amp;&amp; targetMoveVector == Vector2.Zero &amp;&amp; currentVelocity.Velocity.LengthSquared() &gt; 0.1f)
+                {
+                    currentVelocity.Velocity = currentVelocity.Velocity.Lerp(Vector2.Zero, moveParams.Friction * (float)delta);
+                }
+                else if (!(_playerMovementStates.TryGetValue(id, out var state3) &amp;&amp; state3.IsShiftSliding) &amp;&amp; targetMoveVector == Vector2.Zero &amp;&amp; currentVelocity.Velocity.LengthSquared() &lt;= 0.1f)
+                {
+                    currentVelocity.Velocity = Vector2.Zero;
+                }
+
+                // --- Determine Target Rotation ---
+                if (targetMoveVector.LengthSquared() &gt; 0.1f)
+                {
+                    targetRotationDegrees = targetMoveVector.Angle() * (180f / Mathf.Pi);
+                }
+
+
+                // TDD 17.2.1: Brain calculates TargetVelocity and emits it.
+                // It does NOT modify TransformComponent.Position directly here anymore.
+                _eventBus.Publish(new EntityManager.EntityVelocityUpdateEvent { ID = id, TargetVelocity = currentVelocity.Velocity, TargetRotationDegrees = targetRotationDegrees });
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="6-modifying-entityviewgd-to-use-move_and_slide-and-report-back">6. Modifying <code>EntityView.gd</code> to use <code>move_and_slide()</code> and Report Back</h3>
+<p>Now, <code>EntityView.gd</code> needs to:
+1.  Connect to <code>OnEntityVelocityUpdate</code>.
+2.  Store the <code>TargetVelocity</code> from C#.
+3.  In <code>_physics_process</code>, call <code>move_and_slide()</code> with this velocity.
+4.  After <code>move_and_slide()</code>, call <code>GameManager.Instance.Physics.ReportFinalPosition()</code> to send the actual, collision-resolved position back to the C# Brain.</p>
+<p>Open <code>res://_Body/Scripts/Visuals/EntityView.gd</code>:</p>
+<pre><code class="language-gdscript"># _Body/Scripts/Visuals/EntityView.gd
+class_name EntityView extends CharacterBody2D
+
+# ... (existing properties and node references) ...
+
+# --- Visual Interpolation Parameters (TDD 16.4) ---
+var brain_target_position: Vector2 = Vector2.ZERO # For visual interpolation
+var brain_target_velocity: Vector2 = Vector2.ZERO # New: Velocity received from Brain
+var brain_target_rotation_degrees: float = 0.0 # New: Rotation received from Brain
+const SMOOTHING_SPEED: float = 10.0
+
+# ... (existing signals) ...
+
+func setup(id: int, initial_position: Vector2, initial_rotation: float, definition_id: String) -&gt; void:
+    entity_id = id
+    global_position = initial_position
+    brain_target_position = initial_position
+    brain_target_rotation_degrees = initial_rotation
+    visuals.rotation_degrees = initial_rotation # Set initial visual rotation
+
+    # ... (animation_player setup) ...
+
+    GD.print(&quot;EntityView: Setup for C# EntityID %s (Def: %s) at %s&quot; % [entity_id, definition_id, global_position])
+
+    # --- Connect to Brain Signals ---
+    # Connect to the new velocity update event
+    if GameManager.Instance != null and GameManager.Instance.Events != null:
+        GameManager.Instance.Events.OnEntityVelocityUpdate.connect(Callable(self, &quot;_on_entity_velocity_update&quot;))
+        # We also need to connect to the OnEntityMoved for reconciliation to get the final authoritative position
+        GameManager.Instance.Events.OnEntityMoved.connect(Callable(self, &quot;_on_entity_moved_reconciliation&quot;))
+    pass
+
+## Called every physics frame (fixed rate) to update the visual position.
+## (TDD 17.2.2: Body Receives and Resolves Collisions)
+func _physics_process(delta: float) -&gt; void:
+    # Interpolate visual position towards the Brain's authoritative position for smoothness
+    # (This is separate from the physics movement, just for visual lag compensation)
+    global_position = global_position.lerp(brain_target_position, delta * SMOOTHING_SPEED)
+    visuals.rotation_degrees = lerp_angle(visuals.rotation_degrees, brain_target_rotation_degrees, delta * SMOOTHING_SPEED)
+
+
+    # TDD 17.2.2: Body calls CharacterBody2D.move_and_slide() using Brain's velocity.
+    # Note: CharacterBody2D.velocity is implicitly used by move_and_slide().
+    # We set this CharacterBody2D's velocity to the one received from the Brain.
+    velocity = brain_target_velocity
+    move_and_slide()
+
+    # TDD 17.2.2: Body Reports Actual Position Back to Brain.
+    # After move_and_slide, global_position is the actual, collision-resolved position.
+    if GameManager.Instance != null and GameManager.Instance.Physics != null:
+        # We need the EntityID's generation for validation in C#
+        var entity_id_struct = GameManager.Instance.Entities.GetEntityMeta(entity_id).Generation
+        # This assumes entity_id is the index.
+        GameManager.Instance.Physics.ReportFinalPosition(entity_id, GameManager.Instance.Entities.GetEntityMeta(entity_id).Generation, global_position, visuals.rotation_degrees)
+    # else:
+        # push_error(&quot;EntityView: GameManager or PhysicsSystem not ready to report final position.&quot;)
+
+
+## Handler for C# EntityMovedEvent. This is for reconciliation.
+## (TDD 17.2.3: Brain Reconciles)
+func _on_entity_moved_reconciliation(id: int, new_position: Vector2, new_rotation: float) -&gt; void:
+    if entity_id == id:
+        # This is the authoritative position from the Brain after reconciliation.
+        # We set our visual interpolation target to this.
+        brain_target_position = new_position
+        brain_target_rotation_degrees = new_rotation
+        # GD.print(&quot;EntityView %s: Reconciled to Brain position %s&quot; % [entity_id, new_position])
+
+## Handler for C# EntityVelocityUpdateEvent.
+## Parameters must match Action&lt;EntityID, Vector2, float&gt; OnEntityVelocityUpdate in C#.
+func _on_entity_velocity_update(id: int, target_velocity: Vector2, target_rotation_degrees: float) -&gt; void:
+    if entity_id == id:
+        # Store the target velocity and rotation from the Brain.
+        # move_and_slide() will use this in the next _physics_process call.
+        brain_target_velocity = target_velocity
+        brain_target_rotation_degrees = target_rotation_degrees
+        # GD.print(&quot;EntityView %s: Received target velocity %s&quot; % [entity_id, target_velocity])
+</code></pre>
+<p><strong>Key Changes in <code>EntityView.gd</code>:</strong></p>
+<ul>
+<li><strong><code>brain_target_velocity</code></strong>: New property to store the velocity received from the Brain.</li>
+<li><strong><code>_physics_process</code></strong>:<ul>
+<li>Now sets <code>velocity = brain_target_velocity</code>.</li>
+<li>Calls <code>move_and_slide()</code>.</li>
+<li>Calls <code>GameManager.Instance.Physics.ReportFinalPosition()</code> after <code>move_and_slide()</code> to report the actual position.</li>
+</ul>
+</li>
+<li><strong><code>_on_entity_velocity_update</code></strong>: Connects to the new C# event and stores the <code>target_velocity</code>.</li>
+<li><strong><code>_on_entity_moved_reconciliation</code></strong>: Renamed the old <code>_on_entity_moved</code> to clarify its role in reconciliation.</li>
+</ul>
+<h3 id="7-creating-a-collision-layer-body">7. Creating a Collision Layer (Body)</h3>
+<p>For <code>move_and_slide()</code> to work, we need a simple collision object. Let's add a <code>StaticBody2D</code> with a <code>CollisionShape2D</code> to <code>Gameplay.tscn</code>.</p>
+<ol>
+<li>Open <code>res://Gameplay.tscn</code>.</li>
+<li>Add a <code>StaticBody2D</code> node. Rename it <code>Wall</code>.</li>
+<li>Add a <code>CollisionShape2D</code> as a child of <code>Wall</code>.</li>
+<li>In the <code>CollisionShape2D</code>'s Inspector, set its <code>Shape</code> to <code>New RectangleShape2D</code>.</li>
+<li>Select the <code>RectangleShape2D</code> resource. Set its <code>Size</code> to <code>Vector2(20, 200)</code> (or any size for a vertical wall).</li>
+<li>Position the <code>Wall</code> (e.g., <code>x=400, y=300</code>) so the player can collide with it.</li>
+<li>Save <code>Gameplay.tscn</code>.</li>
+</ol>
+<h3 id="8-testing-the-hybrid-physics-pipeline">8. Testing the Hybrid Physics Pipeline</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Move the player (WASD).<ul>
+<li>Observe the player moving smoothly.</li>
+<li>Try to move the player into the <code>Wall</code> you created. The player should slide along the wall, not pass through it.</li>
+<li>Use Shift-Sliding (<code>Alt</code> + WASD, then release WASD while holding <code>Alt</code>). The player should continue sliding in the locked direction, even against the wall.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Expected Output (in debug console, if you print <code>_latestInput</code> in <code>InputSystem</code>):</strong></p>
+<p>You'll see <code>InputSystem: Processed latest input...</code> showing your WASD and Shift/Alt states. You should also see many <code>PhysicsSystem: Reconciled...</code> messages, confirming the Body is reporting back to the Brain.</p>
+<p>This confirms the hybrid physics pipeline is functional: the C# Brain dictates the intent (velocity), Godot's Body resolves the actual collisions, and the Body reports the final position back to the Brain for reconciliation.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented Sigilborne's <strong>Hybrid Physics Architecture</strong>, leveraging Godot's <code>CharacterBody2D</code> for collision detection and resolution while the C# Brain maintains authoritative control over velocity and position. By designing a <code>PhysicsSystem</code> for reconciliation and modifying <code>MovementSystem</code> and <code>EntityView.gd</code> to work in concert, you've established a robust pipeline where the Brain calculates intent, the Body resolves physical interactions via <code>move_and_slide()</code>, and the final position is reported back to the Brain, strictly adhering to TDD 17's specifications.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>This concludes <strong>Module 2: Player Input &amp; Core Movement</strong>. We will now move on to <strong>Module 3: The Glyph System - Language of Ninjutsu</strong>, where we will begin to design and implement the procedural generation of glyph meanings and the player's discovery mechanics.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

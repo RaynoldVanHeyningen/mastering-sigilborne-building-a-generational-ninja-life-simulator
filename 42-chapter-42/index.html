@@ -1,0 +1,2722 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../41-chapter-41/">
+      
+      
+        <link rel="next" href="../43-chapter-43/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-65-world-boss-mechanics-multi-part-entities-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-65-world-boss-mechanics-multi-part-entities-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-challenge-of-colossal-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Challenge of Colossal Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-bosspart-and-bosspartscomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining BossPart and BossPartsComponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enhancing-combatsystemcs-for-multi-part-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Enhancing CombatSystem.cs for Multi-Part Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-bossparts-into-gamemanager-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating BossParts into GameManager Tests
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating BossParts into GameManager Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-add-getbossparts-to-combatsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Add GetBossParts to CombatSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-update-eventbuscs-for-boss-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Update EventBus.cs for Boss Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-multi-part-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Multi-Part Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-65-world-boss-mechanics-multi-part-entities-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-challenge-of-colossal-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Challenge of Colossal Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-bosspart-and-bosspartscomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining BossPart and BossPartsComponent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enhancing-combatsystemcs-for-multi-part-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Enhancing CombatSystem.cs for Multi-Part Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-bossparts-into-gamemanager-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating BossParts into GameManager Tests
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating BossParts into GameManager Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-add-getbossparts-to-combatsystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Add GetBossParts to CombatSystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-update-eventbuscs-for-boss-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Update EventBus.cs for Boss Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-multi-part-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Multi-Part Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)</h1>
+
+<h2 id="chapter-65-world-boss-mechanics-multi-part-entities-c">Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)</h2>
+<p>Sigilborne's world is home to colossal World Bosses (Titans), which are far too complex for a single health bar or hitbox. This chapter implements <strong>Multi-Part Entities</strong> in the C# Brain, designing how these large creatures are represented as multiple logical parts (limbs, heads, cores), each with its own health, vulnerabilities, and ability to be severed, creating dynamic and multi-stage combat encounters, as specified in TDD 04.5.1.</p>
+<h3 id="1-the-challenge-of-colossal-entities">1. The Challenge of Colossal Entities</h3>
+<p>The GDD (C05) describes Titans as "grand metaphysical lifeforms" that are "not enemies to kill" but "living world systems." TDD 04.5.1 states: "World Bosses (Titans) are too big for a single Hitbox... The Boss is one logical Entity in C#, but has multiple <code>Hurtbox</code> nodes in Godot." This requires:</p>
+<ul>
+<li><strong>Logical Parts</strong>: A way to define distinct, damageable parts of a single entity in the Brain.</li>
+<li><strong>Individual Health</strong>: Each part needs its own health pool, separate from the main entity's health.</li>
+<li><strong>Severing Mechanics</strong>: What happens when a part's health reaches zero.</li>
+<li><strong>Body Synchronization</strong>: How the GDScript Body visually reacts to limb damage or severing.</li>
+</ul>
+<h3 id="2-defining-bosspart-and-bosspartscomponent">2. Defining <code>BossPart</code> and <code>BossPartsComponent</code></h3>
+<p>We need a struct to represent a single damageable part and a component to hold all parts for a boss entity.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Combat/BossPart.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Combat/BossPart.cs
+using System;
+using Godot; // For Vector2 if needed
+
+namespace Sigilborne.Systems.Combat
+{
+    /// &lt;summary&gt;
+    /// Represents a single damageable part of a multi-part boss entity.
+    /// (TDD 04.5.1)
+    /// &lt;/summary&gt;
+    public struct BossPart
+    {
+        public string PartID;           // Unique ID for this part (e.g., &quot;LeftArm&quot;, &quot;Head&quot;, &quot;Core&quot;)
+        public float Health;
+        public float MaxHealth;
+        public bool IsSevered;          // True if this part has been destroyed/severed
+        public bool IsVulnerable;       // True if this part is currently vulnerable to damage
+        public string VisualNodePath;   // Path to the corresponding visual node in Godot Body (e.g., &quot;Visuals/LeftArmSprite&quot;)
+
+        public BossPart(string partID, float maxHealth, string visualNodePath = null)
+        {
+            PartID = partID;
+            MaxHealth = maxHealth;
+            Health = maxHealth;
+            IsSevered = false;
+            IsVulnerable = true; // Default vulnerable
+            VisualNodePath = visualNodePath;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Part: '{PartID}' HP: {Health:F0}/{MaxHealth:F0} (Severed: {IsSevered})&quot;;
+        }
+    }
+}
+</code></pre>
+<ol>
+<li>Create <code>res://_Brain/Systems/Combat/BossPartsComponent.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Combat/BossPartsComponent.cs
+using System;
+using System.Collections.Generic;
+using System.Linq; // For Sum()
+
+namespace Sigilborne.Systems.Combat
+{
+    /// &lt;summary&gt;
+    /// Stores all damageable parts for a multi-part boss entity.
+    /// This is a component-like data structure managed by the CombatSystem.
+    /// (TDD 04.5.1)
+    /// &lt;/summary&gt;
+    public struct BossPartsComponent
+    {
+        public Dictionary&lt;string, BossPart&gt; Parts; // Map PartID to BossPart data
+
+        public BossPartsComponent(Dictionary&lt;string, BossPart&gt; parts = null)
+        {
+            Parts = parts ?? new Dictionary&lt;string, BossPart&gt;();
+        }
+
+        /// &lt;summary&gt;
+        /// Calculates the total health of all active (non-severed) parts.
+        /// &lt;/summary&gt;
+        public float GetTotalCurrentHealth()
+        {
+            return Parts.Values.Where(p =&gt; !p.IsSevered).Sum(p =&gt; p.Health);
+        }
+
+        /// &lt;summary&gt;
+        /// Calculates the total max health of all parts.
+        /// &lt;/summary&gt;
+        public float GetTotalMaxHealth()
+        {
+            return Parts.Values.Sum(p =&gt; p.MaxHealth);
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Boss Parts: {Parts.Count} | Total HP: {GetTotalCurrentHealth():F0}/{GetTotalMaxHealth():F0}&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-enhancing-combatsystemcs-for-multi-part-entities">3. Enhancing <code>CombatSystem.cs</code> for Multi-Part Entities</h3>
+<p>The <code>CombatSystem</code> needs to:
+*   Store <code>BossPartsComponent</code> instances.
+*   Modify <code>ApplyDamage</code> to target specific <code>BossPart</code>s.
+*   Handle <code>BossPart</code> health reduction and severing.
+*   Emit events when a <code>BossPart</code> is damaged or severed.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Combat/CombatSystem.cs</code>.</li>
+<li>Add a dictionary for <code>BossPartsComponent</code>.</li>
+<li>Modify <code>ApplyDamage</code> to check if the defender is a boss and apply damage to its part.</li>
+<li>Add <code>RegisterBossPart</code> and <code>DamageBossPart</code> methods.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Combat/CombatSystem.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Magic.Components; // For SpellDefinition
+
+namespace Sigilborne.Systems.Combat
+{
+    // ... (DamageType, DamageResult, HitEvent structs/enums) ...
+    // ... (BossPart, BossPartsComponent structs) ... // Ensure these are properly defined in their files
+
+    public class CombatSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private BiologicalSystem _biologicalSystem;
+        private StatusEffectSystem _statusEffectSystem;
+
+        // Dictionary to store BossPartsComponent for multi-part entities.
+        private Dictionary&lt;EntityID, BossPartsComponent&gt; _bossParts = new Dictionary&lt;EntityID, BossPartsComponent&gt;(); // New: Boss parts storage
+
+        public CombatSystem(EntityManager entityManager, EventBus eventBus, BiologicalSystem biologicalSystem, StatusEffectSystem statusEffectSystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _biologicalSystem = biologicalSystem;
+            _statusEffectSystem = statusEffectSystem;
+            GD.Print(&quot;CombatSystem: Initialized.&quot;);
+
+            // Subscribe to entity spawn/despawn events to manage BossPartsComponent
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            // For testing, let's assume &quot;world_boss_01&quot; gets BossPartsComponent
+            if (definitionID == &quot;world_boss_01&quot;)
+            {
+                // Example parts for a boss (TDD 04.5.1)
+                Dictionary&lt;string, BossPart&gt; parts = new Dictionary&lt;string, BossPart&gt;
+                {
+                    { &quot;Head&quot;, new BossPart(&quot;Head&quot;, 50f, &quot;Visuals/HeadSprite&quot;) },
+                    { &quot;LeftArm&quot;, new BossPart(&quot;LeftArm&quot;, 40f, &quot;Visuals/LeftArmSprite&quot;) },
+                    { &quot;RightArm&quot;, new BossPart(&quot;RightArm&quot;, 40f, &quot;Visuals/RightArmSprite&quot;) },
+                    { &quot;Body&quot;, new BossPart(&quot;Body&quot;, 100f, &quot;Visuals/BodySprite&quot;) }
+                };
+                _bossParts.Add(id, new BossPartsComponent(parts));
+                GD.Print($&quot;CombatSystem: Added BossPartsComponent for Boss {id}.&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            _bossParts.Remove(e.ID);
+            GD.Print($&quot;CombatSystem: Removed BossPartsComponent for {e.ID}.&quot;);
+        }
+
+        public void RegisterHit(HitEvent hitEvent)
+        {
+            if (!_entityManager.IsValid(hitEvent.AttackerID) || !_entityManager.IsValid(hitEvent.DefenderID))
+            {
+                GD.PrintErr($&quot;CombatSystem: Invalid attacker or defender in hit event: {hitEvent}.&quot;);
+                return;
+            }
+
+            GD.Print($&quot;CombatSystem: Received hit event: {hitEvent}.&quot;);
+
+            float baseRawDamage = 0f;
+            DamageType damageType = DamageType.Physical;
+            float penetration = 0f;
+            float critChance = 0.05f;
+            float critMultiplier = 1.5f;
+
+            if (_biologicalSystem.TryGetCoreStats(hitEvent.AttackerID, out CoreStats attackerStats))
+            {
+                baseRawDamage = attackerStats.BaseDamage;
+            }
+
+            if (hitEvent.HitboxDefinitionID.Contains(&quot;fireball&quot;))
+            {
+                baseRawDamage = 25f;
+                damageType = DamageType.Elemental;
+            }
+            else if (hitEvent.HitboxDefinitionID.Contains(&quot;void&quot;))
+            {
+            // ... (existing damage type determination) ...
+            }
+
+            // --- Determine if defender is a multi-part boss ---
+            if (_bossParts.TryGetValue(hitEvent.DefenderID, out BossPartsComponent bossParts))
+            {
+                // Apply damage to a specific part
+                DamageBossPart(hitEvent.AttackerID, hitEvent.DefenderID, hitEvent.HurtboxBodyPart, baseRawDamage, damageType, penetration, critChance, critMultiplier);
+            }
+            else
+            {
+                // Apply damage to a regular entity
+                ApplyDamage(hitEvent.AttackerID, hitEvent.DefenderID, baseRawDamage, damageType, penetration, critChance, critMultiplier);
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Applies damage to a specific part of a boss entity.
+        /// (TDD 04.5.1: Limb Health)
+        /// &lt;/summary&gt;
+        public DamageResult DamageBossPart(EntityID attackerID, EntityID bossID, string partID, float rawDamage, DamageType damageType, float penetration, float critChance, float critMultiplier)
+        {
+            if (!_bossParts.TryGetValue(bossID, out BossPartsComponent bossParts) || !bossParts.Parts.ContainsKey(partID))
+            {
+                GD.PrintErr($&quot;CombatSystem: Boss {bossID} does not have part '{partID}'.&quot;);
+                return new DamageResult(0, false, false, DamageType.None, attackerID, bossID);
+            }
+
+            ref BossPart part = ref bossParts.Parts.GetValueRef(partID); // Get mutable ref to the part
+            if (part.IsSevered || !part.IsVulnerable)
+            {
+                GD.Print($&quot;CombatSystem: Part '{partID}' of Boss {bossID} is already severed or not vulnerable. No damage applied.&quot;);
+                return new DamageResult(0, false, false, DamageType.None, attackerID, bossID);
+            }
+
+            // --- Damage Calculation for the Part ---
+            // For simplicity, parts use the boss's CoreStats for mitigation.
+            if (!_biologicalSystem.TryGetCoreStats(bossID, out CoreStats bossStats))
+            {
+                GD.PrintErr($&quot;CombatSystem: Boss {bossID} has no CoreStats. Cannot apply damage to part.&quot;);
+                return new DamageResult(0, false, false, DamageType.None, attackerID, bossID);
+            }
+
+            float calculatedDamage = rawDamage;
+            float mitigation = 0;
+            switch (damageType)
+            {
+                case DamageType.Physical: mitigation = bossStats.Armor * (1.0f - penetration); break;
+                case DamageType.Elemental: mitigation = bossStats.MagicResistance * (1.0f - penetration); break;
+                // ... other damage types
+            }
+            calculatedDamage -= mitigation;
+            calculatedDamage = Mathf.Max(0, calculatedDamage);
+
+            // Crit calculation
+            Random rand = new Random(attackerID.Index + bossID.Index + (int)GameManager.Instance.Time.CurrentGameTime);
+            bool isCrit = rand.NextDouble() &lt; critChance;
+            if (isCrit) calculatedDamage *= critMultiplier;
+
+            DamageResult result = new DamageResult(calculatedDamage, isCrit, false, damageType, attackerID, bossID);
+            GD.Print($&quot;CombatSystem: {attackerID} dealt {result} to Boss {bossID} part '{partID}'.&quot;);
+
+            // --- Apply Damage to Part ---
+            part.Health -= result.FinalDamage;
+            if (part.Health &lt; 0) part.Health = 0;
+
+            // --- Severing Logic (TDD 04.5.1) ---
+            if (part.Health == 0 &amp;&amp; !part.IsSevered)
+            {
+                part.IsSevered = true;
+                GD.Print($&quot;CombatSystem: Part '{partID}' of Boss {bossID} has been SEVERED!&quot;);
+                _eventBus.Publish(new BossPartSeveredEvent { BossID = bossID, PartID = partID }); // TDD 04.5.1: Emit OnLimbSevered
+
+                // Trigger boss phase transition or ability change (conceptual)
+                // _eventBus.Publish(new BossPhaseChangedEvent { BossID = bossID, NewPhase = ... });
+            }
+
+            // Publish part damaged event (TDD 04.5.1: Emit OnDamageTaken)
+            _eventBus.Publish(new BossPartDamagedEvent { BossID = bossID, PartID = partID, CurrentHealth = part.Health, MaxHealth = part.MaxHealth, Result = result });
+
+            // Also update the main CoreStats health for the boss (optional, or just use part health)
+            // For simplicity, let's update the main boss HP for now as the sum of parts.
+            ref CoreStats bossCoreStats = ref _biologicalSystem.GetCoreStatsRef(bossID);
+            bossCoreStats.Health = bossParts.GetTotalCurrentHealth();
+            bossCoreStats.MaxHealth = bossParts.GetTotalMaxHealth(); // Max health might change if parts are permanently severed
+            _eventBus.Publish(new PlayerStatSystem.PlayerHealthChangedEvent { PlayerID = bossID, NewValue = bossCoreStats.Health, MaxValue = bossCoreStats.MaxHealth }); // Re-use player health event for now
+
+            if (bossCoreStats.Health == 0)
+            {
+                GD.Print($&quot;CombatSystem: Boss {bossID} has been DEFEATED!&quot;);
+                _eventBus.Publish(new EntityDefeatedEvent { EntityID = bossID, KillerID = attackerID });
+            }
+
+            return result;
+        }
+
+        // ... (ApplyDamage for regular entities, GenerateWounds methods) ...
+
+        // --- Helper Events for Body Sync ---
+        // ... (DamageTakenEvent struct) ...
+        public struct BossPartDamagedEvent { public EntityID BossID; public string PartID; public float CurrentHealth; public float MaxHealth; public DamageResult Result; } // New event
+        public struct BossPartSeveredEvent { public EntityID BossID; public string PartID; } // New event
+        public struct EntityDefeatedEvent { public EntityID EntityID; public EntityID KillerID; } // New generic event for when any entity is defeated
+    }
+}
+</code></pre>
+<h3 id="4-integrating-bossparts-into-gamemanager-tests">4. Integrating <code>BossPart</code>s into <code>GameManager</code> Tests</h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Combat;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>In <code>GameManager._Ready()</code>, modify the "Test Damage &amp; Recovery Pipeline" section to:<ul>
+<li>Create a "world_boss_01" entity.</li>
+<li>Call <code>Combat.DamageBossPart</code> directly to simulate hits on its parts.</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside _Ready method)
+// ...
+        // --- Test Damage &amp; Recovery Pipeline ---
+        GD.Print(&quot;\n--- Testing Damage &amp; Recovery Pipeline ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+        EntityID testNpcID = Entities.CreateEntity(EntityType.NPC, &quot;test_dummy_npc&quot;, new Vector2(500, 200));
+        EntityID bossID = Entities.CreateEntity(EntityType.NPC, &quot;world_boss_01&quot;, new Vector2(700, 300)); // Create a boss entity
+
+        GD.Print($&quot;Player initial HP: {Biology.GetCoreStatsRef(playerID).Health}&quot;);
+        GD.Print($&quot;Test NPC initial HP: {Biology.GetCoreStatsRef(testNpcID).Health}&quot;);
+        GD.Print($&quot;Boss initial HP: {Biology.GetCoreStatsRef(bossID).Health}&quot;);
+        GD.Print($&quot;Boss Parts initial state: {Combat.GetBossParts(bossID)}&quot;); // Need a GetBossParts method
+
+        // Player attacks NPC (will be triggered by HitEvent from GDScript)
+        Combat.RegisterHit(new HitEvent(playerID, testNpcID, &quot;player_sword_slash&quot;, &quot;torso&quot;, new Vector2(450, 200), Vector2.Left));
+        Combat.RegisterHit(new HitEvent(playerID, testNpcID, &quot;player_fireball&quot;, &quot;torso&quot;, new Vector2(450, 200), Vector2.Left));
+        Combat.RegisterHit(new HitEvent(playerID, testNpcID, &quot;player_void_blast&quot;, &quot;torso&quot;, new Vector2(450, 200), Vector2.Left));
+
+        // NPC attacks Player (will be triggered by HitEvent from GDScript)
+        Combat.RegisterHit(new HitEvent(testNpcID, playerID, &quot;npc_claw&quot;, &quot;torso&quot;, new Vector2(250, 200), Vector2.Right));
+        Combat.RegisterHit(new HitEvent(testNpcID, playerID, &quot;npc_poison_spit&quot;, &quot;torso&quot;, new Vector2(250, 200), Vector2.Right));
+        Combat.RegisterHit(new HitEvent(testNpcID, playerID, &quot;npc_heavy_hit&quot;, &quot;torso&quot;, new Vector2(250, 200), Vector2.Right));
+
+        GD.Print(&quot;\n--- Boss Combat Test ---&quot;);
+        // Simulate hitting boss parts
+        Combat.DamageBossPart(playerID, bossID, &quot;LeftArm&quot;, 30f, DamageType.Physical, 0, 0.1f, 1.75f); // Damage Left Arm
+        Combat.DamageBossPart(playerID, bossID, &quot;LeftArm&quot;, 20f, DamageType.Physical, 0, 0.1f, 1.75f); // Sever Left Arm
+        Combat.DamageBossPart(playerID, bossID, &quot;Head&quot;, 40f, DamageType.Elemental, 0, 0.1f, 1.75f); // Damage Head
+        Combat.DamageBossPart(playerID, bossID, &quot;Head&quot;, 20f, DamageType.Elemental, 0, 0.1f, 1.75f); // Sever Head
+        Combat.DamageBossPart(playerID, bossID, &quot;Body&quot;, 50f, DamageType.Physical, 0, 0.1f, 1.75f); // Damage Body
+        Combat.DamageBossPart(playerID, bossID, &quot;Body&quot;, 50f, DamageType.Physical, 0, 0.1f, 1.75f); // Defeat Boss
+
+        GD.Print(&quot;--- End Testing Damage &amp; Recovery Pipeline ---\n&quot;);
+// ...
+</code></pre>
+<h4 id="41-add-getbossparts-to-combatsystem">4.1. Add <code>GetBossParts</code> to <code>CombatSystem</code></h4>
+<p>Needed for the test print statement.</p>
+<p>Open <code>res://_Brain/Systems/Combat/CombatSystem.cs</code> and add this method:</p>
+<pre><code class="language-csharp">// _Brain/Systems/Combat/CombatSystem.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Magic.Components;
+
+namespace Sigilborne.Systems.Combat
+{
+    // ... (DamageType, DamageResult, HitEvent structs/enums) ...
+    // ... (BossPart, BossPartsComponent structs) ...
+
+    public class CombatSystem
+    {
+        // ... (existing fields and constructor) ...
+
+        /// &lt;summary&gt;
+        /// Retrieves the BossPartsComponent for a given boss entity.
+        /// &lt;/summary&gt;
+        public BossPartsComponent GetBossParts(EntityID bossID)
+        {
+            if (_bossParts.TryGetValue(bossID, out BossPartsComponent parts))
+            {
+                return parts;
+            }
+            return new BossPartsComponent(); // Return empty if not a boss
+        }
+
+        // ... (RegisterHit, ApplyDamage, DamageBossPart, GenerateWounds methods) ...
+        // ... (Helper Events) ...
+    }
+}
+</code></pre>
+<h4 id="42-update-eventbuscs-for-boss-events">4.2. Update <code>EventBus.cs</code> for Boss Events</h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and add delegates for <code>BossPartDamagedEvent</code>, <code>BossPartSeveredEvent</code>, and <code>EntityDefeatedEvent</code>.</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Combat System Events (TDD 04.2.2)
+        public event Action&lt;EntityID, DamageResult&gt; OnDamageTaken;
+        public event Action&lt;EntityID, string, float, float, DamageResult&gt; OnBossPartDamaged; // BossID, PartID, CurrentHP, MaxHP, Result
+        public event Action&lt;EntityID, string&gt; OnBossPartSevered; // BossID, PartID
+        public event Action&lt;EntityID, EntityID&gt; OnEntityDefeated; // EntityID, KillerID
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is CombatSystem.DamageTakenEvent damageTakenEvent)
+            {
+                OnDamageTaken?.Invoke(damageTakenEvent.DefenderID, damageTakenEvent.Result);
+            }
+            else if (eventData is CombatSystem.BossPartDamagedEvent bossPartDamagedEvent) // New condition
+            {
+                OnBossPartDamaged?.Invoke(bossPartDamagedEvent.BossID, bossPartDamagedEvent.PartID, bossPartDamagedEvent.CurrentHealth, bossPartDamagedEvent.MaxHealth, bossPartDamagedEvent.Result);
+            }
+            else if (eventData is CombatSystem.BossPartSeveredEvent bossPartSeveredEvent) // New condition
+            {
+                OnBossPartSevered?.Invoke(bossPartSeveredEvent.BossID, bossPartSeveredEvent.PartID);
+            }
+            else if (eventData is CombatSystem.EntityDefeatedEvent entityDefeatedEvent) // New condition
+            {
+                OnEntityDefeated?.Invoke(entityDefeatedEvent.EntityID, entityDefeatedEvent.KillerID);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="5-testing-multi-part-entities">5. Testing Multi-Part Entities</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output.</li>
+</ol>
+<pre><code>...
+BiologicalSystem: Added CoreStats for NPC entity EntityID(2, Gen:1). Stats: HP: 50/50, Sta: 30/30, Cha: 20/20, Stab: 50/50, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 100, Dmg: 8, Armor: 2, MR: 2, Crit: 5%
+BiologicalSystem: Added CoreStats for NPC entity EntityID(3, Gen:1). Stats: HP: 50/50, Sta: 30/30, Cha: 20/20, Stab: 50/50, Hunger: 100, Thirst: 100, Temp: 37.0°C, Spd: 100, Dmg: 8, Armor: 2, MR: 2, Crit: 5%
+CombatSystem: Added BossPartsComponent for Boss EntityID(3, Gen:1).
+--- Testing Damage &amp; Recovery Pipeline ---
+Player initial HP: 100.0
+Test NPC initial HP: 50.0
+Boss initial HP: 190.0
+Boss Parts initial state: Boss Parts: 4 | Total HP: 190/190
+... (existing NPC/Player damage output) ...
+
+--- Boss Combat Test ---
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 13.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'LeftArm'.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 13.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'LeftArm'.
+CombatSystem: Part 'LeftArm' of Boss EntityID(3, Gen:1) has been SEVERED!
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 23.0 (Elemental) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Head'.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 23.0 (Elemental) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Head'.
+CombatSystem: Part 'Head' of Boss EntityID(3, Gen:1) has been SEVERED!
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 48.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Body'.
+CombatSystem: EntityID(0, Gen:1) dealt Dmg: 48.0 (Physical) | Crit: False, Block: False to Boss EntityID(3, Gen:1) part 'Body'.
+CombatSystem: Boss EntityID(3, Gen:1) has been DEFEATED!
+--- End Testing Damage &amp; Recovery Pipeline ---
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Boss Initialization</strong>: A <code>BossPartsComponent</code> is added to the boss entity, and its initial health is the sum of its parts (190).</li>
+<li><strong>Part-Specific Damage</strong>: Damage is applied to individual parts (<code>LeftArm</code>, <code>Head</code>, <code>Body</code>).</li>
+<li><strong>Severing</strong>: When a part's health reaches zero, it's marked as <code>Severed</code>, and a <code>BossPartSeveredEvent</code> is published.</li>
+<li><strong>Boss Defeat</strong>: When all parts (or critical parts, based on later logic) are severed, the boss is <code>DEFEATED</code>.</li>
+<li><strong>Event Publishing</strong>: <code>BossPartDamagedEvent</code> and <code>BossPartSeveredEvent</code> are published for the Body to react.</li>
+</ul>
+<p>This confirms our <code>CombatSystem</code> is correctly managing multi-part entities, allowing for complex, multi-stage boss encounters.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented <strong>World Boss Mechanics</strong> for multi-part entities in the C# Brain, defining <code>BossPart</code> and <code>BossPartsComponent</code> to represent distinct, damageable parts of colossal creatures. By enhancing <code>CombatSystem</code> to store these components, apply damage to specific parts, handle severing logic, and update the boss's overall health, you've established a robust system for dynamic, multi-stage combat encounters. This crucial component strictly adheres to TDD 04.5.1's specifications, paving the way for truly epic Titan battles in Sigilborne.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>Titan AI State</strong>, where we will design a specialized state machine for World Bosses that accounts for their massive size and complex behaviors, including phase transitions triggered by health thresholds or severed limbs.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

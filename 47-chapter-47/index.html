@@ -1,0 +1,2629 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../46-chapter-46/">
+      
+      
+        <link rel="next" href="../48-chapter-48/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 7.4: Decision Making: Utility AI (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-74-decision-making-utility-ai-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 7.4: Decision Making: Utility AI (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-74-decision-making-utility-ai-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7.4: Decision Making: Utility AI (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7.4: Decision Making: Utility AI (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-power-of-utility-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Power of Utility AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-aicomponent-and-utilityaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining AIComponent and UtilityAction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-implementing-aisystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Implementing AISystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integrating-aisystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integrating AISystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-utility-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing Utility AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-74-decision-making-utility-ai-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7.4: Decision Making: Utility AI (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7.4: Decision Making: Utility AI (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-power-of-utility-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Power of Utility AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-aicomponent-and-utilityaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining AIComponent and UtilityAction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-implementing-aisystemcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Implementing AISystem.cs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integrating-aisystem-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Integrating AISystem into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-testing-utility-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Testing Utility AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 7.4: Decision Making: Utility AI (C#)</h1>
+
+<h2 id="chapter-74-decision-making-utility-ai-c">Chapter 7.4: Decision Making: Utility AI (C#)</h2>
+<p>With entities now capable of perceiving their environment and managing their core stats, it's time to give NPCs the ability to make intelligent decisions. This chapter focuses on implementing <strong>Utility AI</strong> (scoring-based AI) in the C# Brain, allowing NPCs to select actions (e.g., attack, flee, eat, sleep) based on a scoring mechanism that evaluates their current needs and environmental context, as specified in TDD 05.3.</p>
+<h3 id="1-the-power-of-utility-ai">1. The Power of Utility AI</h3>
+<p>Traditional Finite State Machines (FSMs) can become complex and rigid for games with many interconnected systems. Utility AI offers a more flexible, emergent, and scalable approach:</p>
+<ul>
+<li><strong>Dynamic Decision-Making</strong>: NPCs evaluate all possible actions and choose the one with the highest "utility score" for their current situation.</li>
+<li><strong>Emergent Behavior</strong>: Complex behaviors arise from simple scoring rules, leading to less predictable and more lifelike NPCs.</li>
+<li><strong>Scalability</strong>: Easily add new actions or modify priorities by adjusting scores, without rewriting state transitions.</li>
+<li><strong>GDD Alignment</strong>: Supports NPCs with evolving literacy, clan loyalties, and dynamic schedules (B18).</li>
+</ul>
+<h3 id="2-defining-aicomponent-and-utilityaction">2. Defining <code>AIComponent</code> and <code>UtilityAction</code></h3>
+<p>We need a component to hold an entity's AI parameters and a struct to represent a single action the AI can take.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/AI/AIComponent.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/AI/AIComponent.cs
+using System;
+using Godot; // For Vector2
+
+namespace Sigilborne.Systems.AI
+{
+    /// &lt;summary&gt;
+    /// Stores the parameters defining an entity's AI behavior.
+    /// This is a component-like data structure managed by the AISystem.
+    /// &lt;/summary&gt;
+    public struct AIComponent
+    {
+        public float Aggression;        // How likely to attack (0-1)
+        public float Curiosity;         // How likely to investigate anomalies (0-1)
+        public float HungerThreshold;   // Below this hunger, prioritize eating
+        public float ThirstThreshold;   // Below this thirst, prioritize drinking
+        public float FearLevel;         // How easily scared (0-1)
+        public float CombatRange;       // How close to get to target in combat
+        public float FleeThreshold;     // Below this health, prioritize fleeing (0-1)
+
+        public AIComponent(float aggression = 0.5f, float curiosity = 0.5f, float hungerThreshold = 30f, float thirstThreshold = 20f, float fearLevel = 0.5f, float combatRange = 100f, float fleeThreshold = 0.2f)
+        {
+            Aggression = aggression;
+            Curiosity = curiosity;
+            HungerThreshold = hungerThreshold;
+            ThirstThreshold = thirstThreshold;
+            FearLevel = fearLevel;
+            CombatRange = combatRange;
+            FleeThreshold = fleeThreshold;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Agg: {Aggression:F2}, Cur: {Curiosity:F2}, Flee: {FleeThreshold:P0}&quot;;
+        }
+    }
+}
+</code></pre>
+<ol>
+<li>Create <code>res://_Brain/Systems/AI/UtilityAction.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/AI/UtilityAction.cs
+using System;
+using System.Collections.Generic;
+
+namespace Sigilborne.Systems.AI
+{
+    /// &lt;summary&gt;
+    /// Represents a single action an AI entity can take, along with its scoring function.
+    /// (TDD 05.3: The Scorer)
+    /// &lt;/summary&gt;
+    public class UtilityAction
+    {
+        public string Name { get; private set; }
+        public Func&lt;EntityID, float&gt; ScoreFunction { get; private set; } // Function to calculate action's utility score
+        public Action&lt;EntityID&gt; ExecuteAction { get; private set; } // Function to execute the action
+
+        public UtilityAction(string name, Func&lt;EntityID, float&gt; scoreFunction, Action&lt;EntityID&gt; executeAction)
+        {
+            Name = name;
+            ScoreFunction = scoreFunction;
+            ExecuteAction = executeAction;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Action: '{Name}'&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="4-implementing-aisystemcs">4. Implementing <code>AISystem.cs</code></h3>
+<p>This system will:
+*   Manage <code>AIComponent</code>s.
+*   Register a set of <code>UtilityAction</code>s.
+*   In its <code>Tick</code> method, for each AI entity, it will:
+    *   Query nearby entities using <code>PerceptionSystem</code>.
+    *   Score all available <code>UtilityAction</code>s.
+    *   Execute the highest-scoring action.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/AI/AISystem.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/AI/AISystem.cs
+using Godot;
+using System;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Entities.Components;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Combat;
+using System.Linq;
+
+namespace Sigilborne.Systems.AI
+{
+    /// &lt;summary&gt;
+    /// Manages AI decision-making using a Utility AI (scoring) system.
+    /// NPCs evaluate actions based on needs and context and execute the highest-scoring one.
+    /// (TDD 05.3)
+    /// &lt;/summary&gt;
+    public class AISystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private BiologicalSystem _biologicalSystem; // For CoreStats
+        private PerceptionSystem _perceptionSystem; // For detecting targets
+        private CombatSystem _combatSystem;         // For attacking
+        private TransformSystem _transformSystem;   // For movement
+
+        // Dictionary to store AIComponent for entities that have AI.
+        private Dictionary&lt;EntityID, AIComponent&gt; _aiComponents = new Dictionary&lt;EntityID, AIComponent&gt;();
+
+        // List of all available UtilityActions for NPCs to choose from.
+        private List&lt;UtilityAction&gt; _availableActions = new List&lt;UtilityAction&gt;();
+
+        // To prevent NPCs from making decisions every single tick (performance)
+        private const float AI_DECISION_INTERVAL = 0.5f; // Every 0.5 real seconds
+        private Dictionary&lt;EntityID, float&gt; _aiDecisionTimers = new Dictionary&lt;EntityID, float&gt;();
+
+
+        public AISystem(EntityManager entityManager, EventBus eventBus, BiologicalSystem biologicalSystem, PerceptionSystem perceptionSystem, CombatSystem combatSystem, TransformSystem transformSystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _biologicalSystem = biologicalSystem;
+            _perceptionSystem = perceptionSystem;
+            _combatSystem = combatSystem;
+            _transformSystem = transformSystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+            // AISystem needs to know when player is alerted for NPC reactions
+            _eventBus.OnPlayerAlerted += OnPlayerAlerted;
+
+            RegisterDefaultActions(); // Register the AI's repertoire of actions
+            GD.Print(&quot;AISystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            // Only add AIComponent to NPCs and some Animals
+            if (type == EntityType.NPC || type == EntityType.Animal)
+            {
+                // Default AI for NPCs/Animals
+                _aiComponents.Add(id, new AIComponent());
+                _aiDecisionTimers.Add(id, (float)GameManager.Instance.Time.CurrentGameTime); // Initialize timer
+                GD.Print($&quot;AISystem: Added AIComponent for {type} entity {id}.&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            _aiComponents.Remove(e.ID);
+            _aiDecisionTimers.Remove(e.ID);
+            GD.Print($&quot;AISystem: Removed AIComponent for {e.ID}.&quot;);
+        }
+
+        private void OnPlayerAlerted(EntityID playerID, EntityID perceiverID, bool isAlerted)
+        {
+            if (_aiComponents.ContainsKey(perceiverID))
+            {
+                // If this NPC is the perceiver, react to player being alerted.
+                // This might override their current action to prioritize combat/flee.
+                GD.Print($&quot;AISystem: NPC {perceiverID} detected player {playerID} and is now alerted: {isAlerted}.&quot;);
+                // For now, this is just a print. Later, it would force an immediate AI decision.
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Registers a new UtilityAction into the AI's repertoire.
+        /// &lt;/summary&gt;
+        private void RegisterAction(UtilityAction action)
+        {
+            _availableActions.Add(action);
+        }
+
+        /// &lt;summary&gt;
+        /// Registers the default set of actions available to NPCs.
+        /// (TDD 05.3: The Scorer - Example Actions)
+        /// &lt;/summary&gt;
+        private void RegisterDefaultActions()
+        {
+            // --- Action: Flee (TDD 05.3) ---
+            RegisterAction(new UtilityAction(&quot;Flee&quot;, (npcID) =&gt;
+            {
+                if (!_biologicalSystem.TryGetCoreStats(npcID, out CoreStats stats) || !_aiComponents.TryGetValue(npcID, out AIComponent ai)) return 0;
+                // Score higher if health is low (below flee threshold) and fear is high.
+                float healthScore = (1f - (stats.Health / stats.MaxHealth)); // 1 if 0 HP, 0 if 100 HP
+                return healthScore &gt; ai.FleeThreshold ? healthScore * ai.FearLevel * 2 : 0; // Double score if below threshold
+            }, (npcID) =&gt;
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} is fleeing!&quot;);
+                // Conceptual: Tell MovementSystem to move away from player
+                // _movementSystem.MoveAwayFrom(npcID, _entityManager.GetPlayerEntityID(), 200f);
+            }));
+
+            // --- Action: Attack Player (TDD 05.3) ---
+            RegisterAction(new UtilityAction(&quot;AttackPlayer&quot;, (npcID) =&gt;
+            {
+                if (!_biologicalSystem.TryGetCoreStats(npcID, out CoreStats stats) || !_aiComponents.TryGetValue(npcID, out AIComponent ai)) return 0;
+                // Score higher if player is detected and NPC is aggressive.
+                List&lt;EntityID&gt; detected = _perceptionSystem.GetDetectedEntities(npcID);
+                if (detected.Contains(_entityManager.GetPlayerEntityID()))
+                {
+                    // Score higher if player is close enough to combat range and NPC is aggressive.
+                    if (_transformSystem.TryGetTransform(npcID, out TransformComponent npcT) &amp;&amp; _transformSystem.TryGetTransform(_entityManager.GetPlayerEntityID(), out TransformComponent playerT))
+                    {
+                        float distance = npcT.Position.DistanceTo(playerT.Position);
+                        if (distance &lt;= ai.CombatRange)
+                        {
+                            return ai.Aggression * (1f - (stats.Health / stats.MaxHealth) * ai.FleeThreshold); // Aggression, reduced if health too low
+                        }
+                    }
+                }
+                return 0;
+            }, (npcID) =&gt;
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} is attacking player {_entityManager.GetPlayerEntityID()}!&quot;);
+                // Conceptual: Tell CombatSystem to perform an attack
+                // _combatSystem.PerformNPCAttack(npcID, _entityManager.GetPlayerEntityID());
+            }));
+
+            // --- Action: Eat Food (TDD 05.3) ---
+            RegisterAction(new UtilityAction(&quot;EatFood&quot;, (npcID) =&gt;
+            {
+                if (!_biologicalSystem.TryGetCoreStats(npcID, out CoreStats stats) || !_aiComponents.TryGetValue(npcID, out AIComponent ai)) return 0;
+                // Score higher if hunger is low (below threshold)
+                return stats.Hunger &lt; ai.HungerThreshold ? (ai.HungerThreshold - stats.Hunger) / ai.HungerThreshold : 0;
+            }, (npcID) =&gt;
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} is eating food!&quot;);
+                // Conceptual: Find nearby food item, move to it, consume it.
+                // _inventorySystem.UseItem(npcID, &quot;generic_food&quot;);
+            }));
+
+            // --- Action: Drink Water (TDD 05.3) ---
+            RegisterAction(new UtilityAction(&quot;DrinkWater&quot;, (npcID) =&gt;
+            {
+                if (!_biologicalSystem.TryGetCoreStats(npcID, out CoreStats stats) || !_aiComponents.TryGetValue(npcID, out AIComponent ai)) return 0;
+                return stats.Thirst &lt; ai.ThirstThreshold ? (ai.ThirstThreshold - stats.Thirst) / ai.ThirstThreshold : 0;
+            }, (npcID) =&gt;
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} is drinking water!&quot;);
+                // Conceptual: Find nearby water source, move to it, drink.
+            }));
+
+            // --- Action: Wander (Default/Idle) ---
+            RegisterAction(new UtilityAction(&quot;Wander&quot;, (npcID) =&gt;
+            {
+                // Low base score, increases if no higher priority actions are scored.
+                return 0.1f;
+            }, (npcID) =&gt;
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} is wandering aimlessly.&quot;);
+                // Conceptual: Tell MovementSystem to move to a random nearby point.
+                // _movementSystem.MoveToRandom(npcID, 50f);
+            }));
+        }
+
+        /// &lt;summary&gt;
+        /// Main update loop for the AISystem.
+        /// Called during GameManager._PhysicsProcess (Phase 2).
+        /// &lt;/summary&gt;
+        public void Tick(double delta)
+        {
+            foreach (var kvp in _aiComponents)
+            {
+                EntityID npcID = kvp.Key;
+                ref float decisionTimer = ref _aiDecisionTimers.GetValueRef(npcID); // Get mutable timer
+
+                if (!_entityManager.IsValid(npcID)) continue;
+
+                decisionTimer += (float)delta;
+                if (decisionTimer &gt;= AI_DECISION_INTERVAL)
+                {
+                    MakeDecision(npcID);
+                    decisionTimer = 0;
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Evaluates all available actions for an NPC and executes the highest-scoring one.
+        /// (TDD 05.3: Algorithm)
+        /// &lt;/summary&gt;
+        private void MakeDecision(EntityID npcID)
+        {
+            UtilityAction bestAction = null;
+            float highestScore = 0;
+
+            foreach (UtilityAction action in _availableActions)
+            {
+                float score = action.ScoreFunction.Invoke(npcID);
+                if (score &gt; highestScore)
+                {
+                    highestScore = score;
+                    bestAction = action;
+                }
+            }
+
+            if (bestAction != null)
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} chose action '{bestAction.Name}' with score {highestScore:F2}.&quot;);
+                bestAction.ExecuteAction.Invoke(npcID);
+            }
+            else
+            {
+                GD.Print($&quot;AISystem: NPC {npcID} found no suitable action.&quot;);
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="5-integrating-aisystem-into-gamemanager">5. Integrating <code>AISystem</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.AI;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>Add an <code>AISystem</code> property.</li>
+<li>Initialize <code>AISystem</code> in <code>InitializeSystems()</code> <strong>after</strong> <code>PerceptionSystem</code>, <code>CombatSystem</code>, and <code>BiologicalSystem</code>.</li>
+<li>Call <code>AISystem.Tick(delta)</code> in <code>_PhysicsProcess</code> (Phase 2).</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Input;
+using Sigilborne.Systems.Movement;
+using Sigilborne.Systems.Physics;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.Weather;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Utils;
+using System.Linq;
+using Sigilborne.Systems.Magic.Components;
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    // ... (existing system properties) ...
+    public StealthSystem Stealth { get; private set; }
+    public AISystem AI { get; private set; } // Add AISystem property
+
+    public override void _Ready()
+    {
+        // ... (existing Instance check and InitializeSystems call) ...
+        // ... (existing test entity/job code) ...
+        // ... (existing glyph and magic system tests) ...
+        // ... (existing damage tests) ...
+        // ... (existing inventory/equipment tests) ...
+        // ... (existing spatial grid tests) ...
+        // ... (existing perception system tests) ...
+        // ... (existing stealth system tests) ...
+
+        // --- Test AI System ---
+        GD.Print(&quot;\n--- Testing AI System ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+        EntityID testNpcID = Entities.GetEntityMeta(1).Generation == 1 ? new EntityID(1, 1) : EntityID.Invalid; // Assuming NPC is ID 1, Gen 1
+
+        if (playerID.IsValid() &amp;&amp; testNpcID.IsValid())
+        {
+            // Place NPC near player for initial detection/attack behavior
+            Transforms.GetTransformRef(playerID).Position = new Vector2(200, 200);
+            Transforms.GetTransformRef(testNpcID).Position = new Vector2(250, 200); // Within combat range
+            Transforms.GetTransformRef(playerID).RotationDegrees = 0; // Player faces right
+
+            GD.Print($&quot;NPC {testNpcID} initial stats: {Biology.GetCoreStatsRef(testNpcID)}&quot;);
+            GD.Print($&quot;Player {playerID} initial stealth: {Stealth.GetStealthComponentRef(playerID)}&quot;);
+            GD.Print($&quot;NPC {testNpcID} initial perception: {Perception.GetPerceptionComponentRef(testNpcID)}&quot;);
+        }
+        else
+        {
+            GD.PrintErr(&quot;Player or Test NPC not valid for AI tests.&quot;);
+        }
+
+        GD.Print(&quot;--- End Testing AI System ---\n&quot;);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Input.ProcessInputBuffer(); 
+        Time.Tick(delta);
+        World.Tick(delta);
+        Movement.Tick(delta);
+        Magic.Tick(delta);
+        Casting.Tick(delta);
+        Weather.Tick(delta);
+        Biology.Tick(delta);
+        TitanAI.Tick(delta);
+        StatusEffects.Tick(delta);
+        Perception.Tick(delta);
+        Stealth.Tick(delta);
+        AI.Tick(delta); // Call AISystem's tick method
+        Events.FlushCommands();
+    }
+
+    private void InitializeSystems()
+    {
+        // ... (existing system initializations up to StealthSystem) ...
+
+        // Initialize AISystem AFTER all its dependencies
+        AI = new AISystem(Entities, Events, BiologicalSystem, Perception, Combat, Transforms); // Pass dependencies
+        GD.Print(&quot;  - AISystem initialized.&quot;);
+
+        // ... (existing system initializations after AISystem) ...
+    }
+}
+</code></pre>
+<h3 id="6-testing-utility-ai">6. Testing Utility AI</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for the "Testing AI System" section and subsequent <code>AISystem: NPC X chose action...</code> messages.</li>
+</ol>
+<p><strong>Expected Output:</strong></p>
+<ul>
+<li><strong>Initial State</strong>: The NPC (<code>testNpcID</code>) is spawned near the player.</li>
+<li><strong>Attack Behavior</strong>: Since the player is detected and within combat range, the NPC should repeatedly choose <code>AttackPlayer</code> (every 0.5 seconds, <code>AI_DECISION_INTERVAL</code>).<ul>
+<li><code>AISystem: NPC EntityID(1, Gen:1) chose action 'AttackPlayer' with score X.XX.</code></li>
+<li><code>AISystem: NPC EntityID(1, Gen:1) is attacking player EntityID(0, Gen:1)!</code></li>
+</ul>
+</li>
+<li><strong>Hunger/Thirst (if low)</strong>: If you manually reduce the NPC's hunger/thirst (e.g., <code>/hunger -50</code> on <code>testNpcID</code> using debug console - this command needs to be added to <code>DebugCommandSystem</code>), the NPC might temporarily prioritize <code>EatFood</code> or <code>DrinkWater</code> over attacking, if its hunger/thirst score becomes higher than the attack score.</li>
+<li><strong>Flee (if low HP)</strong>: If you damage the NPC (e.g., <code>/damage 40</code> on <code>testNpcID</code>), its health will drop. If it falls below its <code>FleeThreshold</code>, it might switch to <code>Flee</code> action.</li>
+<li><strong>Wander (if no other actions)</strong>: If the player moves far away (out of detection range) and the NPC has no pressing needs, it will default to <code>Wander</code>.</li>
+</ul>
+<p>This confirms our <code>AISystem</code> is functional, using Utility AI to make dynamic decisions based on the NPC's <code>AIComponent</code> and current <code>CoreStats</code> / <code>Perception</code>.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented <strong>Decision Making</strong> for NPCs using a <strong>Utility AI</strong> (scoring) system in the C# Brain. By designing <code>AIComponent</code> to hold AI parameters and <code>UtilityAction</code> to represent scoreable actions, and creating <code>AISystem</code> to evaluate and execute the highest-scoring action, you've established a flexible and emergent AI framework. This crucial system strictly adheres to TDD 05.3's specifications, allowing NPCs to dynamically respond to their needs and environmental context in Sigilborne's living world.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>The next chapter will focus on <strong>Ecology Simulation</strong>, where we will design how animals and NPCs exist and behave even when the player is far away, by using "Virtual Agents" that are simulated at a very slow tick rate in unloaded chunks.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

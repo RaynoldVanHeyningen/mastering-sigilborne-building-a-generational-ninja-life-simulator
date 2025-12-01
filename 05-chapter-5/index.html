@@ -1,0 +1,2560 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../04-chapter-4/">
+      
+      
+        <link rel="next" href="../06-chapter-6/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 1.5: Entity Model - Lightweight ECS-lite in C# - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-15-entity-model-lightweight-ecs-lite-in-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-15-entity-model-lightweight-ecs-lite-in-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1.5: Entity Model - Lightweight ECS-lite in C
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1.5: Entity Model - Lightweight ECS-lite in C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-need-for-an-ecs-lite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Need for an ECS-lite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-entity-id-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Entity ID Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-entity-registry-entitymanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Entity Registry (EntityManager)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-entitymanager-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating EntityManager into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-entity-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Entity Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55-chapter-55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-15-entity-model-lightweight-ecs-lite-in-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1.5: Entity Model - Lightweight ECS-lite in C
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1.5: Entity Model - Lightweight ECS-lite in C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-need-for-an-ecs-lite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Need for an ECS-lite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-entity-id-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Entity ID Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-entity-registry-entitymanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Entity Registry (EntityManager)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-entitymanager-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating EntityManager into GameManager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-entity-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Entity Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 1.5: Entity Model - Lightweight ECS-lite in C#</h1>
+
+<h2 id="chapter-15-entity-model-lightweight-ecs-lite-in-c">Chapter 1.5: Entity Model - Lightweight ECS-lite in C</h2>
+<p>In Sigilborne, our world will be teeming with thousands of dynamic elements: players, NPCs, animals, projectiles, items, and more. Managing these efficiently requires a robust "atomic unit" for our simulation. This chapter introduces a lightweight Entity-Component-System (ECS-lite) architecture in C#, as outlined in TDD 11. This approach prioritizes performance, flexibility, and data-oriented design, moving away from heavy Godot nodes for our core simulation data.</p>
+<h3 id="1-the-need-for-an-ecs-lite">1. The Need for an ECS-lite</h3>
+<p>While Godot's Node system is excellent for visuals and hierarchical scenes, it's not ideal for managing thousands of pure data-driven entities in a simulation.</p>
+<p><strong>Why ECS-lite in the Brain?</strong></p>
+<ul>
+<li><strong>Performance</strong>: Nodes carry a lot of overhead (scene tree management, signals, visual properties). Our C# entities will be pure data, making them cache-friendly and faster to process in bulk.</li>
+<li><strong>Flexibility</strong>: Entities are just IDs. Components (pure data) are attached to them, allowing for highly flexible combinations of behaviors without complex inheritance hierarchies.</li>
+<li><strong>Data-Oriented Design (DOD)</strong>: ECS encourages thinking about data first, leading to more efficient memory access and easier multithreading (TDD 13).</li>
+<li><strong>Decoupling</strong>: Simulation logic is completely separate from visual representation. An entity can exist in the Brain without a visual counterpart in the Body (e.g., an "unloaded" NPC, TDD 11.5).</li>
+</ul>
+<h3 id="2-entity-id-structure">2. Entity ID Structure</h3>
+<p>An "Entity" in our ECS-lite is simply an <code>EntityID</code>: a unique identifier, not an object or a class. As per TDD 11.2, it's a <code>readonly struct</code> for efficiency.</p>
+<p>Let's create the <code>EntityID</code> struct.</p>
+<ol>
+<li>In <code>res://_Brain/Entities/</code>, create a new folder named <code>Components/</code>.</li>
+<li>In <code>res://_Brain/Entities/</code>, create a new C# script named <code>EntityID.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Entities/EntityID.cs
+using System;
+
+namespace Sigilborne.Entities
+{
+    /// &lt;summary&gt;
+    /// Represents a unique identifier for an entity in the ECS-lite.
+    /// It's a readonly struct for efficiency and immutability.
+    /// &lt;/summary&gt;
+    public readonly struct EntityID : IEquatable&lt;EntityID&gt;
+    {
+        // TDD 11.2: Index - The slot in the global entity array.
+        public readonly int Index;
+        // TDD 11.2: Generation - A version counter to detect &quot;Use After Free&quot; bugs.
+        public readonly int Generation;
+
+        // A special ID to represent a non-existent or invalid entity.
+        public static readonly EntityID Invalid = new EntityID(-1, -1);
+
+        public EntityID(int index, int generation)
+        {
+            Index = index;
+            Generation = generation;
+        }
+
+        // --- IEquatable Implementation ---
+        public bool Equals(EntityID other)
+        {
+            return Index == other.Index &amp;&amp; Generation == other.Generation;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is EntityID other &amp;&amp; Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Index, Generation);
+        }
+
+        public static bool operator ==(EntityID left, EntityID right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(EntityID left, EntityID right)
+        {
+            return !(left == right);
+        }
+
+        public override string ToString()
+        {
+            return $&quot;EntityID({Index}, Gen:{Generation})&quot;;
+        }
+
+        public bool IsValid()
+        {
+            return Index != -1 &amp;&amp; Generation != -1;
+        }
+    }
+}
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><strong><code>readonly struct</code></strong>: Ensures immutability and memory efficiency, as structs are value types.</li>
+<li><strong><code>Index</code></strong>: Points to the entity's actual data in an array.</li>
+<li><strong><code>Generation</code></strong>: A crucial safety mechanism. When an entity is destroyed, its <code>Index</code> slot might be reused. Incrementing <code>Generation</code> for the new entity in that slot prevents old <code>EntityID</code> references from accidentally accessing the wrong (or new) entity.</li>
+<li><strong><code>IEquatable&lt;EntityID&gt;</code></strong>: Provides efficient comparisons for <code>EntityID</code>s.</li>
+<li><strong><code>Invalid</code></strong>: A static property for representing a null or non-existent entity.</li>
+</ul>
+<h3 id="3-the-entity-registry-entitymanager">3. The Entity Registry (EntityManager)</h3>
+<p>The <code>EntityManager</code> is the central component responsible for creating, destroying, and managing the lifecycle of <code>EntityID</code>s. It will also hold basic metadata about each entity. As per TDD 11.2, it avoids <code>Dictionary</code> for core lookup, preferring direct array access.</p>
+<p>Create a new C# script <code>_Brain/Entities/EntityManager.cs</code>:</p>
+<pre><code class="language-csharp">// _Brain/Entities/EntityManager.cs
+using Godot;
+using System;
+using System.Collections.Generic; // For List&lt;int&gt; and Dictionary (for sparse data)
+using Sigilborne.Core; // For EventBus
+
+namespace Sigilborne.Entities
+{
+    /// &lt;summary&gt;
+    /// Represents the core metadata for an entity.
+    /// This is stored directly in the EntityManager's array.
+    /// &lt;/summary&gt;
+    public struct EntityMeta
+    {
+        public int Generation; // Current generation of the entity in this slot
+        public bool IsActive;   // Whether this slot is currently in use
+        public EntityType Type; // Player, NPC, Animal, Projectile, etc.
+        public string DefinitionID; // Reference to static data (e.g., &quot;goblin_scout&quot;, &quot;player_default&quot;)
+    }
+
+    /// &lt;summary&gt;
+    /// Defines the broad categories of entities in the simulation.
+    /// &lt;/summary&gt;
+    public enum EntityType
+    {
+        Player,
+        NPC,
+        Animal,
+        Projectile,
+        Item,
+        WorldObject, // Interactable objects like Chests, Doors
+        Effect,      // Visual effects that are entities (e.g., a persistent poison cloud)
+        Invalid
+    }
+
+    /// &lt;summary&gt;
+    /// Manages the creation, destruction, and basic lifecycle of all entities.
+    /// Provides direct O(1) access to entity metadata via Index.
+    /// &lt;/summary&gt;
+    public class EntityManager
+    {
+        private const int MAX_ENTITIES = 10_000; // TDD 11.2: Fixed size entity array
+        private EntityMeta[] _entityMetas = new EntityMeta[MAX_ENTITIES];
+        private List&lt;int&gt; _freeIndices = new List&lt;int&gt;(MAX_ENTITIES); // List of available slots
+
+        private EventBus _eventBus; // To emit events like OnEntitySpawned, OnEntityDespawned
+
+        public EntityManager(EventBus eventBus)
+        {
+            _eventBus = eventBus;
+
+            // Populate free indices initially
+            for (int i = 0; i &lt; MAX_ENTITIES; i++)
+            {
+                _freeIndices.Add(i);
+            }
+            GD.Print($&quot;EntityManager: Initialized with {MAX_ENTITIES} slots.&quot;);
+        }
+
+        /// &lt;summary&gt;
+        /// Creates a new entity and returns its unique EntityID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;type&quot;&gt;The type of entity to create.&lt;/param&gt;
+        /// &lt;param name=&quot;definitionID&quot;&gt;The ID of the static definition for this entity.&lt;/param&gt;
+        /// &lt;returns&gt;A valid EntityID if successful, otherwise EntityID.Invalid.&lt;/returns&gt;
+        public EntityID CreateEntity(EntityType type, string definitionID)
+        {
+            if (_freeIndices.Count == 0)
+            {
+                GD.PrintErr(&quot;EntityManager: No free entity slots available!&quot;);
+                return EntityID.Invalid;
+            }
+
+            int index = _freeIndices[_freeIndices.Count - 1]; // Get last free index
+            _freeIndices.RemoveAt(_freeIndices.Count - 1);    // Remove from free list
+
+            // Increment generation for safety (TDD 11.2)
+            _entityMetas[index].Generation++;
+            _entityMetas[index].IsActive = true;
+            _entityMetas[index].Type = type;
+            _entityMetas[index].DefinitionID = definitionID;
+
+            EntityID newId = new EntityID(index, _entityMetas[index].Generation);
+            GD.Print($&quot;EntityManager: Created {type} entity {newId} (Def: {definitionID})&quot;);
+
+            // TDD 11.4: Emit OnEntitySpawned for Body sync
+            _eventBus.Publish(new EntitySpawnedEvent { ID = newId, Type = type, DefinitionID = definitionID });
+
+            return newId;
+        }
+
+        /// &lt;summary&gt;
+        /// Destroys an entity, making its ID invalid and its slot available for reuse.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The EntityID to destroy.&lt;/param&gt;
+        public void DestroyEntity(EntityID id)
+        {
+            if (!IsValid(id))
+            {
+                GD.PrintErr($&quot;EntityManager: Attempted to destroy invalid entity {id}.&quot;);
+                return;
+            }
+
+            int index = id.Index;
+            _entityMetas[index].IsActive = false;
+            // Generation is not incremented here, but when a new entity reuses the slot.
+            // This ensures old IDs point to an &quot;invalid&quot; generation.
+
+            _freeIndices.Add(index); // Add back to free list
+            GD.Print($&quot;EntityManager: Destroyed entity {id}.&quot;);
+
+            // TDD 11.4: Emit OnEntityDespawned for Body sync
+            _eventBus.Publish(new EntityDespawnedEvent { ID = id });
+        }
+
+        /// &lt;summary&gt;
+        /// Checks if an EntityID is currently valid and refers to an active entity.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The EntityID to validate.&lt;/param&gt;
+        /// &lt;returns&gt;True if the ID is valid and active, false otherwise.&lt;/returns&gt;
+        public bool IsValid(EntityID id)
+        {
+            if (!id.IsValid() || id.Index &gt;= MAX_ENTITIES || id.Index &lt; 0)
+            {
+                return false;
+            }
+            // TDD 11.2: Validation - Generation check is critical
+            return _entityMetas[id.Index].IsActive &amp;&amp; _entityMetas[id.Index].Generation == id.Generation;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the metadata for a given EntityID.
+        /// Throws an exception if the ID is invalid, so always call IsValid() first.
+        /// &lt;/summary&gt;
+        public ref EntityMeta GetEntityMeta(EntityID id)
+        {
+            if (!IsValid(id))
+            {
+                throw new InvalidOperationException($&quot;Attempted to get metadata for invalid entity {id}.&quot;);
+            }
+            return ref _entityMetas[id.Index];
+        }
+
+        // --- Helper Events for Body Sync (TDD 11.4) ---
+        // These are simple structs to pass data through the EventBus.
+        public struct EntitySpawnedEvent { public EntityID ID; public EntityType Type; public string DefinitionID; }
+        public struct EntityDespawnedEvent { public EntityID ID; }
+    }
+}
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><strong><code>EntityMeta</code> struct</strong>: Stores essential metadata for each entity directly in the <code>_entityMetas</code> array.</li>
+<li><strong><code>EntityType</code> enum</strong>: Categorizes our entities for better organization and system processing.</li>
+<li><strong><code>MAX_ENTITIES</code></strong>: A fixed-size array (<code>_entityMetas</code>) for fast O(1) access by index.</li>
+<li><strong><code>_freeIndices</code></strong>: A <code>List&lt;int&gt;</code> to quickly find available slots for new entities.</li>
+<li><strong><code>CreateEntity()</code></strong>:<ul>
+<li>Finds a free index.</li>
+<li>Increments the <code>Generation</code> counter for that slot.</li>
+<li>Initializes <code>EntityMeta</code>.</li>
+<li>Returns a new <code>EntityID</code>.</li>
+<li><strong>Crucially</strong>: Publishes an <code>EntitySpawnedEvent</code> via the <code>EventBus</code> so the GDScript Body can create a visual representation.</li>
+</ul>
+</li>
+<li><strong><code>DestroyEntity()</code></strong>:<ul>
+<li>Marks the slot as inactive.</li>
+<li>Adds the index back to <code>_freeIndices</code>.</li>
+<li><strong>Crucially</strong>: Publishes an <code>EntityDespawnedEvent</code> for the GDScript Body to remove its visual representation.</li>
+</ul>
+</li>
+<li><strong><code>IsValid()</code></strong>: The core validation method, using both <code>Index</code> and <code>Generation</code> to prevent stale references.</li>
+<li><strong><code>GetEntityMeta()</code></strong>: Provides safe, direct access to the <code>EntityMeta</code> struct.</li>
+<li><strong><code>EntitySpawnedEvent</code> / <code>EntityDespawnedEvent</code></strong>: These nested structs define the data payload for our <code>EventBus</code> signals, enabling the Body to react to entity lifecycle changes.</li>
+</ul>
+<h3 id="4-integrating-entitymanager-into-gamemanager">4. Integrating EntityManager into GameManager</h3>
+<p>Now, we need to make <code>EntityManager</code> a core system managed by our <code>GameManager</code>.</p>
+<p>Open <code>_Brain/Core/GameManager.cs</code> and modify it:</p>
+<ol>
+<li>Add <code>using Sigilborne.Entities;</code> at the top.</li>
+<li>Add an <code>EntityManager</code> property.</li>
+<li>Initialize <code>EntityManager</code> in <code>InitializeSystems()</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs
+using Godot;
+using System;
+using Sigilborne.Core;
+using Sigilborne.Entities; // Add this using directive
+
+public partial class GameManager : Node
+{
+    public static GameManager Instance { get; private set; }
+
+    public TimeSystem Time { get; private set; }
+    public EventBus Events { get; private set; }
+    public WorldSimulation World { get; private set; }
+    public EntityManager Entities { get; private set; } // Add EntityManager property
+
+    public override void _Ready()
+    {
+        if (Instance != null)
+        {
+            GD.PrintErr(&quot;GameManager: More than one instance detected! Destroying duplicate.&quot;);
+            QueueFree();
+            return;
+        }
+        Instance = this;
+
+        InitializeSystems();
+
+        GD.Print(&quot;GameManager (C#) initialized and ready.&quot;);
+
+        // --- Test Scene Loading (from previous chapter) ---
+        if (SceneLoader.instance != null)
+        {
+            GD.Print(&quot;GameManager: Requesting SceneLoader to load Gameplay scene.&quot;);
+            SceneLoader.instance.load_level(&quot;res://_Body/Scenes/Gameplay.tscn&quot;);
+        }
+        else
+        {
+            GD.PrintErr(&quot;GameManager: SceneLoader instance not found! Cannot load gameplay scene.&quot;);
+        }
+        // --- End Test Scene Loading ---
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Time.Tick(delta);
+        Events.FlushCommands();
+        World.Tick(delta);
+        // EntityManager doesn't have a Tick method, its operations are event/command driven.
+    }
+
+    private void InitializeSystems()
+    {
+        Events = new EventBus();
+        GD.Print(&quot;  - EventBus initialized.&quot;);
+
+        Time = new TimeSystem();
+        GD.Print(&quot;  - TimeSystem initialized.&quot;);
+
+        // Initialize EntityManager, passing the EventBus so it can publish events
+        Entities = new EntityManager(Events); // Initialize EntityManager here
+        GD.Print(&quot;  - EntityManager initialized.&quot;);
+
+        World = new WorldSimulation();
+        GD.Print(&quot;  - WorldSimulation initialized.&quot;);
+    }
+}
+</code></pre>
+<h3 id="5-testing-entity-creation">5. Testing Entity Creation</h3>
+<p>Let's add a simple test to <code>GameManager</code> to create and destroy an entity.</p>
+<p>Add the following to the end of <code>GameManager</code>'s <code>_Ready()</code> method (after the <code>SceneLoader</code> call):</p>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside _Ready method)
+// ...
+        // --- Test Entity Management ---
+        GD.Print(&quot;\n--- Testing Entity Management ---&quot;);
+        EntityID playerEntity = Entities.CreateEntity(EntityType.Player, &quot;player_default&quot;);
+        GD.Print($&quot;Created Player: {playerEntity}. IsValid: {Entities.IsValid(playerEntity)}&quot;);
+
+        EntityID npcEntity = Entities.CreateEntity(EntityType.NPC, &quot;goblin_grunt&quot;);
+        GD.Print($&quot;Created NPC: {npcEntity}. IsValid: {Entities.IsValid(npcEntity)}&quot;);
+
+        Entities.DestroyEntity(playerEntity);
+        GD.Print($&quot;Destroyed Player: {playerEntity}. IsValid: {Entities.IsValid(playerEntity)}&quot;);
+
+        // Attempt to create a new entity, reusing the slot
+        EntityID newPlayerEntity = Entities.CreateEntity(EntityType.Player, &quot;player_reborn&quot;);
+        GD.Print($&quot;Created New Player: {newPlayerEntity}. IsValid: {Entities.IsValid(newPlayerEntity)}&quot;);
+        GD.Print($&quot;Old Player ID {playerEntity} now IsValid: {Entities.IsValid(playerEntity)}&quot;); // Should be false!
+
+        GD.Print(&quot;--- End Testing Entity Management ---\n&quot;);
+// ...
+</code></pre>
+<p>Save all C# files and run <code>Main.tscn</code>. In the Output console, after the scene loads, you should see output similar to this:</p>
+<pre><code>--- Testing Entity Management ---
+EntityManager: Created Player entity EntityID(0, Gen:1) (Def: player_default)
+Created Player: EntityID(0, Gen:1). IsValid: True
+EntityManager: Created NPC entity EntityID(1, Gen:1) (Def: goblin_grunt)
+Created NPC: EntityID(1, Gen:1). IsValid: True
+EntityManager: Destroyed entity EntityID(0, Gen:1).
+Destroyed Player: EntityID(0, Gen:1). IsValid: False
+EntityManager: Created Player entity EntityID(0, Gen:2) (Def: player_reborn)
+Created New Player: EntityID(0, Gen:2). IsValid: True
+Old Player ID EntityID(0, Gen:1) now IsValid: False
+--- End Testing Entity Management ---
+</code></pre>
+<p>Notice how <code>EntityID(0, Gen:1)</code> becomes invalid after destruction, and the new entity reusing index <code>0</code> gets <code>Gen:2</code>. This confirms our generation counter mechanism is working as intended.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented the core Entity model for Sigilborne using a lightweight ECS-lite architecture in C#. This includes the <code>EntityID</code> struct for unique identification and the <code>EntityManager</code> for handling entity lifecycle. By integrating <code>EntityManager</code> into <code>GameManager</code> and confirming its functionality, you've established a performant, flexible, and data-oriented foundation for all simulation entities, strictly adhering to TDD 11's specifications.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>In the next chapter, we will build upon this by designing and implementing core components, focusing on <code>TransformComponent</code>, <code>TypeComponent</code>, and <code>StateComponent</code>, and explore how they are stored and accessed within our ECS-lite framework.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

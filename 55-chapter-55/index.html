@@ -1,0 +1,2729 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../54-chapter-54/">
+      
+      
+        <link rel="next" href="../56-chapter-56/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#) - Mastering Sigilborne: Building a Generational Ninja Life Simulator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="sky" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-86-bounty-punishment-escalation-consequences-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-header__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mastering Sigilborne: Building a Generational Ninja Life Simulator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mastering Sigilborne: Building a Generational Ninja Life Simulator" class="md-nav__button md-logo" aria-label="Mastering Sigilborne: Building a Generational Ninja Life Simulator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mastering Sigilborne: Building a Generational Ninja Life Simulator
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.1: Project Setup for Godot 4.5 with C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.2: The Brain (C#) - Headless Simulation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.3: The Body (GDScript) - Reactive Presentation Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.4: Directory Structure - Enforcing Separation of Concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.5: Entity Model - Lightweight ECS-lite in C#
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chapter-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.6: Component Architecture - Composition over Inheritance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-chapter-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.7: Job System & Concurrency - Multithreaded Processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-chapter-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.8: Thread Safety - Command Buffers & Double Buffering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chapter-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.9: Scene Composition - Standardizing Godot Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-chapter-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.10: Naming Conventions & Scene Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-chapter-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.11: Animation Event Protocol - Syncing Brain & Body
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-chapter-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.12: Interop Layer - C# to GDScript Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-chapter-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.13: Global State Management - Data Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-chapter-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.14: Debugging Tools - Console & State Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-chapter-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1.15: Main Loop Execution Order - Tick vs. Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-chapter-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.1: Input Manager - Capturing Raw Input (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-chapter-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.2: Standard Movement Logic - Velocity & Friction (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-chapter-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.3: Shift-Sliding Mechanic - Direction Lock (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-chapter-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2.4: Physics Layer - Hybrid Movement Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-chapter-20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.1: Glyph Database - Concepts vs. Symbols (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-chapter-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.2: Glyph Discovery System - Player Knowledge State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-chapter-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.3: Glyph Experimentation - Trial & Error Casting (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-chapter-23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.4: Subtypes & Modifiers - Procedural Nuance for Glyphs (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-chapter-24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3.5: Glyph Acquisition - Teachers & Scrolls (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-chapter-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.1: Input Buffer - Storing Glyph Sequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-chapter-26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.2: Combo Resolver - Trie Structure for Spell Detection (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-chapter-27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.3: Spell Data Architecture - Data-Driven Definitions (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-chapter-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.4: Casting State Machine - Player Casting Flow (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-chapter-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 4.5: Visual Feedback - Particles & Animations (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-chapter-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.1: Biological Simulation - The Bio-Tick (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../31-chapter-31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.2: Core Stats (Struct)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../32-chapter-32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.3: Metabolism System - Dynamic Decay Rates (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../33-chapter-33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.4: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../34-chapter-34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.5: Damage & Recovery Pipeline - Wounds & Status Effects (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../35-chapter-35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.6: Status Effect Data - Definition vs. Instance (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../36-chapter-36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.7: Recovery Logic - Health, Stamina, Chakra Regeneration (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../37-chapter-37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 5.8: Weather & Environment - Global Environmental State (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../38-chapter-38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.1: Physics Layer - Hitbox & Hurtbox Detection (GDScript)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../39-chapter-39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.2: The Math Layer - Damage Calculator (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-chapter-40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.3: Equipment & Inventory - Inventory Data Structure (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../41-chapter-41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.4: Equipment Logic - Recalculating Stats (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../42-chapter-42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.5: World Boss Mechanics - Multi-Part Entities (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../43-chapter-43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 6.6: Titan AI State - Specialized State Machine (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../44-chapter-44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.1: Perception System - Spatial Hashing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../45-chapter-45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.2: The Senses - Vision, Hearing & Chakra Sense (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46-chapter-46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.3: Stealth Mechanics - Visibility & Detection Meter (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47-chapter-47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.4: Decision Making: Utility AI (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48-chapter-48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.5: Ecology Simulation - Virtual Agents (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49-chapter-49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 7.6: Spawning & Despawning - Hydration/Dehydration (Brain & Body)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50-chapter-50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.1: Faction System - The Relationship Graph (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51-chapter-51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.2: The Simulation Clock - Game Time & Load Balancing (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52-chapter-52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.3: Market Simulation - Supply & Demand (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53-chapter-53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.4: Trade Routes - Caravans as Arteries (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../54-chapter-54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.5: Crime & Justice - The Heat System (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-86-bounty-punishment-escalation-consequences-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8.6: Bounty &amp; Punishment - Escalation &amp; Consequences (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8.6: Bounty &amp; Punishment - Escalation &amp; Consequences (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-escalation-of-consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Escalation of Consequences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-bounty-and-punishmentlevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining Bounty and PunishmentLevel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enhancing-crimesystemcs-for-bounties-and-punishments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Enhancing CrimeSystem.cs for Bounties and Punishments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Enhancing CrimeSystem.cs for Bounties and Punishments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-add-exposingsecrets-and-purification-to-crimetype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Add ExposingSecrets and Purification to CrimeType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-bounty-and-punishmentlevel-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating Bounty and PunishmentLevel into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating Bounty and PunishmentLevel into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-bountyupdatedevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for BountyUpdatedEvent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-bounty-and-punishment-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Bounty and Punishment Escalation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56-chapter-56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.1: Ritual System - Pattern Matching & Execution (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57-chapter-57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.2: Seals & Locks - Logical Locks (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58-chapter-58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.3: Ritual System - Simple, Advanced & Forbidden (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59-chapter-59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.4: Forbidden Contracts & Spirit Contracts (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60-chapter-60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 9.5: Corruption Pacts & Multi-Life Persistence of Rituals (C#)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-86-bounty-punishment-escalation-consequences-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8.6: Bounty &amp; Punishment - Escalation &amp; Consequences (C#)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8.6: Bounty &amp; Punishment - Escalation &amp; Consequences (C#)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-escalation-of-consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Escalation of Consequences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-defining-bounty-and-punishmentlevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defining Bounty and PunishmentLevel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-enhancing-crimesystemcs-for-bounties-and-punishments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Enhancing CrimeSystem.cs for Bounties and Punishments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Enhancing CrimeSystem.cs for Bounties and Punishments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-add-exposingsecrets-and-purification-to-crimetype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Add ExposingSecrets and Purification to CrimeType
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-integrating-bounty-and-punishmentlevel-into-gamemanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Integrating Bounty and PunishmentLevel into GameManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Integrating Bounty and PunishmentLevel into GameManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-update-eventbuscs-for-bountyupdatedevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Update EventBus.cs for BountyUpdatedEvent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-testing-bounty-and-punishment-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Testing Bounty and Punishment Escalation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Chapter 8.6: Bounty & Punishment - Escalation & Consequences (C#)</h1>
+
+<h2 id="chapter-86-bounty-punishment-escalation-consequences-c">Chapter 8.6: Bounty &amp; Punishment - Escalation &amp; Consequences (C#)</h2>
+<p>Our <code>CrimeSystem</code> now tracks <code>Heat</code> per faction. This chapter builds upon that by implementing <strong>Bounty &amp; Punishment</strong> mechanisms. We'll define how <code>Heat</code> translates into concrete punishments like refusing services, attacking on sight, or dispatching hunter squads, and design how the <code>Bounty</code> system tracks these escalating consequences, as specified in TDD 06.4.2.</p>
+<h3 id="1-the-escalation-of-consequences">1. The Escalation of Consequences</h3>
+<p>The GDD (B22.5) states: "Punishments range from fines, exile, forced labor... to execution." This implies a system that:</p>
+<ul>
+<li><strong>Tiers of Punishment</strong>: Consequences escalate with <code>HeatValue</code>.</li>
+<li><strong>Active Pursuit</strong>: High <code>Heat</code> leads to active hunting.</li>
+<li><strong>Faction-Specific</strong>: Punishments are enforced by the aggrieved faction.</li>
+<li><strong>Player-Visible</strong>: The player needs to understand the consequences of their actions.</li>
+</ul>
+<h3 id="2-defining-bounty-and-punishmentlevel">2. Defining <code>Bounty</code> and <code>PunishmentLevel</code></h3>
+<p>We need a struct to represent a bounty and an enum for escalating punishment tiers.</p>
+<ol>
+<li>Create <code>res://_Brain/Systems/Crime/BountyData.cs</code>:</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Crime/BountyData.cs
+using System;
+using Godot; // For Vector2
+using Sigilborne.Entities; // For EntityID
+using Sigilborne.Systems.Factions; // For FactionType
+
+namespace Sigilborne.Systems.Crime
+{
+    /// &lt;summary&gt;
+    /// Defines the escalating levels of punishment a faction can impose.
+    /// (TDD 06.4.2)
+    /// &lt;/summary&gt;
+    public enum PunishmentLevel
+    {
+        None,               // No punishment, ignored
+        Warning,            // Verbal warning, reduced services
+        RefusedServices,    // Merchants won't trade, NPCs won't talk
+        AttackOnSight,      // NPCs in faction territory become hostile
+        HunterSquads,       // Faction dispatches bounty hunters to actively pursue
+        Exile,              // Permanent ban from faction territory/settlements
+        ExecutionOrder      // Highest level, faction seeks to kill on sight
+    }
+
+    /// &lt;summary&gt;
+    /// Represents a bounty placed on an entity by a specific faction.
+    /// (TDD 06.4.2)
+    /// &lt;/summary&gt;
+    public struct Bounty
+    {
+        public EntityID TargetID;
+        public string FactionID;
+        public float GoldValue;         // The gold reward for capturing/defeating the target
+        public PunishmentLevel Level;   // The current punishment level
+        public bool IsActive;           // True if hunters are actively pursuing
+
+        public Bounty(EntityID targetID, string factionID, float goldValue, PunishmentLevel level, bool isActive)
+        {
+            TargetID = targetID;
+            FactionID = factionID;
+            GoldValue = goldValue;
+            Level = level;
+            IsActive = isActive;
+        }
+
+        public override string ToString()
+        {
+            return $&quot;Bounty on {TargetID} by {FactionID}: {GoldValue:F0} Gold, Level: {Level} (Active: {IsActive})&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="3-enhancing-crimesystemcs-for-bounties-and-punishments">3. Enhancing <code>CrimeSystem.cs</code> for Bounties and Punishments</h3>
+<p><code>CrimeSystem</code> will now:
+*   Manage <code>Bounty</code> instances per entity and faction.
+*   Translate <code>FactionHeat</code> into <code>PunishmentLevel</code>s.
+*   Trigger <code>HunterSquads</code> (conceptually) when <code>Heat</code> is high enough.
+*   Provide methods for other systems (e.g., <code>AISystem</code>, <code>EconomyManager</code>) to query <code>PunishmentLevel</code>.</p>
+<ol>
+<li>Open <code>res://_Brain/Systems/Crime/CrimeSystem.cs</code>.</li>
+<li>Add a dictionary for <code>Bounty</code> instances.</li>
+<li>Modify <code>AddHeat</code> to update <code>Bounty</code> and <code>PunishmentLevel</code>.</li>
+<li>Add methods to retrieve <code>PunishmentLevel</code>.</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Systems/Crime/CrimeSystem.cs
+using Godot;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using Sigilborne.Core;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Factions;
+using Sigilborne.Systems.AI;
+using System.Linq;
+
+namespace Sigilborne.Systems.Crime
+{
+    // ... (CrimeType, CrimeReport, FactionHeat structs/enums) ...
+    // ... (PunishmentLevel, Bounty structs/enums) ...
+
+    public class CrimeSystem
+    {
+        private EntityManager _entityManager;
+        private EventBus _eventBus;
+        private FactionSystem _factionSystem;
+        private AISystem _aiSystem;
+
+        private Dictionary&lt;EntityID, Dictionary&lt;string, FactionHeat&gt;&gt; _entityFactionHeat = new Dictionary&lt;EntityID, Dictionary&lt;string, FactionHeat&gt;&gt;();
+        private List&lt;CrimeDefinition&gt; _crimeDefinitions = new List&lt;CrimeDefinition&gt;();
+        private ConcurrentQueue&lt;CrimeReport&gt; _crimeReportsQueue = new ConcurrentQueue&lt;CrimeReport&gt;();
+
+        // New: Bounties tracked per target and faction.
+        // Key: TargetID, Value: Dictionary&lt;FactionID, Bounty&gt;
+        private Dictionary&lt;EntityID, Dictionary&lt;string, Bounty&gt;&gt; _entityBounties = new Dictionary&lt;EntityID, Dictionary&lt;string, Bounty&gt;&gt;();
+
+
+        private const float HEAT_DECAY_INTERVAL = 10.0f;
+        private float _heatDecayTimer;
+
+        public CrimeSystem(EntityManager entityManager, EventBus eventBus, FactionSystem factionSystem, AISystem aiSystem)
+        {
+            _entityManager = entityManager;
+            _eventBus = eventBus;
+            _factionSystem = factionSystem;
+            _aiSystem = aiSystem;
+
+            _eventBus.OnEntitySpawned += OnEntitySpawned;
+            _eventBus.OnEntityDespawned += OnEntityDespawned;
+
+            RegisterDefaultCrimeDefinitions();
+            GD.Print(&quot;CrimeSystem: Initialized.&quot;);
+        }
+
+        private void OnEntitySpawned(EntityID id, EntityType type, string definitionID, Vector2 initialPosition, float initialRotation)
+        {
+            if (type == EntityType.Player)
+            {
+                _entityFactionHeat.Add(id, new Dictionary&lt;string, FactionHeat&gt;());
+                _entityBounties.Add(id, new Dictionary&lt;string, Bounty&gt;()); // Initialize bounties
+                foreach (var faction in _factionSystem.GetAllFactions())
+                {
+                    _entityFactionHeat[id].Add(faction.ID, new FactionHeat(faction.ID, id));
+                    _entityBounties[id].Add(faction.ID, new Bounty(id, faction.ID, 0f, PunishmentLevel.None, false)); // Initialize bounty
+                }
+                GD.Print($&quot;CrimeSystem: Initialized FactionHeat and Bounties for player {id}.&quot;);
+            }
+        }
+
+        private void OnEntityDespawned(EntityManager.EntityDespawnedEvent e)
+        {
+            _entityFactionHeat.Remove(e.ID);
+            _entityBounties.Remove(e.ID); // Remove bounties
+            GD.Print($&quot;CrimeSystem: Removed FactionHeat and Bounties for {e.ID}.&quot;);
+        }
+
+        // ... (RegisterCrimeDefinition, RegisterDefaultCrimeDefinitions, ReportCrime methods) ...
+
+        public void Tick(double delta)
+        {
+            ProcessCrimeReports();
+            DecayHeat((float)delta);
+            UpdateBountiesAndPunishments(); // New: Update punishment levels
+        }
+
+        private void ProcessCrimeReports() { /* ... */ }
+
+        public void AddHeat(EntityID targetID, string factionID, float amount, bool isMajorCrime = false)
+        {
+            if (!_entityFactionHeat.TryGetValue(targetID, out Dictionary&lt;string, FactionHeat&gt; factionHeats))
+            {
+                GD.PrintErr($&quot;CrimeSystem: No FactionHeat tracked for entity {targetID}.&quot;);
+                return;
+            }
+
+            if (factionHeats.TryGetValue(factionID, out FactionHeat heat))
+            {
+                heat.AddHeat(amount);
+                factionHeats[factionID] = heat;
+
+                GD.Print($&quot;CrimeSystem: {targetID} heat for {factionID} increased by {amount:F1}. New Heat: {heat.HeatValue:F1}.&quot;);
+                _eventBus.Publish(new FactionHeatUpdatedEvent { TargetID = targetID, FactionHeat = heat });
+
+                // Check for active pursuit (TDD 06.4.2)
+                // This logic is now part of UpdateBountiesAndPunishments, as it's tied to PunishmentLevel.
+                // For now, just a print if it's a major crime.
+                if (isMajorCrime)
+                {
+                    GD.Print($&quot;CrimeSystem: {targetID} committed a MAJOR crime for {factionID}.&quot;);
+                }
+            }
+        }
+
+        private void DecayHeat(float delta)
+        {
+            _heatDecayTimer += delta;
+            if (_heatDecayTimer &gt;= HEAT_DECAY_INTERVAL)
+            {
+                foreach (var targetEntry in _entityFactionHeat)
+                {
+                    EntityID targetID = targetEntry.Key;
+                    foreach (var factionEntry in targetEntry.Value.Keys.ToList())
+                    {
+                        FactionHeat heat = targetEntry.Value[factionEntry];
+                        if (heat.HeatValue &gt; 0)
+                        {
+                            heat.DecayHeat(HEAT_DECAY_INTERVAL);
+                            targetEntry.Value[factionEntry] = heat;
+                            if (heat.HeatValue &lt;= 0.1f)
+                            {
+                                GD.Print($&quot;CrimeSystem: {targetID} heat for {factionEntry} decayed to zero.&quot;);
+                                _eventBus.Publish(new FactionHeatUpdatedEvent { TargetID = targetID, FactionHeat = heat });
+                            }
+                        }
+                    }
+                }
+                _heatDecayTimer = 0;
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Updates the bounty and punishment level for all entities based on their faction heat.
+        /// (TDD 06.4.2)
+        /// &lt;/summary&gt;
+        private void UpdateBountiesAndPunishments()
+        {
+            foreach (var targetEntry in _entityFactionHeat)
+            {
+                EntityID targetID = targetEntry.Key;
+                foreach (var factionEntry in targetEntry.Value.Keys.ToList())
+                {
+                    FactionHeat heat = targetEntry.Value[factionEntry];
+                    ref Bounty bounty = ref _entityBounties[targetID].GetValueRef(factionEntry); // Get mutable ref to bounty
+
+                    // Determine new punishment level based on heat
+                    PunishmentLevel newLevel = PunishmentLevel.None;
+                    float newGoldValue = 0f;
+
+                    if (heat.HeatValue &gt;= 90f) { newLevel = PunishmentLevel.ExecutionOrder; newGoldValue = 500f; }
+                    else if (heat.HeatValue &gt;= 70f) { newLevel = PunishmentLevel.HunterSquads; newGoldValue = 300f; }
+                    else if (heat.HeatValue &gt;= 50f) { newLevel = PunishmentLevel.AttackOnSight; newGoldValue = 100f; }
+                    else if (heat.HeatValue &gt;= 30f) { newLevel = PunishmentLevel.RefusedServices; newGoldValue = 20f; }
+                    else if (heat.HeatValue &gt;= 10f) { newLevel = PunishmentLevel.Warning; newGoldValue = 5f; }
+
+                    bool wasPursuing = bounty.IsActive;
+                    bool isPursuing = (newLevel &gt;= PunishmentLevel.HunterSquads); // HunterSquads and above means active pursuit
+
+                    if (bounty.Level != newLevel || bounty.GoldValue != newGoldValue || bounty.IsActive != isPursuing)
+                    {
+                        bounty.Level = newLevel;
+                        bounty.GoldValue = newGoldValue;
+                        bounty.IsActive = isPursuing;
+
+                        GD.Print($&quot;CrimeSystem: Bounty for {targetID} by {factionEntry} updated. Level: {newLevel}, Gold: {newGoldValue:F0}, Active: {isPursuing}&quot;);
+                        _eventBus.Publish(new BountyUpdatedEvent { TargetID = targetID, Bounty = bounty });
+
+                        // Trigger/stop hunter squads if pursuit status changed (TDD 06.4.2)
+                        if (isPursuing &amp;&amp; !wasPursuing)
+                        {
+                            _eventBus.Publish(new FactionPursuitChangedEvent { TargetID = targetID, FactionID = factionEntry, IsPursuing = true });
+                            // _aiSystem.SpawnHunterSquad(targetID, factionEntry); // Conceptual
+                        }
+                        else if (!isPursuing &amp;&amp; wasPursuing)
+                        {
+                            _eventBus.Publish(new FactionPursuitChangedEvent { TargetID = targetID, FactionID = factionEntry, IsPursuing = false });
+                            // _aiSystem.DespawnHunterSquads(targetID, factionEntry); // Conceptual
+                        }
+                    }
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the PunishmentLevel for a target entity by a specific faction.
+        /// (TDD 06.4.2)
+        /// &lt;/summary&gt;
+        public PunishmentLevel GetPunishmentLevel(EntityID targetID, string factionID)
+        {
+            if (_entityBounties.TryGetValue(targetID, out Dictionary&lt;string, Bounty&gt; bounties) &amp;&amp; bounties.TryGetValue(factionID, out Bounty bounty))
+            {
+                return bounty.Level;
+            }
+            return PunishmentLevel.None;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves the Bounty for a target entity by a specific faction.
+        /// &lt;/summary&gt;
+        public Bounty GetBounty(EntityID targetID, string factionID)
+        {
+            if (_entityBounties.TryGetValue(targetID, out Dictionary&lt;string, Bounty&gt; bounties) &amp;&amp; bounties.TryGetValue(factionID, out Bounty bounty))
+            {
+                return bounty;
+            }
+            return new Bounty(targetID, factionID, 0f, PunishmentLevel.None, false);
+        }
+
+        // --- Helper Events for Body Sync ---
+        public struct FactionHeatUpdatedEvent { public EntityID TargetID; public FactionHeat FactionHeat; }
+        public struct FactionPursuitChangedEvent { public EntityID TargetID; public string FactionID; public bool IsPursuing; }
+        public struct BountyUpdatedEvent { public EntityID TargetID; public Bounty Bounty; } // New event
+    }
+}
+</code></pre>
+<h4 id="31-add-exposingsecrets-and-purification-to-crimetype">3.1. Add <code>ExposingSecrets</code> and <code>Purification</code> to <code>CrimeType</code></h4>
+<p>These were referenced in <code>RegisterDefaultCrimeDefinitions</code>.</p>
+<p>Open <code>res://_Brain/Systems/Crime/CrimeData.cs</code> and add to <code>CrimeType</code>:</p>
+<pre><code class="language-csharp">// _Brain/Systems/Crime/CrimeData.cs
+using System;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Factions;
+
+namespace Sigilborne.Systems.Crime
+{
+    public enum CrimeType
+    {
+        None,
+        Assault,
+        Murder,
+        Theft,
+        Trespass,
+        MagicMisuse,
+        Sabotage,
+        Espionage,
+        CorruptionUse,
+        ShrineDesecration,
+        ExposingSecrets,    // New
+        Purification        // New
+    }
+    // ... (rest of file) ...
+}
+</code></pre>
+<h3 id="4-integrating-bounty-and-punishmentlevel-into-gamemanager">4. Integrating <code>Bounty</code> and <code>PunishmentLevel</code> into <code>GameManager</code></h3>
+<ol>
+<li>Add <code>using Sigilborne.Systems.Crime;</code> at the top of <code>_Brain/Core/GameManager.cs</code>.</li>
+<li>In <code>GameManager._Ready()</code>, modify the "Test Crime System" section to:<ul>
+<li>Test <code>GetPunishmentLevel</code>.</li>
+<li>Observe how <code>PunishmentLevel</code> changes with added <code>Heat</code>.</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-csharp">// _Brain/Core/GameManager.cs (inside _Ready method)
+// ...
+        // --- Test Crime System ---
+        GD.Print(&quot;\n--- Testing Crime System ---&quot;);
+        EntityID playerID = Entities.GetPlayerEntityID();
+        EntityID witnessID = Entities.GetEntityMeta(1).Generation == 1 ? new EntityID(1, 1) : EntityID.Invalid; // Test NPC as witness
+
+        // Initial heat check
+        GD.Print($&quot;Player initial heat with Crimson Blades: {Crime.GetFactionHeat(playerID, &quot;crimson_blades&quot;).HeatValue}&quot;);
+        GD.Print($&quot;Player initial punishment level with Crimson Blades: {Crime.GetPunishmentLevel(playerID, &quot;crimson_blades&quot;)}&quot;);
+
+        // Simulate a crime report
+        Crime.ReportCrime(new CrimeReport(playerID, witnessID, CrimeType.Assault, &quot;crimson_blades&quot;, new Vector2(200, 200), 10f, Time.CurrentGameTime));
+        GD.Print($&quot;Player punishment level with Crimson Blades after Assault: {Crime.GetPunishmentLevel(playerID, &quot;crimson_blades&quot;)}&quot;);
+
+        Crime.ReportCrime(new CrimeReport(playerID, witnessID, CrimeType.Trespass, &quot;crimson_blades&quot;, new Vector2(200, 200), 1f, Time.CurrentGameTime));
+        GD.Print($&quot;Player punishment level with Crimson Blades after Trespass: {Crime.GetPunishmentLevel(playerID, &quot;crimson_blades&quot;)}&quot;);
+
+        Crime.ReportCrime(new CrimeReport(playerID, witnessID, CrimeType.Murder, &quot;crimson_blades&quot;, new Vector2(200, 200), 100f, Time.CurrentGameTime)); // Major crime
+        GD.Print($&quot;Player punishment level with Crimson Blades after Murder: {Crime.GetPunishmentLevel(playerID, &quot;crimson_blades&quot;)}&quot;);
+        GD.Print($&quot;Player bounty with Crimson Blades: {Crime.GetBounty(playerID, &quot;crimson_blades&quot;)}&quot;);
+
+
+        Crime.ReportCrime(new CrimeReport(playerID, witnessID, CrimeType.Theft, &quot;shadow_veilers&quot;, new Vector2(200, 200), 50f, Time.CurrentGameTime));
+        GD.Print($&quot;Player punishment level with Shadow Veilers after Theft: {Crime.GetPunishmentLevel(playerID, &quot;shadow_veilers&quot;)}&quot;);
+
+        Crime.ReportCrime(new CrimeReport(playerID, witnessID, CrimeType.CorruptionUse, &quot;sunken_temple&quot;, new Vector2(200, 200), 70f, Time.CurrentGameTime)); // High heat for Temple
+        GD.Print($&quot;Player punishment level with Sunken Temple after CorruptionUse: {Crime.GetPunishmentLevel(playerID, &quot;sunken_temple&quot;)}&quot;);
+
+        // Simulate a crime that is rewarded by Void Cultists
+        Crime.ReportCrime(new CrimeReport(playerID, witnessID, CrimeType.CorruptionUse, &quot;void_cultists&quot;, new Vector2(200, 200), 10f, Time.CurrentGameTime));
+        GD.Print($&quot;Player punishment level with Void Cultists after CorruptionUse: {Crime.GetPunishmentLevel(playerID, &quot;void_cultists&quot;)}&quot;);
+
+        GD.Print(&quot;--- End Testing Crime System ---\n&quot;);
+// ...
+</code></pre>
+<h4 id="41-update-eventbuscs-for-bountyupdatedevent">4.1. Update <code>EventBus.cs</code> for <code>BountyUpdatedEvent</code></h4>
+<p>Open <code>res://_Brain/Core/EventBus.cs</code> and add <code>OnBountyUpdated</code> delegate.</p>
+<pre><code class="language-csharp">// _Brain/Core/EventBus.cs
+using System;
+using System.Collections.Concurrent;
+using Godot;
+using Sigilborne.Entities;
+using Sigilborne.Systems.Biology;
+using Sigilborne.Systems.Magic;
+using Sigilborne.Systems.StatusEffects;
+using Sigilborne.Systems.Combat;
+using Sigilborne.Systems.Inventory;
+using Sigilborne.Systems.AI;
+using Sigilborne.Systems.Factions;
+using Sigilborne.Systems.Economy;
+using Sigilborne.Systems.Crime; // Add this using directive
+using System.Collections.Generic;
+
+namespace Sigilborne.Core
+{
+    public class EventBus
+    {
+        // ... (existing events) ...
+
+        // Crime System Events (TDD 06.4.1)
+        public event Action&lt;EntityID, FactionHeat&gt; OnFactionHeatUpdated;
+        public event Action&lt;EntityID, string, bool&gt; OnFactionPursuitChanged;
+        public event Action&lt;EntityID, Bounty&gt; OnBountyUpdated; // New event
+
+        // ... (existing _commandBuffer) ...
+
+        public void Publish&lt;TEvent&gt;(TEvent eventData)
+        {
+            // ... (existing publish conditions) ...
+            else if (eventData is CrimeSystem.FactionHeatUpdatedEvent factionHeatEvent)
+            {
+                OnFactionHeatUpdated?.Invoke(factionHeatEvent.TargetID, factionHeatEvent.FactionHeat);
+            }
+            else if (eventData is CrimeSystem.FactionPursuitChangedEvent factionPursuitEvent)
+            {
+                OnFactionPursuitChanged?.Invoke(factionPursuitEvent.TargetID, factionPursuitEvent.FactionID, factionPursuitEvent.IsPursuing);
+            }
+            else if (eventData is CrimeSystem.BountyUpdatedEvent bountyUpdatedEvent) // New condition
+            {
+                OnBountyUpdated?.Invoke(bountyUpdatedEvent.TargetID, bountyUpdatedEvent.Bounty);
+            }
+            else
+            {
+                GD.PrintErr($&quot;EventBus: Attempted to publish unknown event type: {typeof(TEvent).Name}. Ensure it's handled in Publish&lt;TEvent&gt;.&quot;);
+            }
+        }
+        // ... (AddCommand and FlushCommands methods) ...
+    }
+}
+</code></pre>
+<h3 id="5-testing-bounty-and-punishment-escalation">5. Testing Bounty and Punishment Escalation</h3>
+<ol>
+<li>Save all C# and GDScript files.</li>
+<li>Run <code>Main.tscn</code>.</li>
+<li>Load <code>Gameplay.tscn</code>.</li>
+<li>Observe the console output for the "Testing Crime System" section.</li>
+</ol>
+<pre><code>...
+CrimeSystem: Initialized.
+  - CrimeSystem initialized.
+EconomyManager: Initialized.
+...
+--- Testing Crime System ---
+Player initial heat with Crimson Blades: 0.0
+Player initial punishment level with Crimson Blades: None
+CrimeSystem: Received crime report from EntityID(1, Gen:1): Assault by EntityID(0, Gen:1) for crimson_blades.
+CrimeSystem: EntityID(0, Gen:1) heat for crimson_blades increased by 20.0. New Heat: 20.0.
+CrimeSystem: Bounty for EntityID(0, Gen:1) by crimson_blades updated. Level: Warning, Gold: 5, Active: False
+Player punishment level with Crimson Blades after Assault: Warning
+CrimeSystem: Received crime report from EntityID(1, Gen:1): Trespass by EntityID(0, Gen:1) for crimson_blades.
+CrimeSystem: EntityID(0, Gen:1) heat for crimson_blades increased by 5.0. New Heat: 25.0.
+CrimeSystem: Bounty for EntityID(0, Gen:1) by crimson_blades updated. Level: Warning, Gold: 5, Active: False
+Player punishment level with Crimson Blades after Trespass: Warning
+CrimeSystem: Received crime report from EntityID(1, Gen:1): Murder by EntityID(0, Gen:1) for crimson_blades.
+CrimeSystem: EntityID(0, Gen:1) heat for crimson_blades increased by 80.0. New Heat: 100.0.
+CrimeSystem: Bounty for EntityID(0, Gen:1) by crimson_blades updated. Level: ExecutionOrder, Gold: 500, Active: True
+CrimeSystem: Faction crimson_blades is now actively pursuing EntityID(0, Gen:1)!
+Player punishment level with Crimson Blades after Murder: ExecutionOrder
+Player bounty with Crimson Blades: Bounty on EntityID(0, Gen:1) by crimson_blades: 500 Gold, Level: ExecutionOrder (Active: True)
+CrimeSystem: Received crime report from EntityID(1, Gen:1): Theft by EntityID(0, Gen:1) for shadow_veilers.
+CrimeSystem: EntityID(0, Gen:1) heat for shadow_veilers increased by 25.0. New Heat: 25.0.
+CrimeSystem: Bounty for EntityID(0, Gen:1) by shadow_veilers updated. Level: RefusedServices, Gold: 20, Active: False
+Player punishment level with Shadow Veilers after Theft: RefusedServices
+CrimeSystem: Received crime report from EntityID(1, Gen:1): CorruptionUse by EntityID(0, Gen:1) for sunken_temple.
+CrimeSystem: EntityID(0, Gen:1) heat for sunken_temple increased by 70.0. New Heat: 70.0.
+CrimeSystem: Bounty for EntityID(0, Gen:1) by sunken_temple updated. Level: HunterSquads, Gold: 300, Active: True
+CrimeSystem: Faction sunken_temple is now actively pursuing EntityID(0, Gen:1)!
+Player punishment level with Sunken Temple after CorruptionUse: HunterSquads
+CrimeSystem: Received crime report from EntityID(1, Gen:1): CorruptionUse by EntityID(0, Gen:1) for void_cultists.
+CrimeSystem: EntityID(0, Gen:1) heat for void_cultists increased by -50.0. New Heat: -50.0.
+CrimeSystem: Bounty for EntityID(0, Gen:1) by void_cultists updated. Level: None, Gold: 0, Active: False
+Player punishment level with Void Cultists after CorruptionUse: None
+--- End Testing Crime System ---
+...
+</code></pre>
+<p><strong>Key Observations:</strong></p>
+<ul>
+<li><strong>Punishment Escalation</strong>: <code>AddHeat</code> correctly updates the <code>Bounty</code> and <code>PunishmentLevel</code> based on <code>HeatValue</code> thresholds (e.g., from <code>None</code> to <code>Warning</code>, then to <code>ExecutionOrder</code>).</li>
+<li><strong>Gold Value</strong>: <code>GoldValue</code> on the <code>Bounty</code> also increases with <code>PunishmentLevel</code>.</li>
+<li><strong>Active Pursuit</strong>: <code>PunishmentLevel.HunterSquads</code> and <code>ExecutionOrder</code> correctly trigger <code>IsActivePursuit</code> and the <code>OnFactionPursuitChanged</code> event.</li>
+<li><strong>Decay (Implicit)</strong>: The <code>Tick</code> method's <code>DecayHeat</code> will reduce heat over time, which would then lower punishment levels.</li>
+<li><strong>Ideological Impact</strong>: <code>Void Cultists</code> correctly show <code>None</code> punishment level (even with negative heat), demonstrating faction-specific legal interpretation.</li>
+</ul>
+<p>This confirms our <code>CrimeSystem</code> is robustly managing bounties and escalating punishments based on faction heat.</p>
+<h3 id="summary">Summary</h3>
+<p>You have successfully implemented <strong>Bounty &amp; Punishment</strong> mechanisms in the C# Brain, defining <code>PunishmentLevel</code> and <code>Bounty</code> structs, and enhancing <code>CrimeSystem</code> to manage these. By translating <code>FactionHeat</code> into escalating <code>PunishmentLevel</code>s, updating <code>Bounty</code> values, and triggering active pursuit states, you've established a robust system for dynamic consequences. This crucial system strictly adheres to TDD 06.4.2's specifications, providing the authoritative backbone for escalating consequences and supporting the morally ambiguous outlaw path in Sigilborne.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>This concludes <strong>Module 8: Society, Politics &amp; Economy</strong>. We will now move on to <strong>Module 9: Advanced World Mechanics &amp; Player Impact</strong>, starting with <strong>Ritual System - Pattern Matching &amp; Execution (C#)</strong>, where we will design how spatial arrangements of items trigger complex magical rituals.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
